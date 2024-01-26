@@ -14,3 +14,26 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+
+/* styles.css */
+.options-enter {
+  opacity: 0;
+  max-height: 0;
+}
+
+.options-enter-active {
+  opacity: 1;
+  max-height: 100px; /* Ajusta el valor según tus necesidades */
+  transition: opacity 300ms, max-height 300ms;
+}
+
+.options-exit {
+  opacity: 1;
+  max-height: 100px; /* Ajusta el valor según tus necesidades */
+}
+
+.options-exit-active {
+  opacity: 0;
+  max-height: 0;
+  transition: opacity 300ms, max-height 300ms;
+}
