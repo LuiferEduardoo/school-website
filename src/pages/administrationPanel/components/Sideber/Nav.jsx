@@ -10,7 +10,10 @@ const Nav = () => {
     const [isShowOptionsContentManagement, setShowOptionsContentManagement] = useState(false);
     const location = useLocation();
 
-    const isActive = (path) => {
+    const isActive = (path, moreRoutes) => {
+        if(moreRoutes && location.pathname.startsWith(`/administration-panel${path}`) ){
+            return true;
+        }
         return location.pathname === `/administration-panel${path}`;
     };
     return (
@@ -24,7 +27,7 @@ const Nav = () => {
                 </li>
                 <li>
                 <div 
-                    className={`flex items-center gap-3 p-4 cursor-pointer ${isActive('/content-management') && 'bg-gray-200 rounded-lg transition-colors'}`} 
+                    className={`flex items-center gap-3 p-4 cursor-pointer ${isActive('/content-managemen', true) && 'bg-gray-200 rounded-lg transition-colors'}`} 
                     onClick={ () => setShowOptionsContentManagement(!isShowOptionsContentManagement)}
                 >
                     <BiBookContent />
