@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { FcAddImage } from "react-icons/fc";
 import { Button, Modal } from 'flowbite-react';
 import PreViewFiles from './PreViewFiles'
 import { Callout } from "@tremor/react";

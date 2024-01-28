@@ -4,7 +4,7 @@ import { BiBookContent } from 'react-icons/bi';
 import { RiDashboardLine, RiUserFill, RiFileCloudLine, RiCalendarEventLine, RiCalendarCheckFill, RiArrowRightSLine, RiArrowUpSLine   } from 'react-icons/ri';
 import { MdMarkEmailUnread } from 'react-icons/md';
 import { CSSTransition } from 'react-transition-group';
-import ShowOptions from './ShowOptions'
+import { ShowOptions } from './ShowOptions'
 
 const Nav = () => {
     const [isShowOptionsContentManagement, setShowOptionsContentManagement] = useState(false);
