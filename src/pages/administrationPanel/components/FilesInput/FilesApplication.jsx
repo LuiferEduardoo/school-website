@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
-import { Button, Modal } from 'flowbite-react';
+import {Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, Button, useDisclosure} from "@nextui-org/react";
 import PreViewFiles from './PreViewFiles'
 import { Callout } from "@tremor/react";
 import images from './../../../../services/images.service'
 
 
 const FilesApplication = ({typeFile, haveManyFiles, files, setFiles}) => {
-    const [openModal, setOpenModal] = useState(false);
+    const {isOpen, onOpen, onClose} = useDisclosure();
     const [clickedImages, setClickedImages] = useState([]);
 
     const handleImageClick = (image) => {
@@ -37,30 +37,43 @@ const FilesApplication = ({typeFile, haveManyFiles, files, setFiles}) => {
                 >
                     Cargar los archivos por medio de la aplicación, son aquello que previamentes fueron subidos y se encuentran en nuestro sistema. 
                 </Callout>
-                <Button className='mt-6' color='blue' onClick={() => setOpenModal(true)}>Agregar</Button>
+                <Button className='mt-6' color="primary" onPress={onOpen}>Agregar</Button>
                 <PreViewFiles  files={files} setFiles={setFiles} typeFile={typeFile}/>
             </div>
-            <Modal show={openModal} size='6xl' onClose={() => setOpenModal(false)}>
-                <Modal.Header>Agregar imagen</Modal.Header>
-                    <Modal.Body>
-                        <div className="grid grid-cols-1 gap-6 p-6 space-y-6 sm:grid-cols-4">
-                            {images.map((image, index) => (
-                                <img
-                                src={image.url}
-                                alt={image.name}
-                                key={image.id}
-                                className={`w-full h-auto rounded cursor-pointer ${clickedImages.some((clickedImage) => clickedImage.id === image.id) ? '' : 'opacity-50'}`}
-                                onClick={() => handleImageClick(image)}
-                            />
-                            ))}
-                        </div>
-                    </Modal.Body>
-                    <Modal.Footer>
-                    <Button color='blue' onClick={() => {setOpenModal(false); setFiles(clickedImages)}}>Agregar</Button>
-                    <Button color="gray" onClick={() => setOpenModal(false)}>
-                        Cerrar
-                    </Button>
-                    </Modal.Footer>
+            <Modal 
+                size="5xl" 
+                isOpen={isOpen} 
+                onClose={onClose} 
+                scrollBehavior="inside"
+            >
+                <ModalContent>
+                    {(onClose) => (
+                        <>
+                            <ModalHeader className="flex flex-col gap-1">Agregar imagen</ModalHeader>
+                            <ModalBody>
+                                <div className="grid grid-cols-1 gap-6 p-6 sm:grid-cols-4">
+                                    {images.map((image, index) => (
+                                        <img
+                                        src={image.url}
+                                        alt={image.name}
+                                        key={image.id}
+                                        className={`w-full h-auto rounded cursor-pointer ${clickedImages.some((clickedImage) => clickedImage.id === image.id) ? '' : 'opacity-50'}`}
+                                        onClick={() => handleImageClick(image)}
+                                    />
+                                    ))}
+                                </div>
+                            </ModalBody>
+                            <ModalFooter>
+                                <Button color="danger" variant="light" onPress={onClose}>
+                                Cerrar
+                                </Button>
+                                <Button color="primary" onPress={() => {onClose(); setFiles(clickedImages)}}>
+                                Agregar
+                                </Button>
+                            </ModalFooter>
+                        </>
+                    )}
+                </ModalContent>
             </Modal>
         </>
     );

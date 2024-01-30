@@ -1,5 +1,5 @@
 import { FaPlusCircle } from "react-icons/fa";
-import { Button } from 'flowbite-react';
+import { Button } from "@nextui-org/react";
 
 const ButtonCreate = () => {
     return (

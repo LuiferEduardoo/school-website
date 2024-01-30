@@ -3,20 +3,20 @@ import { Link, useLocation } from 'react-router-dom';
 import { BiBookContent } from 'react-icons/bi';
 import { MdMarkEmailUnread } from 'react-icons/md';
 import { RiDashboardLine, RiUserFill, RiFileCloudLine, RiCalendarEventLine, RiCalendarCheckFill } from 'react-icons/ri';
-import { Breadcrumb } from 'flowbite-react';
+import {Breadcrumbs, BreadcrumbItem} from "@nextui-org/react";
 import { contentManagementOptions } from './../Sideber/ShowOptions'
 
 const whereIsIt = () => {
     const location = useLocation();
 
     const locationWithIcon = [
-        { path: '', icon: RiDashboardLine, name: 'Dashboard' },
-        { path: 'content-management', icon: BiBookContent, name: 'Gestión de contenido' },
-        { path: 'users-management', icon: RiUserFill, name: 'Gestión de usuarios' },
-        { path: 'admision-request', icon: MdMarkEmailUnread, name: 'Solicitudes de admisión' },
-        { path: 'calendar', icon: RiCalendarEventLine, name: 'Calendario' },
-        { path: 'schedule', icon: RiCalendarCheckFill, name: 'Horario' },
-        { path: 'files-management', icon: RiFileCloudLine, name: 'Gestión de archivos' }
+        { path: '', icon: <RiDashboardLine />, name: 'Dashboard' },
+        { path: 'content-management', icon: <BiBookContent />, name: 'Gestión de contenido' },
+        { path: 'users-management', icon: <RiUserFill />, name: 'Gestión de usuarios' },
+        { path: 'admision-request', icon: <MdMarkEmailUnread />, name: 'Solicitudes de admisión' },
+        { path: 'calendar', icon: <RiCalendarEventLine />, name: 'Calendario' },
+        { path: 'schedule', icon: <RiCalendarCheckFill />, name: 'Horario' },
+        { path: 'files-management', icon: <RiFileCloudLine />, name: 'Gestión de archivos' }
     ];
 
     const splitRoute = location.pathname.split('/');
@@ -29,19 +29,18 @@ const whereIsIt = () => {
     );
     const namePageSecond = contentManagementOptions.find((element) => element.path === `${splitRoute[2]}/${splitRoute[3]}` )
     
-    console.log(matchingElement, location.pathname, splitRoute[2], splitRoute[3], namePageSecond)
-
+    
     if (matchingElement) {
         return (
             <>
-                <Link to=''>
-                    <Breadcrumb.Item icon={matchingElement.icon}>
+                <Breadcrumbs size="md">
+                    <BreadcrumbItem startContent={matchingElement.icon}>
                         {matchingElement.name}
-                    </Breadcrumb.Item>
-                </Link>
-                { namePageSecond && 
-                    <Breadcrumb.Item>{namePageSecond.label}</Breadcrumb.Item>
-                }
+                    </BreadcrumbItem >
+                    { namePageSecond && 
+                        <BreadcrumbItem>{namePageSecond.label}</BreadcrumbItem>
+                    }
+                </Breadcrumbs>
             </>
         );
     }
@@ -52,9 +51,7 @@ const whereIsIt = () => {
 const Position = () => {
     return (
         <div className='mt-20 p-4'>
-            <Breadcrumb aria-label="Solid background breadcrumb example" className="bg-gray-50 px-5 py-3 rounded dark:bg-gray-800">
-                {whereIsIt()}
-            </Breadcrumb>
+            {whereIsIt()}
         </div>
     );
 };
