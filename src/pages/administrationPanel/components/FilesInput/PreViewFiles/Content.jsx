@@ -1,27 +1,28 @@
 import { FcDocument  } from "react-icons/fc";
 import { RiDeleteBin6Line } from "react-icons/ri";
+import isImageByElement from "./isImageByElement";
+import formatBytes from "./formatBytes";
 
-const formatBytes = (bytes) => {
-    if (bytes === 0) return '0 Bytes';
-    const k = 1024;
-    const sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB'];
-    const i = parseInt(Math.floor(Math.log(bytes) / Math.log(k)));
-    return Math.round(bytes / Math.pow(k, i), 2) + ' ' + sizes[i];
-};
-function isImageByElement(file) {
-    return file instanceof File;
-}
 
-const PreViewFiles = ({files, setFiles, typeFile}) => {
-    const removeFile = (index) => {
-        setFiles((prevFiles) => {
-        const updatedFiles = [...prevFiles];
-        updatedFiles.splice(index, 1);
-        return updatedFiles;
-        });
+const Content = ({files, setExistingFiles, setNewFiles, setIdEliminateExistingFiles, idEliminateExistingFiles, typeFile, isExisting}) => {
+    const removeFile = (file) => {
+        if (isExisting) {
+            setExistingFiles((prevFiles) => {
+                const updatedFiles = prevFiles.filter((f) => f !== file);
+                const updatedIdSet = new Set(idEliminateExistingFiles);
+                updatedIdSet.add(file.id);
+                setIdEliminateExistingFiles(updatedIdSet);
+                return updatedFiles;
+            });
+        } else {
+            setNewFiles((prevFiles) => {
+                const updatedFiles = prevFiles.filter((f) => f !== file);
+                return updatedFiles;
+            });
+        }
     };
     return (
-        <div className="mt-4 flex flex-col w-full gap-4">
+        <>
             {files.map((file, index) => (
                 <div key={index} className="flex justify-between items-center w-full gap-4">
                     <div className='flex justify-between w-full bg-white p-2 rounded-lg'>
@@ -48,13 +49,14 @@ const PreViewFiles = ({files, setFiles, typeFile}) => {
                     </div>
                     <div className='cursor-pointer'>
                         <RiDeleteBin6Line
-                            onClick={() => removeFile(index)}
+                            onClick={() => removeFile(file)}
                             className="text-gray-500 text-lg hover:text-red-500 transition-colors"
                         />
                     </div>
                 </div>
             ))}
-        </div>
-    );
+        </>
+    )
 }
-export default PreViewFiles
+
+export default Content

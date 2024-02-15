@@ -1,16 +1,33 @@
 import Submenu from './Submenu'
 import FileUpload from './FileUpload'
 import FilesApplication from './FilesApplication'
+import { PreViewFiles } from './PreViewFiles';
 
 
-const FilesInput = ({typeFile, haveManyFiles, files, setFiles}) => {
+const FilesInput = ({typeFile, haveManyFiles, existingFiles, setExistingFiles, newFiles, setNewFiles, setIdEliminateExistingFiles}) => {
     return (
         <>
             <Submenu 
                 panels={{
-                    'tab1': <FileUpload typeFile={typeFile} haveManyFiles={haveManyFiles} files={files} setFiles={setFiles}/>,
-                    'tab2': <FilesApplication typeFile={typeFile} haveManyFiles={haveManyFiles} files={files} setFiles={setFiles}/>,
-                }}/>
+                    'tab1': <FileUpload 
+                                typeFile={typeFile}
+                                haveManyFiles={haveManyFiles} 
+                                setNewFiles={setNewFiles}
+                            />,
+                    'tab2': <FilesApplication  
+                                haveManyFiles={haveManyFiles} 
+                                setNewFiles={setNewFiles}
+                            />,
+                }}
+            />
+            <PreViewFiles 
+                typeFile={typeFile}
+                existingFiles={existingFiles} 
+                setExistingFiles={setExistingFiles} 
+                newFiles={newFiles} 
+                setNewFiles={setNewFiles}
+                setIdEliminateExistingFiles={setIdEliminateExistingFiles}
+            />
         </>
     );
 };

@@ -1,10 +1,10 @@
 import { Button } from "@nextui-org/react";
 
-const ButtonCreate = () => {
+const ButtonCreate = ({handleCreate}) => {
     return (
         <>
             <div className="flex justify-end mb-4">
-                <Button color="primary">
+                <Button color="primary" onClick={handleCreate}>
                     Crear
                 </Button>
             </div>

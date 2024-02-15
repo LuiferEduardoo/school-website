@@ -1,22 +1,20 @@
 import React, { useCallback, useState, useEffect } from 'react';
 import { useDropzone } from 'react-dropzone';
 import { FcAddImage } from "react-icons/fc";
-import PreViewFiles from './PreViewFiles'
 
-
-const FileUpload = ({typeFile, haveManyFiles, files, setFiles}) => {
+const FileUpload = ({typeFile, haveManyFiles, setNewFiles}) => {
     const [initialFilesReceived, setInitialFilesReceived] = useState(true);
 
     useEffect(() => {
         // Cuando files tiene elementos por primera vez
         if (initialFilesReceived) {
-            setFiles([])
+            setNewFiles([])
             setInitialFilesReceived(false)
         }
-    }, [setFiles]);
+    }, [setNewFiles]);
 
     const onDrop = useCallback((acceptedFiles) => {
-        setFiles(haveManyFiles ? prevFiles => [...prevFiles, ...acceptedFiles] : acceptedFiles)
+        setNewFiles(haveManyFiles ? prevFiles => [...prevFiles, ...acceptedFiles] : acceptedFiles)
     }, []);
 
     const maxFiles = haveManyFiles ? {} : { maxFiles: 1 };
@@ -44,7 +42,6 @@ const FileUpload = ({typeFile, haveManyFiles, files, setFiles}) => {
                     Arrastra y suelta aquí, o haz clic para seleccionarlas.
                 </p>
             </div>
-            <PreViewFiles  files={files} setFiles={setFiles} typeFile={typeFile}/>
         </div>
     );
 };

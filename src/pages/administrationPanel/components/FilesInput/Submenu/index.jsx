@@ -12,7 +12,7 @@ const Submenu = ({ panels  }) => {
     return (
         <>
             <TabGroup>
-                <TabList className="mt-8">
+                <TabList className="mt-1">
                     <Tab className="flex items-center ">
                         <MdOutlineImportantDevices className="inline-block mr-2" /> 
                         <span>Cargar desde el dispositivo</span>

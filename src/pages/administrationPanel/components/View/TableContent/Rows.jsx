@@ -2,30 +2,31 @@ import React, { useEffect } from 'react';
 import { Checkbox } from "@nextui-org/react";
 import { BiEditAlt } from "react-icons/bi";
 import { MdOutlineDeleteOutline } from "react-icons/md";
+import { IoEyeSharp } from "react-icons/io5";
 import { Tooltip } from "@nextui-org/react";
 
-const Rows = ({ columns, rows, selectedKeys, setSelectedKeys, isAllSelect, handleEdit, handleOpenModalDelete }) => {
+const Rows = (prosp) => {
 
     useEffect(() => {
-        const newSelectedKeys = new Set(selectedKeys);
-        if (isAllSelect) {
+        const newSelectedKeys = new Set(prosp.selectedKeys);
+        if (prosp.isAllSelect) {
             // Si isAllSelect es true, agregar todos los elementos
-            rows.forEach(item => newSelectedKeys.add(item.id));
+            prosp.rows.forEach(item => newSelectedKeys.add(item.id));
         } else {
             // Si isAllSelect es false, borrar todos los elementos
-            rows.forEach(item => newSelectedKeys.delete(item.id));
+            prosp.rows.forEach(item => newSelectedKeys.delete(item.id));
         }
-        setSelectedKeys(newSelectedKeys);
-    }, [isAllSelect]);    
+        prosp.setSelectedKeys(newSelectedKeys);
+    }, [prosp.isAllSelect]);    
     
     const toggleSelection = (key) => {
-        const newSelectedKeys = new Set(selectedKeys);
-        if (selectedKeys.has(key)) {
+        const newSelectedKeys = new Set(prosp.selectedKeys);
+        if (prosp.selectedKeys.has(key)) {
             newSelectedKeys.delete(key);
         } else {
             newSelectedKeys.add(key);
         }
-        setSelectedKeys(newSelectedKeys);
+        prosp.setSelectedKeys(newSelectedKeys);
     };
 
 
@@ -34,20 +35,28 @@ const Rows = ({ columns, rows, selectedKeys, setSelectedKeys, isAllSelect, handl
             case "select":
                 return (
                     <Checkbox
-                        isSelected={selectedKeys.has(item.id)}
+                        isSelected={prosp.selectedKeys.has(item.id)}
                         onChange={() => toggleSelection(item.id)}
                     />
                 );
             case "actions":
                 return (
                     <div className="relative flex items-center gap-2">
+                        {prosp.elementView?.map((element) =>(
+                            <Tooltip key={element.key} content={`Ver ${element.label}`}>
+                                <span className="text-lg text-default-400 cursor-pointer active:opacity-50" onClick={() => prosp.handleView(item.id, element.label)}>
+                                    <IoEyeSharp />
+                                </span>
+                            </Tooltip>
+                        ) ) 
+                        }
                         <Tooltip content="Editar">
-                            <span className="text-lg text-default-400 cursor-pointer active:opacity-50" onClick={() => handleEdit(item.id)}>
+                            <span className="text-lg text-default-400 cursor-pointer active:opacity-50" onClick={() => prosp.handleEdit(item.id)}>
                                 <BiEditAlt />
                             </span>
                         </Tooltip>
                         <Tooltip color="danger" content="Borrar">
-                            <span className="text-lg text-danger cursor-pointer active:opacity-50" onClick={() => handleOpenModalDelete(item.id)}>
+                            <span className="text-lg text-danger cursor-pointer active:opacity-50" onClick={() => prosp.handleOpenModalDelete(item.id)}>
                                 <MdOutlineDeleteOutline />
                             </span>
                         </Tooltip>
@@ -56,9 +65,9 @@ const Rows = ({ columns, rows, selectedKeys, setSelectedKeys, isAllSelect, handl
             default:
                 return item[column.key]?.image ? (
                     <div className="flex items-center">
-                        <div className={`flex-shrink-0 ${item[column.key].image.stileContainer}`}>
+                        <div className={`${item[column.key].image.styleContainer}`}>
                             <img
-                                className={`h-full w-full object-contain ${item[column.key].image.stileImage}`}
+                                className={`object-cover w-full h-full ${item[column.key].image.styleImage}`}
                                 src={item[column.key].image.url}
                                 alt={item[column.key].title}
                             />
@@ -75,9 +84,9 @@ const Rows = ({ columns, rows, selectedKeys, setSelectedKeys, isAllSelect, handl
 
     return (
         <>
-            {rows.map((item) => (
-                <tr key={item.id} className={` ${selectedKeys.has(item.id) && 'bg-gray-50'} hover:bg-gray-50`}>
-                    {columns.map((column) => (
+            {prosp.rows.map((item) => (
+                <tr key={item.id} className={` ${prosp.selectedKeys.has(item.id) && 'bg-gray-50'} hover:bg-gray-50`}>
+                    {prosp.columns.map((column) => (
                         <td
                             key={column.key}
                             className="px-4 py-4 whitespace-nowrap text-sm text-gray-900"
