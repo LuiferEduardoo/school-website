@@ -134,5 +134,6 @@ module.exports = {
   plugins: [
     nextui(),
     require('@headlessui/tailwindcss'),
+    require('@tailwindcss/typography'),
   ],
 };

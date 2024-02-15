@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
-import Header from './components/Header'
 import Sideber from './components/Sideber'
+import Header from './components/Header'
+import Position from './components/Position';
 import Dashboard from './Dashboard';
+import ContentManagement from './ContentManagement'
 
 const AdministrationsPanel = () => {
     return (
@@ -11,13 +13,13 @@ const AdministrationsPanel = () => {
                 <Sideber />
                 <main className="lg:col-span-3 xl:col-span-5 bg-gray-100 h-[100vh] overflow-y-scroll">
                     <Header />
-                    <div className='mt-20 p-8'>
-                    <Routes>
-                        <Route path="/" element={<Dashboard />} />
-                        {/* <Route path="login" element={<Login />} />
-                        <Route path="recovery" element={<Recovery />} />
-                        <Route path="change-password" element={<ChangePassword />} /> */}
-                    </Routes>
+                    <Position />
+                    <div className='p-8 h-full'>
+                        <Routes>
+                            <Route path="/" element={<Dashboard />} />
+                            <Route path="content-management/*" element={<ContentManagement />} />
+                            <Route path="*" element={<Navigate to="" replace />} />
+                        </Routes>
                     </div>
                 </main>
             </div>
