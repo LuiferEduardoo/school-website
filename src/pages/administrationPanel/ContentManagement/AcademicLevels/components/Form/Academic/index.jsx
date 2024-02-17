@@ -2,9 +2,7 @@ import React, { useState } from 'react';
 import { useDisclosure} from "@nextui-org/react";
 import InformationBasic from './InformationBasic'
 import CourseOverView from './CourseOverView'
-import Images from './Images'
-import Buttons from './Buttons'
-import StatusForm from '../../../../../components/StatusForm'
+import { Buttons, Status, ImagesInput } from '../../../../../components/Form'
 import Preview from './../../../../components/Preview';
 import PreviewContent from './../../PreviewContent';
 
@@ -22,7 +20,6 @@ const Academic = ({edit}) => {
     const [idEliminateImage, setEditEliminateImage] = useState(new Set());
     const [newImage, setNewImage] = useState([]);
     const {isOpen, onOpen, onClose} = useDisclosure();
-    const [isPreview, setIsPreview] = useState(false);
     const [status, setStatus] = useState(true)
     const title = `${edit ? 'Editar' : 'Crear'} nivel academico`
     const image = images.concat(newImage)
@@ -73,7 +70,7 @@ const Academic = ({edit}) => {
                     admissionRequirements={admissionRequirements} 
                 />
                 {edit &&
-                    <StatusForm 
+                    <Status 
                         elementName='nivel academico' 
                         status={status} 
                         setStatus={setStatus}
@@ -81,8 +78,8 @@ const Academic = ({edit}) => {
                         nameStatusFalse='Invisible'
                     />
                 }
-                <Images propsFilesInput={propsFilesInput}/>
-                <Buttons onOpen={onOpen} />
+                <ImagesInput propsFilesInput={propsFilesInput}/>
+                <Buttons onOpen={onOpen} edit={edit} />
                 <Preview 
                     isOpen={isOpen}
                     onClose={onClose}

@@ -1,6 +1,6 @@
-import { FilesInput } from './../../../../../components/FilesInput';
+import { FilesInput } from './../../FilesInput';
 
-const Images = ({propsFilesInput}) => {
+const ImagesInput = ({propsFilesInput}) => {
     return (
         <div className='col-span-5'>
             <h2 className='text-lg font-semibold text-gray-700'>Imagen</h2>
@@ -13,4 +13,4 @@ const Images = ({propsFilesInput}) => {
     )
 }
 
-export default Images
+export default ImagesInput
