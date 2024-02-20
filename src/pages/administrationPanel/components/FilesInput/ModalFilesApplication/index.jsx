@@ -4,6 +4,11 @@ import ViewImage from './ViewImage';
 
 const ModalFilesApplication = ({isOpen, onClose, haveManyFiles, setFiles}) => {
     const [clickedImages, setClickedImages] = useState([]);
+    const handleAddImages = () => {
+        onClose(); 
+        setFiles(clickedImages);
+        setClickedImages([])
+    }
     return (
         <Modal 
                 size="5xl" 
@@ -16,13 +21,13 @@ const ModalFilesApplication = ({isOpen, onClose, haveManyFiles, setFiles}) => {
                         <>
                             <ModalHeader className="flex flex-col gap-1">Agregar imagen</ModalHeader>
                             <ModalBody>
-                                <ViewImage clickedImages={clickedImages} setClickedImages={setClickedImages} haveManyFiles={haveManyFiles}/>
+                                <ViewImage clickedImages={clickedImages} setClickedImages={setClickedImages} haveManyFiles={haveManyFiles} isOpen={isOpen}/>
                             </ModalBody>
                             <ModalFooter>
                                 <Button color="danger" variant="light" onPress={onClose}>
                                 Cerrar
                                 </Button>
-                                <Button color="primary" onPress={() => {onClose(); setFiles(clickedImages)}}>
+                                <Button color="primary" onPress={handleAddImages}>
                                 Agregar
                                 </Button>
                             </ModalFooter>

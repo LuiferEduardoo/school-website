@@ -1,7 +1,14 @@
+import React, { useEffect } from "react";
 import { Input, Select, SelectItem } from "@nextui-org/react";
 import { campus, educationalDay, modality } from './data'
 
 const InformationBasic = (props) => {
+    useEffect(() => {
+        if (!props.name || !props.code || props.valueCampus.size === 0 || props.valueModality.size === 0 || props.valueEducationalDay.size === 0)
+            props.setIsDisabledNext(true);
+        else 
+            props.setIsDisabledNext(false);
+    }, [props.name, props.code, props.valueCampus, props.valueModality, props.valueEducationalDay, props.setIsDisabledNext]);
     return (
         <>
             <div className="flex flex-col gap-4 lg:flex-row col-span-5">

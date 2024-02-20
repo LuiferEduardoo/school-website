@@ -1,10 +1,10 @@
 import { Button } from "@nextui-org/react";
 
-const Buttons = ({onOpen, edit, handleAction}) => {
+const Buttons = (props) => {
     return (
         <div className="flex gap-4">
-            <Button onPress={onOpen}>Previsualizar</Button>
-            <Button color="primary" onPress={handleAction}>{edit ? 'Editar' : 'Crear'}</Button>
+            <Button variant="flat" onPress={props.onOpen}>Previsualizar</Button>
+            <Button color="primary" isDisabled={props.isDisabledAction} onPress={props.handleAction}>{props.edit ? 'Editar' : 'Crear'}</Button>
         </div>
     )
 }

@@ -1,22 +1,22 @@
 import images from './../../../../../services/images.service'
 
-const ViewImage = ({clickedImages, setClickedImages, haveManyFiles}) => {
+const ViewImage = (props) => {
     const handleImageClick = (image) => {
         // Verificar si la imagen ya fue clicada
-        const isImageClicked = clickedImages.some((clickedImage) => clickedImage.id === image.id);
+        const isImageClicked = props.clickedImages.some((clickedImage) => clickedImage.id === image.id);
     
         // Determinar si la imagen debe ser agregada o eliminada
         const shouldAddImage =
-            (!haveManyFiles && clickedImages.length === 0) || haveManyFiles;
+            (!props.haveManyFiles && props.clickedImages.length === 0) || props.haveManyFiles;
     
         // Actualizar el array de imágenes clicadas
         const newClickedImages = isImageClicked
-            ? clickedImages.filter((clickedImage) => clickedImage.id !== image.id) // Si ya fue clicada, la eliminamos
-            : shouldAddImage ? [...clickedImages, image] // Si no ha sido clicada, la agregamos
-            : clickedImages; // No hacer cambios si no se permite agregar más imágenes
+            ? props.clickedImages.filter((clickedImage) => clickedImage.id !== image.id) // Si ya fue clicada, la eliminamos
+            : shouldAddImage ? [...props.clickedImages, image] // Si no ha sido clicada, la agregamos
+            : props.clickedImages; // No hacer cambios si no se permite agregar más imágenes
     
         // Actualizar el estado
-        setClickedImages(newClickedImages);
+        props.setClickedImages(newClickedImages);
     };
 
     return (
@@ -26,8 +26,8 @@ const ViewImage = ({clickedImages, setClickedImages, haveManyFiles}) => {
                     src={image.url}
                     alt={image.name}
                     key={image.id}
-                    className={`w-full h-auto rounded cursor-pointer ${clickedImages.some((clickedImage) => clickedImage.id === image.id) ? '' : 'opacity-50'}`}
-                    onClick={() => handleImageClick(image)}
+                    className={`w-full h-auto rounded cursor-pointer ${props.clickedImages.some((clickedImage) => clickedImage.id === image.id) ? '' : 'opacity-50'}`}
+                    onClick={() => {handleImageClick(image)}}
                 />
             ))}
         </div>

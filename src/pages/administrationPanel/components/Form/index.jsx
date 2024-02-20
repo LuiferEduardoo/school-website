@@ -1,9 +1,9 @@
 import Buttons from "./Buttons"
 import Status from "./Status"
-import ImagesInput from './ImagesInput'
+import MultiStep from "./MultiStep"
 
 export {
     Buttons,
     Status,
-    ImagesInput
+    MultiStep
 }

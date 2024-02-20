@@ -3,15 +3,6 @@ import { useDropzone } from 'react-dropzone';
 import { FcAddImage } from "react-icons/fc";
 
 const FileUpload = ({typeFile, haveManyFiles, setNewFiles}) => {
-    const [initialFilesReceived, setInitialFilesReceived] = useState(true);
-
-    useEffect(() => {
-        // Cuando files tiene elementos por primera vez
-        if (initialFilesReceived) {
-            setNewFiles([])
-            setInitialFilesReceived(false)
-        }
-    }, [setNewFiles]);
 
     const onDrop = useCallback((acceptedFiles) => {
         setNewFiles(haveManyFiles ? prevFiles => [...prevFiles, ...acceptedFiles] : acceptedFiles)
