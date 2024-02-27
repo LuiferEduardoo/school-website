@@ -17,6 +17,7 @@ module.exports = {
     current: "currentColor",
     extend: {
       colors: {
+        'powerpoint-orange': '#C13B1B',
         // light mode
         tremor: {
           brand: {

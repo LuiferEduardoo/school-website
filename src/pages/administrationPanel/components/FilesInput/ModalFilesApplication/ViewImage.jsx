@@ -21,13 +21,13 @@ const ViewImage = (props) => {
 
     return (
         <div className="grid grid-cols-1 gap-6 p-6 sm:grid-cols-4">
-            {images.map((image, index) => (
+            {images.map((file, index) => (
                 <img
-                    src={image.url}
-                    alt={image.name}
-                    key={image.id}
-                    className={`w-full h-auto rounded cursor-pointer ${props.clickedImages.some((clickedImage) => clickedImage.id === image.id) ? '' : 'opacity-50'}`}
-                    onClick={() => {handleImageClick(image)}}
+                    src={file.file.url}
+                    alt={file.file.name}
+                    key={file.file.id}
+                    className={`w-full h-auto rounded cursor-pointer ${props.clickedImages.some((clickedImage) => clickedImage.id === file.file.id) ? '' : 'opacity-50'}`}
+                    onClick={() => {handleImageClick(file.file)}}
                 />
             ))}
         </div>
