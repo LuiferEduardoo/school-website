@@ -1,11 +1,11 @@
-import imageIcon from './../../assets/img/Photo-Image-Icon.webp';
+import imageIcon from './../../assets/img/image-icon.svg';
 
 export default function(slides) { return slides || [
     {
-      url: 'https://generated.vusercontent.net/placeholder.svg',
+      url: imageIcon,
     },
     {
-      url: 'https://generated.vusercontent.net/placeholder.svg',
+      url: imageIcon,
     }
   ]
 }

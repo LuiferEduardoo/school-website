@@ -5,7 +5,6 @@ const ViewImage = (props) => {
     const handleImageClick = (image) => {
         if(props.fileSize){
             const { width, height } = props.fileSize;
-            console.log(image.width, image.height)
             if(!(image.width >= width && image.height >= height)){
                 return toast.warning(`Imagen debe tener un tamaño minimo de ${props.fileSize.width}x${props.fileSize.height} píxeles.`)
             }
