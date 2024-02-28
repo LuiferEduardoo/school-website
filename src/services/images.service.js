@@ -11,6 +11,8 @@ const images = [
             fileType: 'image',
             folder: '/uploads/image/emails/1/2024/01',
             isPublic: false,
+            width: 768,
+            height: 432,
             user: {
                 name: "David",
                 lasTname: "Lopez",
@@ -49,6 +51,8 @@ const images = [
             fileType: 'image',
             folder: '/uploads/image/emails/1/2024/01',
             isPublic: true,
+            width: 200,
+            height: 700,
             user: {
                 name: "David",
                 lasTname: "Lopez",
@@ -86,6 +90,8 @@ const images = [
             fileType: 'image',
             folder: '/uploads/image/emails/1/2024/01',
             isPublic: true,
+            width: 1666,
+            height: 2000,
             user: {
                 name: "David",
                 lasTname: "Lopez",
@@ -124,6 +130,8 @@ const images = [
             fileType: 'image',
             folder: '/uploads/image/emails/1/2024/01',
             isPublic: true,
+            width: 450,
+            height: 1000,
             user: {
                 name: "David",
                 lasTname: "Lopez",
@@ -162,6 +170,8 @@ const images = [
             fileType: 'image',
             folder: '/uploads/image/emails/1/2024/01',
             isPublic: true,
+            width: 700,
+            height: 1000,
             user: {
                 name: "David",
                 lasTname: "Lopez",
@@ -200,6 +210,8 @@ const images = [
             fileType: 'image',
             folder: '/uploads/image/emails/1/2024/01',
             isPublic: false,
+            width: 700,
+            height: 1000,
             user: {
                 name: "Jorge",
                 lasTname: "Luis",
@@ -229,6 +241,8 @@ const images = [
             fileType: 'image',
             folder: '/uploads/image/emails/1/2024/01',
             isPublic: false,
+            width: 800,
+            height: 1000,
             user: {
                 name: "Juan",
                 lasTname: "Perez",
@@ -267,6 +281,8 @@ const images = [
             fileType: 'image',
             folder: '/uploads/image/emails/1/2024/01',
             isPublic: false,
+            width: 480,
+            height: 1000,
             user: {
                 name: "juan",
                 lasTname: "perez",
@@ -305,6 +321,8 @@ const images = [
             fileType: 'image',
             folder: '/uploads/image/emails/1/2024/01',
             isPublic: false,
+            width: 800,
+            height: 1000,
             user: {
                 name: "Juan",
                 lasTname: "Perez",

@@ -2,18 +2,18 @@ import React, { useState } from 'react';
 import {Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, Button} from "@nextui-org/react";
 import ViewImage from './ViewImage';
 
-const ModalFilesApplication = ({isOpen, onClose, haveManyFiles, setFiles}) => {
+const ModalFilesApplication = (props) => {
     const [clickedImages, setClickedImages] = useState([]);
     const handleAddImages = () => {
-        onClose(); 
-        setFiles(clickedImages);
+        props.onClose(); 
+        props.setFiles(clickedImages);
         setClickedImages([])
     }
     return (
         <Modal 
                 size="5xl" 
-                isOpen={isOpen} 
-                onClose={onClose} 
+                isOpen={props.isOpen} 
+                onClose={props.onClose} 
                 scrollBehavior="inside"
             >
                 <ModalContent>
@@ -21,13 +21,23 @@ const ModalFilesApplication = ({isOpen, onClose, haveManyFiles, setFiles}) => {
                         <>
                             <ModalHeader className="flex flex-col gap-1">Agregar imagen</ModalHeader>
                             <ModalBody>
-                                <ViewImage clickedImages={clickedImages} setClickedImages={setClickedImages} haveManyFiles={haveManyFiles} isOpen={isOpen}/>
+                                <ViewImage 
+                                    clickedImages={clickedImages} 
+                                    setClickedImages={setClickedImages} 
+                                    fileSize={props.fileSize}
+                                    haveManyFiles={props.haveManyFiles} 
+                                    isOpen={props.isOpen}
+                                />
                             </ModalBody>
                             <ModalFooter>
                                 <Button color="danger" variant="light" onPress={onClose}>
                                 Cerrar
                                 </Button>
-                                <Button color="primary" onPress={handleAddImages}>
+                                <Button 
+                                    color="primary" 
+                                    onPress={handleAddImages}
+                                    isDisabled={clickedImages.length === 0}
+                                >
                                 Agregar
                                 </Button>
                             </ModalFooter>
