@@ -5,6 +5,7 @@ import Header from './components/Header'
 import Position from './components/Position';
 import Dashboard from './Dashboard';
 import ContentManagement from './ContentManagement'
+import Calendar from './Calendar';
 
 const AdministrationsPanel = () => {
     return (
@@ -18,6 +19,7 @@ const AdministrationsPanel = () => {
                         <Routes>
                             <Route path="/" element={<Dashboard />} />
                             <Route path="content-management/*" element={<ContentManagement />} />
+                            <Route path="calendar" element={<Calendar/>} />
                             <Route path="*" element={<Navigate to="" replace />} />
                         </Routes>
                     </div>
