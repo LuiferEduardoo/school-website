@@ -40,3 +40,24 @@
 .transform-clickIconSelect {
   transform: translateZ(0px) scale3d(0.83, 0.83, 1);
 }
+
+.rbc-btn-group button,
+.rbc-btn-group button:focus {
+  background-color: #0070f0;
+  color: white !important;
+}
+
+.rbc-btn-group button {
+  padding: 13px;
+  border-radius: 10px;
+  border: none;
+}
+
+
+.rbc-btn-group button:hover {
+  background-color: blue !important;
+}
+
+.rbc-active {
+  background-color: blue !important;
+}

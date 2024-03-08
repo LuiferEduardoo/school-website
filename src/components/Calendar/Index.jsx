@@ -1,30 +1,27 @@
 import React, {useState} from 'react';
-import { Calendar, momentLocalizer } from 'react-big-calendar';
-import 'react-big-calendar/lib/css/react-big-calendar.css';
-import moment from 'moment';
 import { useDisclosure } from "@nextui-org/react";
 import ModalContainer from './ModalContainer';
+import CalendarComponent from './CalendarComponent';
+import ButtonAdd from './ButtonAdd'
 
-const localizer = momentLocalizer(moment)
 
-
-const CalendarComponent = () => {
+const Calendar = (props) => {
     const [select, setSelect] = useState('');
     const {isOpen, onOpen, onClose} = useDisclosure();
-    const handleSelected = slotInfo => {
-        onOpen();
-        setSelect(slotInfo);
-    };
     return (
-        <div className="h-full w-full">
-            <Calendar
-                localizer={localizer}
-                startAccessor="start"
-                endAccessor="end"
-                selectable
-                onSelectSlot={handleSelected}
+        <div className="h-full w-full flex flex-col gap-2">
+            {!props.isReadOnly && (
+                <ButtonAdd 
+                    onOpen={onOpen}
+                />
+            )}
+            <CalendarComponent 
+                isReadOnly={props.isReadOnly}
+                onOpen={onOpen}
+                setSelect={setSelect}
             />
             <ModalContainer 
+                isReadOnly={props.isReadOnly}
                 isOpen={isOpen}
                 onClose={onClose}
                 select={select}
@@ -33,4 +30,4 @@ const CalendarComponent = () => {
     )
 }
 
-export default CalendarComponent
+export default Calendar
