@@ -61,3 +61,15 @@
 .rbc-active {
   background-color: blue !important;
 }
+
+/* Esto cambiará el fondo de la barra de desplazamiento */
+::-webkit-scrollbar {
+  width: 7px;
+  background-color: #F5F5F5;
+}
+
+/* Esto cambiará el color del pulgar (la parte móvil) de la barra de desplazamiento a un color gris neutral */
+::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  background-color: #808080; 
+}
