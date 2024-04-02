@@ -52,10 +52,8 @@ const Form = () => {
 
       setAccessToken(getTokenCookie("access_token"));
       setRefreshToken(getTokenCookie("refresh_token"));
-      setAuthenticated(true);
     } catch (error) {
       toast.error(error.message);
-      setAuthenticated(false);
     }
     setIsLoading(false);
   };

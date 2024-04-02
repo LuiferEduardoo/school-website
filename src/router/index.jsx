@@ -1,5 +1,7 @@
 import { useRoutes, BrowserRouter, Outlet  } from 'react-router-dom'
 import Auth from './../pages/auth'
+import { AuthProvider } from '../providers/AuthContext'
+import ProtectedRouteAdministrationPanel from '../utils/ProtectedRouteAdministrationPanel'
 import AdministrationsPanel from './../pages/administrationPanel'
 
 const Routers = () => {
@@ -10,7 +12,11 @@ const Routers = () => {
         },
         {
             path: 'administration-panel/*',
-            element: <AdministrationsPanel />
+            element: <AuthProvider>
+                <ProtectedRouteAdministrationPanel>
+                    <AdministrationsPanel />
+                </ProtectedRouteAdministrationPanel>
+            </AuthProvider>
         }
     ])
     return router

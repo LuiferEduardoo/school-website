@@ -1,13 +1,24 @@
+import { useState } from "react";
 import Visualizations from './Visualizations'
-import AdmisionRequest from './AdmisionRequest'
+import AdmissionRequest from "./AdmissionRequest";
 import DateRange from './DateRange'
 
 const Graphid = () => {
+    const [dateRange, setDateRange] = useState({
+        from: new Date(new Date().getFullYear(), 1, 1),
+        to: new Date(),
+    });
     return (
         <>
-            <DateRange/>
+            <DateRange 
+                value={dateRange}
+                setValue={setDateRange}
+            />
             <Visualizations />
-            <AdmisionRequest />
+            <AdmissionRequest 
+                dateRange={dateRange}
+                setDateRange={setDateRange}
+            />
         </>
     );
 };

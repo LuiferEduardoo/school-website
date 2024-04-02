@@ -55,6 +55,25 @@ const changePassword = async (data) => {
     }
 }
 
+const logout = async (token, setRefreshToken) => {
+    try {
+        const response = await axios.post(
+            `${import.meta.env.VITE_API}/auth/log-out`, 
+            {}, // No hay datos en el cuerpo de la solicitud
+            {
+                headers: {
+                    'Authorization': `Bearer ${token}` // Añade el token al encabezado Authorization
+                }
+            }
+        );
+        removeTokenCookie('access_token');
+        removeTokenCookie('refresh_token');
+        setRefreshToken(null)
+    } catch(error){
+        throw new Error(error.message)
+    }
+}
+
 const authorizedRequest = async (config, refreshToken, setRefreshToken) => {
     try {
         const response = await axios(config);
@@ -88,5 +107,6 @@ export {
     tokenAccess,
     recovery,
     changePassword,
+    logout,
     authorizedRequest
 }

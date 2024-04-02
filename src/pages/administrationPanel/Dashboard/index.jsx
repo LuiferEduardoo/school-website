@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
-import Graphic from './components/Graphic'
+import React from 'react';
 import { Helmet } from "react-helmet";
+import DashboardContent from './DashoardContent';
 
 const Dashboard = () => {
     return (
@@ -8,7 +8,7 @@ const Dashboard = () => {
             <Helmet>
                 <title>Dashboard</title>
             </Helmet>
-            <Graphic />
+            <DashboardContent/>
         </>
     );
 };
