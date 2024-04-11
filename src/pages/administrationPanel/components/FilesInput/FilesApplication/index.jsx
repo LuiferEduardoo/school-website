@@ -3,7 +3,7 @@ import { Callout } from "@tremor/react";
 import { ModalFilesApplication } from './../ModalFilesApplication'
 
 
-const FilesApplication = ({haveManyFiles, setNewFiles}) => {
+const FilesApplication = ({haveManyFiles, setNewFiles, existingFiles, setIdEliminateExistingFiles}) => {
     const {isOpen, onOpen, onClose} = useDisclosure();
 
     return (
@@ -17,7 +17,7 @@ const FilesApplication = ({haveManyFiles, setNewFiles}) => {
                 </Callout>
                 <Button className='mt-6' color="primary" onPress={onOpen}>Agregar</Button>
             </div>
-            <ModalFilesApplication isOpen={isOpen} onClose={onClose} haveManyFiles={haveManyFiles} setFiles={setNewFiles}/>
+            <ModalFilesApplication isOpen={isOpen} onClose={onClose} haveManyFiles={haveManyFiles} setFiles={setNewFiles} existingFiles={existingFiles} setIdEliminateExistingFiles={setIdEliminateExistingFiles}/>
         </>
     );
 };

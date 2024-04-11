@@ -5,32 +5,31 @@ import Buttons from './Buttons';
 
 
 const MultiStep = (props) => {
-    const [step, setStep] = useState(1);
 
     const handleNext = () => {
-        setStep(step + 1);
+        props.setStep(props.step + 1);
     };
     
     const handlePrev = () => {
-        setStep(step - 1);
+        props.setStep(props.step - 1);
     };
     return (
         <div className='flex flex-col gap-4'>
             <div>
                 <Position 
                     fields={props.fields}
-                    step={step}
+                    step={props.step}
                 />
                 <form className='py-6 px-6 rounded-b-lg bg-white' >
                     <RenderForm 
                         fields={props.fields}
-                        step={step}
+                        step={props.step}
                         style={props.style}
                     />
                 </form>
             </div>
             <Buttons 
-                step={step}
+                step={props.step}
                 handlePrev={handlePrev}
                 fields={props.fields}
                 handleNext={handleNext}
@@ -39,6 +38,7 @@ const MultiStep = (props) => {
                 handleAction={props.handleAction}
                 isDisabledNext={props.isDisabledNext}
                 isDisabledAction={props.isDisabledAction}
+                isLoading={props.isLoading}
             />
         </div>
     )

@@ -1,7 +1,7 @@
 const API_URL = import.meta.env.VITE_API;
 import { authorizedRequest } from './auth.service';
 
-const getInstitutionalProyects = async (accessToken, refreshToken, setRefreshToken, params) => {
+const getInstitutionalProyects = async (accessToken, setAccessToken, refreshToken, setRefreshToken, params) => {
 
     const config = {
         method: 'get',
@@ -11,7 +11,7 @@ const getInstitutionalProyects = async (accessToken, refreshToken, setRefreshTok
         },
         params: params
     };
-    return await authorizedRequest(config, refreshToken, setRefreshToken);
+    return await authorizedRequest(config, setAccessToken, refreshToken, setRefreshToken);
 };
 
 export {

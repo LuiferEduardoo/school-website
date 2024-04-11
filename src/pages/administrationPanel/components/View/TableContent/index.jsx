@@ -1,7 +1,9 @@
-import React from 'react';
-import Rows from './Rows'
+import React, {useContext} from 'react';
+import Rows from './Rows';
+import { ViewContext } from "..";
 
-const TableContent = ({ rows, columns, selectedKeys, setSelectedKeys, isAllSelect, elementView, handleView, handleEdit, handleOpenModalDelete }) => {
+const TableContent = () => {
+    const { columns } = useContext(ViewContext)
     return (
         <div className="overflow-x-auto">
             <table className="w-full bg-white border border-none redonde">
@@ -18,17 +20,7 @@ const TableContent = ({ rows, columns, selectedKeys, setSelectedKeys, isAllSelec
                     </tr>
                 </thead>
                 <tbody>
-                    <Rows 
-                        columns={columns} 
-                        rows={rows} 
-                        selectedKeys={selectedKeys} 
-                        setSelectedKeys={setSelectedKeys} 
-                        isAllSelect={isAllSelect} 
-                        elementView={elementView}
-                        handleView={handleView} 
-                        handleEdit={handleEdit} 
-                        handleOpenModalDelete={handleOpenModalDelete} 
-                    />
+                    <Rows />
                 </tbody>
             </table>
         </div>

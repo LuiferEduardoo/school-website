@@ -1,23 +1,26 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
+import { ViewContext } from "..";
 import { Checkbox, Dropdown, DropdownTrigger, DropdownMenu, DropdownItem, Button } from "@nextui-org/react";
 import { IoIosArrowDown } from "react-icons/io";
 import { MdOutlineDeleteOutline } from "react-icons/md";
 import { Tooltip } from "@nextui-org/react";
 
-const Select = ({all, selectedKeys, setSelectedKeys, onOpenModalDelete}) => {
+const Select = () => {
+    const { setAllSelect, selectedKeys, setSelectedKeys, handleOpenModalDelete } = useContext(ViewContext);
+    
     const [isSelectedClick, setIsSelectClick] = useState(false);
     const selectNone = () => {
         setIsSelectClick(false)
-        all(false)
+        setAllSelect(false)
         setSelectedKeys(new Set([]))
     }
     const selectAll = () => {
         setIsSelectClick(true)
-        all(true)
+        setAllSelect(true)
     }
     const handleCheckboxChange = () => {
         setIsSelectClick(!isSelectedClick)
-        all(!isSelectedClick);
+        setAllSelect(!isSelectedClick);
     };
     return (
         <div className="flex space-x-8">
@@ -38,7 +41,7 @@ const Select = ({all, selectedKeys, setSelectedKeys, onOpenModalDelete}) => {
             <div className="flex items-center">
                 {isSelectedClick || selectedKeys.size > 0 ? (
                         <Tooltip color="danger" content="Borrar">
-                            <span className="text-lg text-danger cursor-pointer active:opacity-50" onClick={onOpenModalDelete}>
+                            <span className="text-lg text-danger cursor-pointer active:opacity-50" onClick={() => handleOpenModalDelete([...selectedKeys])}>
                                 <MdOutlineDeleteOutline />
                             </span>
                         </Tooltip>

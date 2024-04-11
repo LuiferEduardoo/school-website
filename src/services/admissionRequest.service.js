@@ -1,7 +1,7 @@
 const API_URL = import.meta.env.VITE_API;
 import { authorizedRequest } from './auth.service';
 
-const getAdmissionRequest = async (accessToken, refreshToken, setRefreshToken, params) => {
+const getAdmissionRequest = async (accessToken, setAccessToken, refreshToken, setRefreshToken, params) => {
 
     const config = {
         method: 'get',
@@ -11,10 +11,10 @@ const getAdmissionRequest = async (accessToken, refreshToken, setRefreshToken, p
         },
         params: params
     };
-    return await authorizedRequest(config, refreshToken, setRefreshToken);
+    return await authorizedRequest(config, setAccessToken, refreshToken, setRefreshToken);
 };
 
-const postAdmissionRequest = async (accessToken, refreshToken, setRefreshToken, data) => {
+const postAdmissionRequest = async (accessToken, setAccessToken, refreshToken, setRefreshToken, data) => {
     const config = {
         method: 'post',
         url: `${API_URL}/admission/request`,
@@ -23,7 +23,7 @@ const postAdmissionRequest = async (accessToken, refreshToken, setRefreshToken, 
         }, 
         body: data
     };
-    return await authorizedRequest(config, refreshToken, setRefreshToken);
+    return await authorizedRequest(config, setAccessToken, refreshToken, setRefreshToken);
 };
 
 export {

@@ -1,6 +1,9 @@
+import { useContext } from "react";
 import { Button } from "@nextui-org/react";
+import { ViewContext } from "..";
 
-const ButtonCreate = ({handleCreate}) => {
+const ButtonCreate = () => {
+    const { handleCreate } = useContext(ViewContext)
     return (
         <>
             <div className="flex justify-end mb-4">

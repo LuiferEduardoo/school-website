@@ -74,7 +74,7 @@ const logout = async (token, setRefreshToken) => {
     }
 }
 
-const authorizedRequest = async (config, refreshToken, setRefreshToken) => {
+const authorizedRequest = async (config, setAccessToken, refreshToken, setRefreshToken) => {
     try {
         const response = await axios(config);
         return response.data;
@@ -85,7 +85,8 @@ const authorizedRequest = async (config, refreshToken, setRefreshToken) => {
                 // Si la solicitud devuelve un código de estado 401, intentar refrescar el token
                 const {token, expiresIn} = await tokenAccess(refreshToken);
 
-                setTokenCookie('access_token', token, expiresIn)
+                setTokenCookie('access_token', token, expiresIn);
+                setAccessToken(token);
                 // Actualizar el encabezado de autorización con el nuevo token de acceso
                 config.headers.Authorization = `Bearer ${token}`;
                 // Volver a intentar la solicitud original
@@ -94,7 +95,8 @@ const authorizedRequest = async (config, refreshToken, setRefreshToken) => {
             } catch(error){
                 removeTokenCookie('access_token');
                 removeTokenCookie('refresh_token');
-                setRefreshToken(null)
+                setRefreshToken(null);
+                setAccessToken(null);
             }
         } else {
             throw error;

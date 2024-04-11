@@ -4,7 +4,7 @@ import FilesApplication from './FilesApplication'
 import { PreViewFiles } from './PreViewFiles';
 
 
-const FilesInput = ({typeFile, haveManyFiles=false, existingFiles, setExistingFiles, newFiles, setNewFiles, setIdEliminateExistingFiles}) => {
+const FilesInput = ({typeFile, haveManyFiles=false, existingFiles, setExistingFiles, newFiles, setNewFiles, setIdEliminateExistingFiles, idEliminateExistingFiles}) => {
     return (
         <>
             <Submenu 
@@ -13,10 +13,14 @@ const FilesInput = ({typeFile, haveManyFiles=false, existingFiles, setExistingFi
                                 typeFile={typeFile}
                                 haveManyFiles={haveManyFiles} 
                                 setNewFiles={setNewFiles}
+                                existingFiles={existingFiles}
+                                setIdEliminateExistingFiles={setIdEliminateExistingFiles}
                             />,
                     'tab2': <FilesApplication  
                                 haveManyFiles={haveManyFiles} 
                                 setNewFiles={setNewFiles}
+                                existingFiles={existingFiles}
+                                setIdEliminateExistingFiles={setIdEliminateExistingFiles}
                             />,
                 }}
             />

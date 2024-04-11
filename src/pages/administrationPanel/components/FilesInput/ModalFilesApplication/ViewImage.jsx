@@ -1,7 +1,24 @@
-import images from './../../../../../services/images.service';
+import { useContext, useState, useEffect } from 'react';
+import { AuthContext } from '../../../../../providers/AuthContext';
+import { getFiles } from '../../../../../services/files.service';
 import { toast } from 'sonner';
 
 const ViewImage = (props) => {
+    const {accessToken, setAccessToken, refreshToken, setRefreshToken} = useContext(AuthContext);
+    const [images, setImages] = useState([]);
+    const [isLoading, setIsLoading] = useState(true)
+
+    useEffect(() => {
+        const callAPI = async () => {
+            try{
+                const response = await getFiles(accessToken, setAccessToken, refreshToken, setRefreshToken, 'image');
+                setImages(response.elements)
+            } finally{
+                setIsLoading(false)
+            }
+        } 
+        callAPI()
+    }, [])
     const handleImageClick = (image) => {
         if(props.fileSize){
             const { width, height } = props.fileSize;
@@ -26,17 +43,24 @@ const ViewImage = (props) => {
         props.setClickedImages(newClickedImages);
     };
 
+    const publicImages = images.filter((file) => file.file.isPublic);
+
     return (
         <div className="grid grid-cols-1 gap-6 p-6 sm:grid-cols-4">
-            {images.map((file, index) => (
-                <img
-                    src={file.file.url}
-                    alt={file.file.name}
-                    key={file.file.id}
-                    className={`w-full h-auto rounded cursor-pointer ${props.clickedImages.some((clickedImage) => clickedImage.id === file.file.id) ? '' : 'opacity-50'}`}
-                    onClick={() => {handleImageClick(file.file)}}
-                />
-            ))}
+            {isLoading ? (
+                <div>Cargando...</div>
+            ) : (
+                publicImages.map((file, index) => (
+                    <img
+                        src={file.file.url}
+                        alt={file.file.name}
+                        loading="lazy"
+                        key={index}
+                        className={`w-full h-auto rounded cursor-pointer ${props.clickedImages.some((clickedImage) => clickedImage.id === file.file.id) ? '' : 'opacity-50'}`}
+                        onClick={() => {handleImageClick(file.file)}}
+                    />
+                ))
+            )}
         </div>
     )
 }

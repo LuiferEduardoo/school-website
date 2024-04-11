@@ -1,14 +1,19 @@
-import React from "react";
+import React, {useContext} from "react";
 import {Input} from "@nextui-org/react";
 import { CiSearch } from "react-icons/ci";
+import { ViewContext } from "..";
 
 const Search = () => {
+    const { search, setSearch } = useContext(ViewContext);
+
     return (
         <div className="w-[50%]">
             <Input
                 label="Buscar"
                 isClearable
                 radius="md"
+                value={search}
+                onValueChange={setSearch}
                 classNames={{
                     label: "text-black/50 dark:text-white/90",
                     input: [

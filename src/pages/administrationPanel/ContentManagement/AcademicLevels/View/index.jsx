@@ -5,7 +5,7 @@ const View = () => {
     return (
         <>
             <Routes>
-                <Route path="" element={<MainContent />} />
+                <Route path="*" element={<MainContent />} />
                 <Route path=":academicId/*" element={<SecondaryContent />} />
             </Routes>
         </>

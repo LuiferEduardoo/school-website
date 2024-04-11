@@ -1,11 +1,11 @@
-import {Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, Button} from "@nextui-org/react";
+import {Modal, ModalContent, ModalHeader, ModalBody} from "@nextui-org/react";
 
 const ModalComponent = (prosp) => {
     const header = `${prosp.elementEdit ? 'Editar' : 'Crear'} ${prosp.elementName}`
     return (
         <>
             <Modal 
-                size='5xl' 
+                size={prosp.size} 
                 scrollBehavior='inside'
                 isOpen={prosp.isOpen} 
                 onClose={prosp.onClose} 
@@ -17,14 +17,6 @@ const ModalComponent = (prosp) => {
                     <ModalBody>
                         {prosp.children}
                     </ModalBody>
-                    <ModalFooter>
-                        <Button color="danger" variant="light" onPress={onClose}>
-                        Cerrar
-                        </Button>
-                        <Button color="primary" onPress={prosp.handleAction}>
-                        {prosp.elementEdit ? 'Editar' : 'Crear'}
-                        </Button>
-                    </ModalFooter>
                     </>
                 )}
                 </ModalContent>

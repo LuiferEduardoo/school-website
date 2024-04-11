@@ -1,6 +1,4 @@
-import { useEffect, useState, useContext } from "react";
 import { Routes, Route, Navigate } from 'react-router-dom';
-import { AuthContext } from "../../providers/AuthContext";
 import { AdministrationsPanelProvider } from "../../providers/AdministrationPanelContext";
 import ProtectedRouteAdministrationPanelRouter from "../../utils/ProtectedRouteAdministrationPanelRouter";
 import Sideber from './components/Sideber'
@@ -13,7 +11,6 @@ import Schedule from './Schedule'
 import FilesManagement from './FilesManagement';
 
 const AdministrationsPanel = () => {
-    const { accessToken, refreshToken, setRefreshToken, isLoading, setIsloading } = useContext(AuthContext);
 
     return (
         <AdministrationsPanelProvider>

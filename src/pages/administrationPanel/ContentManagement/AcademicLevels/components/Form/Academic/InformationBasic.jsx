@@ -21,7 +21,7 @@ const InformationBasic = (props) => {
                     label="Sede"
                     onSelectionChange={props.setValueCampus}
                 >
-                    {(campu) => <SelectItem key={campu.value}>{campu.label}</SelectItem>}
+                    {(campu) => <SelectItem key={campu.value} value={campu.value}>{campu.label}</SelectItem>}
                 </Select>
             </div>
             <div className="col-span-5 flex gap-4">

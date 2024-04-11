@@ -6,7 +6,7 @@ import CustomTooltip from "./CustomTooltip";
 import { all, grade, gender, campus, states } from "./admissionsRequestData";
 
 const AdmissionRequest = ({ dateRange, setDateRange }) => {
-  const { accessToken, refreshToken, setRefreshToken } =
+  const { accessToken, setAccessToken, refreshToken, setRefreshToken } =
     useContext(AuthContext);
   const [admissionsRequest, setAdmissionsRequest] = useState([]);
   const [isLoading, setIsloading] = useState(true);
@@ -25,6 +25,7 @@ const AdmissionRequest = ({ dateRange, setDateRange }) => {
         };
         const responseAdmissionsRequest = await getAdmissionRequest(
           accessToken,
+          setAccessToken,
           refreshToken,
           setRefreshToken,
           parameters

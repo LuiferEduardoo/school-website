@@ -3,10 +3,8 @@ import {useNavigate } from 'react-router-dom';
 import { Helmet } from "react-helmet";
 import View from '../../../../../components/View';
 
-const ContentView = ({ title, elementName, elementView, rows, columns, optionsFilter, handleCreate, handleEdit }) => {
+const ContentView = (props) => {
     const navigate = useNavigate();
-    const [selectedKeys, setSelectedKeys] = React.useState(new Set([]));
-    const [isAllSelect, setAllSelect] = useState(false);
 
     const handleView = (id, element) =>{
         let route = id;
@@ -21,22 +19,27 @@ const ContentView = ({ title, elementName, elementView, rows, columns, optionsFi
     return (
         <>
             <Helmet>
-                <title>{title}</title>
+                <title>{props.title}</title>
             </Helmet>
             <View 
-                optionsFilter={optionsFilter} 
-                setAllSelect={setAllSelect} 
-                rows={rows} 
-                columns={columns} 
-                selectedKeys={selectedKeys} 
-                setSelectedKeys={setSelectedKeys} 
-                isAllSelect={isAllSelect} 
-                nameElement={elementName}
-                elementView={elementView}
-                elementPath="" 
-                handleCreate={handleCreate} 
-                handleEdit={handleEdit} 
+                optionsFilter={props.optionsFilter} 
+                valueFilter={props.valueFilter} 
+                setValueFilter={props.setValueFilter}
+                rows={props.rows} 
+                columns={props.columns} 
+                selectedKeys={props.selectedKeys} 
+                setSelectedKeys={props.setSelectedKeys}  
+                nameElement={props.elementName}
+                elementView={props.elementView}
+                totalPage={props.totalPage}
+                search={props.search}
+                setSearch={props.setSearch}
+                handleCreate={props.handleCreate} 
+                handleEdit={props.handleEdit} 
                 handleView={handleView}
+                handleDelete={props.handleDelete}
+                offset={props.offset} 
+                setOffset={props.setOffset}
             />
         </>
     );

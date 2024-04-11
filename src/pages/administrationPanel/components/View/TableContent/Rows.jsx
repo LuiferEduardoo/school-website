@@ -1,32 +1,33 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useContext } from 'react';
+import { ViewContext } from "..";
 import { Checkbox } from "@nextui-org/react";
 import { BiEditAlt } from "react-icons/bi";
 import { MdOutlineDeleteOutline } from "react-icons/md";
 import { IoEyeSharp } from "react-icons/io5";
 import { Tooltip } from "@nextui-org/react";
 
-const Rows = (prosp) => {
-
+const Rows = () => {
+    const {columns, rows, selectedKeys, setSelectedKeys, isAllSelect, elementView, handleView, handleEdit, handleOpenModalDelete } = useContext(ViewContext)
     useEffect(() => {
-        const newSelectedKeys = new Set(prosp.selectedKeys);
-        if (prosp.isAllSelect) {
+        const newSelectedKeys = new Set(selectedKeys);
+        if (isAllSelect) {
             // Si isAllSelect es true, agregar todos los elementos
-            prosp.rows.forEach(item => newSelectedKeys.add(item.id));
+            rows.forEach(item => newSelectedKeys.add(item.id));
         } else {
             // Si isAllSelect es false, borrar todos los elementos
-            prosp.rows.forEach(item => newSelectedKeys.delete(item.id));
+            rows.forEach(item => newSelectedKeys.delete(item.id));
         }
-        prosp.setSelectedKeys(newSelectedKeys);
-    }, [prosp.isAllSelect]);    
+        setSelectedKeys(newSelectedKeys);
+    }, [isAllSelect]);    
     
     const toggleSelection = (key) => {
-        const newSelectedKeys = new Set(prosp.selectedKeys);
-        if (prosp.selectedKeys.has(key)) {
+        const newSelectedKeys = new Set(selectedKeys);
+        if (selectedKeys.has(key)) {
             newSelectedKeys.delete(key);
         } else {
             newSelectedKeys.add(key);
         }
-        prosp.setSelectedKeys(newSelectedKeys);
+        setSelectedKeys(newSelectedKeys);
     };
 
 
@@ -35,28 +36,28 @@ const Rows = (prosp) => {
             case "select":
                 return (
                     <Checkbox
-                        isSelected={prosp.selectedKeys.has(item.id)}
+                        isSelected={selectedKeys.has(item.id)}
                         onChange={() => toggleSelection(item.id)}
                     />
                 );
             case "actions":
                 return (
                     <div className="relative flex items-center gap-2">
-                        {prosp.elementView?.map((element) =>(
+                        {elementView?.map((element) =>(
                             <Tooltip key={element.key} content={`Ver ${element.label}`}>
-                                <span className="text-lg text-default-400 cursor-pointer active:opacity-50" onClick={() => prosp.handleView(item.id, element.label)}>
+                                <span className="text-lg text-default-400 cursor-pointer active:opacity-50" onClick={() => handleView(item.id, element.label)}>
                                     <IoEyeSharp />
                                 </span>
                             </Tooltip>
                         ) ) 
                         }
                         <Tooltip content="Editar">
-                            <span className="text-lg text-default-400 cursor-pointer active:opacity-50" onClick={() => prosp.handleEdit(item.id)}>
+                            <span className="text-lg text-default-400 cursor-pointer active:opacity-50" onClick={() => handleEdit(item.id)}>
                                 <BiEditAlt />
                             </span>
                         </Tooltip>
                         <Tooltip color="danger" content="Borrar">
-                            <span className="text-lg text-danger cursor-pointer active:opacity-50" onClick={() => prosp.handleOpenModalDelete(item.id)}>
+                            <span className="text-lg text-danger cursor-pointer active:opacity-50" onClick={() => handleOpenModalDelete(item.id)}>
                                 <MdOutlineDeleteOutline />
                             </span>
                         </Tooltip>
@@ -68,6 +69,7 @@ const Rows = (prosp) => {
                         <div className={`${item[column.key].image.styleContainer}`}>
                             <img
                                 className={`object-cover w-full h-full ${item[column.key].image.styleImage}`}
+                                loading="lazy"
                                 src={item[column.key].image.url}
                                 alt={item[column.key].title}
                             />
@@ -84,9 +86,9 @@ const Rows = (prosp) => {
 
     return (
         <>
-            {prosp.rows.map((item) => (
-                <tr key={item.id} className={` ${prosp.selectedKeys.has(item.id) && 'bg-gray-50'} hover:bg-gray-50`}>
-                    {prosp.columns.map((column) => (
+            {rows.map((item) => (
+                <tr key={item.id} className={` ${selectedKeys.has(item.id) && 'bg-gray-50'} hover:bg-gray-50`}>
+                    {columns.map((column) => (
                         <td
                             key={column.key}
                             className="px-4 py-4 whitespace-nowrap text-sm text-gray-900"

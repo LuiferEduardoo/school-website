@@ -7,6 +7,9 @@ const ModalFilesApplication = (props) => {
     const handleAddImages = () => {
         props.onClose(); 
         props.setFiles(clickedImages);
+        if(!props.haveManyFiles && props.existingFiles?.[0]?.id){
+            props.setIdEliminateExistingFiles([props.existingFiles[0].id]);
+        }
         setClickedImages([])
     }
     return (

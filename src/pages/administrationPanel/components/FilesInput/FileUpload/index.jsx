@@ -2,9 +2,12 @@ import React, { useCallback, useState, useEffect } from 'react';
 import { useDropzone } from 'react-dropzone';
 import { FcAddImage } from "react-icons/fc";
 
-const FileUpload = ({typeFile, haveManyFiles, setNewFiles}) => {
+const FileUpload = ({typeFile, haveManyFiles, setNewFiles, existingFiles, setIdEliminateExistingFiles}) => {
 
     const onDrop = useCallback((acceptedFiles) => {
+        if(!haveManyFiles && existingFiles?.[0]?.id){
+            setIdEliminateExistingFiles([existingFiles[0].id]);
+        }
         setNewFiles(haveManyFiles ? prevFiles => [...prevFiles, ...acceptedFiles] : acceptedFiles)
     }, []);
 

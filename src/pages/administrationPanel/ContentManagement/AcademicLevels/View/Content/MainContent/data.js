@@ -1,5 +1,3 @@
-import academicLevelsService from './../../../../../../../services/academicLevels.service';
-
 const columns = [
     {
         key: "select",
@@ -19,12 +17,12 @@ const columns = [
     }
 ];
 
-const rows = academicLevelsService.map(({ id, nameLevel, visible, imageAcademicLevels }) => ({
+const rows = (academicLevels) => academicLevels.map(({ id, nameLevel, visible, imageAcademicLevels }) => ({
     id,
     name: {
         title: nameLevel,
         image: {
-            url: imageAcademicLevels.image.file.url,
+            url: imageAcademicLevels[0].image.file.url,
             styleContainer: "h-20 w-30",
             styleImage: "rounded",
         },
@@ -34,17 +32,64 @@ const rows = academicLevelsService.map(({ id, nameLevel, visible, imageAcademicL
 
 const optionsFilter = [
     {
-        value: 1,
-        label: 'Opción 1'
+        name: 'Modalidad',
+        selectionMode: 'single',
+        options : [
+            {
+                value: 1,
+                label: 'Presencial',
+                valueKey : 'Presencial'
+            }, 
+            {
+                value: 2,
+                label: 'Virtual',
+                valueKey: 'Virtual'
+            }
+        ]
     },
     {
-        value: 2,
-        label: 'Opción 2'
+        name: 'Jornada',
+        selectionMode: 'single',
+        options : [
+            {
+                value: 1,
+                label: 'Mañana',
+                valueKey: 'Mañana'
+            }, 
+            {
+                value: 2,
+                label: 'Tarde',
+                valueKey: 'Tarde'
+            },
+            {
+                value: 3,
+                label: 'Noche',
+                valueKey: 'Noche'
+            },
+            {
+                value: 4,
+                label: 'Flexible',
+                valueKey: 'Flexible'
+            }
+        ]
     },
     {
-        value: 3,
-        label: 'Opción 3'
+        name: 'Sede',
+        selectionMode: 'single',
+        options : [
+            {
+                value: 1,
+                label: 'María Inmaculada',
+                valueKey: 1
+            }, 
+            {
+                value: 2,
+                label: 'María Auxiliadora',
+                valueKey: 2
+            }
+        ]
     }
+    
 ];
 
 export { rows, columns, optionsFilter };

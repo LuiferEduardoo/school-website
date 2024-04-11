@@ -1,6 +1,3 @@
-import courseService from './../../../../../../../services/course.service';
-import subject from './../../../../../../../services/subject.service';
-
 const columnsSubject = [
     {
         key: "select",
@@ -20,20 +17,21 @@ const columnsSubject = [
     }
 ];
 
-const rowsSubject = subject
+const rowsSubject = (subjects) => subjects.map(({ id, subjectName, teacher }) => ({
+    id,
+    name: subjectName.name,
+    teacher: `${teacher.name?.charAt(0)?.toUpperCase() + teacher.name?.slice(1)} ${teacher.lastName?.charAt(0)?.toUpperCase() + teacher.lastName?.slice(1)}`,
+}));;
 
-const optionsFilterSubject = [
+const optionsFilterSubject = (teachers) => [
     {
-        value: 1,
-        label: 'Opción 1'
-    },
-    {
-        value: 2,
-        label: 'Opción 2'
-    },
-    {
-        value: 3,
-        label: 'Opción 3'
+        name: 'Profesor',
+        selectionMode: 'single',
+        options: teachers.map((teacher) => ({
+            value: teacher.id,
+            label: `${teacher.name?.charAt(0)?.toUpperCase() + teacher.name?.slice(1)} ${teacher.lastName?.charAt(0)?.toUpperCase() + teacher.lastName?.slice(1)}`,
+            valueKey: teacher.id,
+        }))
     }
 ];
 
@@ -56,21 +54,12 @@ const columnsCourse = [
     }
 ];
 
-const rowsCourse = courseService
+const rowsCourse = (courses) => courses.map(({id, course, schoolGrade}) => ({
+    id,
+    course,
+    grade: schoolGrade.grade
+}));
 
-const optionsFilterCourse = [
-    {
-        value: 1,
-        label: 'Opción 1'
-    },
-    {
-        value: 2,
-        label: 'Opción 2'
-    },
-    {
-        value: 3,
-        label: 'Opción 3'
-    }
-];
+const optionsFilterCourse = [];
 
 export { rowsCourse, columnsCourse, optionsFilterCourse, rowsSubject, columnsSubject, optionsFilterSubject};

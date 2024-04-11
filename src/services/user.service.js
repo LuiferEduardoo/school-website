@@ -1,7 +1,7 @@
 const API_URL = import.meta.env.VITE_API;
 import { authorizedRequest } from './auth.service';
 
-const getUser = async (accessToken, refreshToken, setRefreshToken) => {
+const getUser = async (accessToken, setAccessToken, refreshToken, setRefreshToken) => {
 
     const config = {
         method: 'get',
@@ -10,18 +10,19 @@ const getUser = async (accessToken, refreshToken, setRefreshToken) => {
             Authorization: `Bearer ${accessToken}`
         }
     };
-    return await authorizedRequest(config, refreshToken, setRefreshToken);
+    return await authorizedRequest(config, setAccessToken, refreshToken, setRefreshToken);
 };
 
-const getUsers = async (accessToken, refreshToken, setRefreshToken) => {
+const getUsers = async (accessToken, setAccessToken, refreshToken, setRefreshToken, params) => {
     const config = {
         method: 'get',
         url: `${API_URL}/users`,
         headers: {
             Authorization: `Bearer ${accessToken}`
-        }
+        }, 
+        params: params
     };
-    return await authorizedRequest(config, refreshToken, setRefreshToken);
+    return await authorizedRequest(config, setAccessToken, refreshToken, setRefreshToken);
 };
 
 export {

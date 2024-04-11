@@ -1,15 +1,13 @@
 import React, { useEffect } from "react";
 import { FilesInput } from "./../../../components/FilesInput"
 
-const Image = ({propsFilesInput, setIsDisabledNext, edit}) => {
+const Image = ({propsFilesInput, setIsDisabledNext}) => {
     useEffect(() => {
-        if(!propsFilesInput.newFiles?.[0])
-            setIsDisabledNext(true);
-        else if(!propsFilesInput?.existingFiles && edit)
-            setIsDisabledNext(true);
-        else 
+        if((propsFilesInput.newFiles?.[0]) || (propsFilesInput?.existingFiles?.[0]))
             setIsDisabledNext(false);
-    }, [propsFilesInput.newFiles, propsFilesInput?.existingFiles])
+        else 
+            setIsDisabledNext(true);
+    }, [propsFilesInput.newFiles, propsFilesInput.existingFiles])
     return (
         <>
             <FilesInput 

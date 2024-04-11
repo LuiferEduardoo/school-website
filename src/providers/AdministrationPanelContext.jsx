@@ -5,7 +5,7 @@ import { getUser } from './../services/user.service'
 export const AdministrationsPanelContext = createContext();
 
 export const AdministrationsPanelProvider = ({ children }) => {
-    const { accessToken, refreshToken, setRefreshToken, isLoading, setIsloading } = useContext(AuthContext);
+    const { accessToken, setAccessToken, refreshToken, setRefreshToken, isLoading, setIsloading } = useContext(AuthContext);
     const [userInformation, setUserInformation] = useState(null); // Cambiado a null para indicar que aún no se ha recibido la información
     const [rolUser, setRolUser] = useState('');
     const [superAdmin, setSuperAdmin] = useState(['administrador', 'coordinador', 'rector']);
@@ -13,7 +13,7 @@ export const AdministrationsPanelProvider = ({ children }) => {
     useEffect(() => {
         const getInformationUser = async () => {
             try {
-                const user = await getUser(accessToken, refreshToken, setRefreshToken);
+                const user = await getUser(accessToken, setAccessToken, refreshToken, setRefreshToken);
                 setRolUser(user.rol?.[0].rol);
                 setUserInformation(user);
             } catch (error) {

@@ -1,33 +1,67 @@
+import React, { useState, createContext } from 'react';
 import { useDisclosure } from "@nextui-org/react";
 import TableContent from "./TableContent";
 import ButtonCreate from "./ButtonCreate";
 import { FilterComponent } from "./Filter";
-import Modal from "./Modal"
-import Pagination from "./Pagination"
+import Modal from "./Modal";
+import Pagination from "./Pagination";
 
+export const ViewContext = createContext();
 
-const View = ({ optionsFilter, setAllSelect, rows, columns, selectedKeys, setSelectedKeys, isAllSelect, nameElement, elementView, handleView, elementPath, handleCreate, handleEdit }) => {
-    const {isOpen, onOpen, onClose} = useDisclosure();
-    const handleModalDelete = (ids) => {
-        onClose();
-    }
+const View = (props) => {
+    const { optionsFilter, valueFilter, setValueFilter, rows, columns, selectedKeys, setSelectedKeys, nameElement, elementView, totalPage, search, setSearch, handleView, handleCreate, handleEdit, handleDelete, offset, setOffset } = props;
+    const { isOpen, onOpen, onClose } = useDisclosure();
+    const [isAllSelect, setAllSelect] = useState(false);
+    const [elimintateId, setEliminateId] = useState([])
+
     const handleOpenModalDelete = (ids) => {
         onOpen()
+        setEliminateId(ids)
     }
+    const contextValue = {
+        optionsFilter,
+        valueFilter, 
+        setValueFilter,
+        setAllSelect,
+        rows,
+        columns,
+        selectedKeys,
+        setSelectedKeys,
+        isAllSelect,
+        nameElement,
+        elementView,
+        totalPage,
+        search,
+        setSearch,
+        handleView,
+        handleCreate,
+        handleEdit,
+        handleDelete,
+        isOpen,
+        onClose,
+        onOpen,
+        handleOpenModalDelete,
+        offset,
+        setOffset
+    };
     return (
-        <div className="flex flex-col content-between h-full gap-4">
-            <div>
-                <ButtonCreate handleCreate={handleCreate}/>
-                <FilterComponent options={optionsFilter} setAllSelect={setAllSelect} selectedKeys={selectedKeys} setSelectedKeys={setSelectedKeys} onOpenModalDelete={onOpen} />
-                <TableContent rows={rows} columns={columns} selectedKeys={selectedKeys} setSelectedKeys={setSelectedKeys} isAllSelect={isAllSelect} elementView={elementView} handleView={handleView} handleEdit={handleEdit} handleOpenModalDelete={handleOpenModalDelete} />
+        <ViewContext.Provider value={contextValue}>
+            <div className="flex flex-col content-between h-full gap-4">
+                <div>
+                    <ButtonCreate />
+                    <FilterComponent />
+                    <TableContent/>
+                </div>
+                <Modal 
+                    elimintateId={elimintateId}
+                />
+                <div className="mt-auto">
+                    <Pagination />
+                </div>
             </div>
-            <Modal isOpen={isOpen} onClose={onClose} setSelectedKeys={setSelectedKeys} nameElement={nameElement} handleDelete={handleModalDelete} />
-
-            <div className="mt-auto">
-                <Pagination />
-            </div>
-        </div>
+        </ViewContext.Provider>
     );
 }
+
 
 export default View
