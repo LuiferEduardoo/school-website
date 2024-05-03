@@ -1,8 +1,8 @@
 import React, { useEffect } from "react";
 import { Input} from "@nextui-org/react";
-import EditorText from '../../../../components/EditorText';
+import EditorText from "../../../components/EditorText";
 
-const InformationBasic = (prosp) => {
+const InformationBasicPublications = (prosp) => {
     useEffect(() => {
         if (!prosp.title && !prosp.content)
             prosp.setIsDisabledNext(true);
@@ -27,4 +27,4 @@ const InformationBasic = (prosp) => {
     )
 }
 
-export default InformationBasic
+export default InformationBasicPublications

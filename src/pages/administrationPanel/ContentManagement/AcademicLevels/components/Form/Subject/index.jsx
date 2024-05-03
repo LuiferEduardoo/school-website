@@ -13,7 +13,7 @@ const Subject = (props) => {
     const [teacherSubject, setTeacherSubject] = useState();
     const [isDifferent, setIsDifferent] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
-    const [isLoadingPage, setIsLoadingPage] = useState(true);
+    const [isLoadingPage, setIsLoadingPage] = useState(false);
     const [dataToUpdate, setDataToUpdate] = useState({});
 
     const isFormValid = props.elementEdit ? isDifferent : (nameSubject && teacherSubject);
@@ -21,6 +21,7 @@ const Subject = (props) => {
     useEffect(()=> {
         const callAPI = async () => {
             if(props.elementEdit){
+                setIsLoadingPage(true)
                 try{
                     const response = await getSubjects(accessToken, setAccessToken, refreshToken, setRefreshToken, props.academicId, null, props.elementEdit);
                     setDataCourse(response);

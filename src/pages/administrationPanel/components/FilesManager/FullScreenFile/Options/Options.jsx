@@ -1,15 +1,17 @@
-import React, {useState} from "react";
+import React, { useState, useEffect, useContext } from 'react';
+import { FilesManagerContext } from '../..';
 import { Tooltip } from "@nextui-org/react";
 import { MdOutlineDeleteOutline } from "react-icons/md";
 import { IoMdMore, IoIosInformationCircleOutline  } from "react-icons/io";
 import MoreOptions from "./MoreOptions";
 
 const Options = (props) => {
+    const {otherElement, handleDelete, files, selectedImage } = useContext(FilesManagerContext);
     const [showMoreOptions, setShowInformation] = useState(false)
 
     return (
         <section className="flex relative">
-            {!props.otherElement && (
+            {!otherElement && (
                 <Tooltip content="Información">
                     <span className="cursor-pointer p-4 active:opacity-50 hover:bg-gray-900 rounded-full" onClick={() => props.setShowInformation(!props.showInformation)}>
                         <IoIosInformationCircleOutline />
@@ -17,7 +19,7 @@ const Options = (props) => {
                 </Tooltip>
             )}
             <Tooltip content="Borrar">
-                <span className="cursor-pointer p-4 active:opacity-50 hover:bg-gray-900 rounded-full" onClick={props.handleDelete}>
+                <span className="cursor-pointer p-4 active:opacity-50 hover:bg-gray-900 rounded-full" onClick={() =>handleDelete([files[selectedImage].file.id])}>
                     <MdOutlineDeleteOutline />
                 </span>
             </Tooltip>
@@ -29,8 +31,8 @@ const Options = (props) => {
             {
                 showMoreOptions && (
                     <MoreOptions 
-                        files={props.files}
-                        selectedImage={props.selectedImage}
+                        files={files}
+                        selectedImage={selectedImage}
                     />
                 )
             }

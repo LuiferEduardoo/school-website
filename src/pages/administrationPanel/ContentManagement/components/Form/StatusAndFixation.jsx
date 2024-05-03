@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Status } from './../../../../components/Form';
+import { Status } from "../../../components/Form";
 
 const StatusAndFixation  = (props) => {
     useEffect(() => {

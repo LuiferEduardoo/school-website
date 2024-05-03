@@ -1,5 +1,6 @@
 import { Routes, Route, Navigate, Outlet } from 'react-router-dom';
 import AcademicLevels from './AcademicLevels'
+import InstitutionalProjects from './InstitutionalProjects';
 import News from './News';
 import Banners from './Banners';
 import ProtectedRouteAdministrationPanelRouter from "../../../utils/ProtectedRouteAdministrationPanelRouter";
@@ -18,7 +19,9 @@ const ContentManagement = () => {
                         <News />
                     </ProtectedRouteAdministrationPanelRouter>
                 } />
-                <Route path="institutional-projects" element={<h1>Hola 3</h1>} />
+                <Route path="institutional-projects/*" element={
+                    <InstitutionalProjects/>
+                } />
                 <Route path="banners/*" element={
                     <ProtectedRouteAdministrationPanelRouter>
                         <Banners />

@@ -1,18 +1,19 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
+import { FilesManagerContext } from '../..';
 import { FaChevronLeft, FaChevronRight  } from "react-icons/fa";
 
 const ScrollButtons = (props) => {
-
+    const {selectedImage, setSelectedImage, files } = useContext(FilesManagerContext)
     const navigate = (direction) => {
-        if (props.selectedImage === null) return;
+        if (selectedImage === null) return;
     
         let newIndex;
         if (direction === 'left') {
-            newIndex = (props.selectedImage - 1 + props.files.length) % props.files.length;
+            newIndex = (selectedImage - 1 + files.length) % files.length;
         } else if (direction === 'right') {
-            newIndex = (props.selectedImage + 1) % props.files.length;
+            newIndex = (selectedImage + 1) % files.length;
         }
-        props.setSelectedImage(newIndex);
+        setSelectedImage(newIndex);
     };
     return (
         <>

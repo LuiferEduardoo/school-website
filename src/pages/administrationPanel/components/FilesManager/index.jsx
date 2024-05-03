@@ -1,36 +1,42 @@
-import React, {useState} from 'react';
-import ViewFiles from "./ViewFiles"
-import SelectionPanel from "./SelectionPanel"
+import React, { useState, createContext } from 'react';
+import SkeletonContent from './Skeleton';
+import ViewFiles from "./ViewFiles";
+import SelectionPanel from "./SelectionPanel";
 import FullScreenFile from './FullScreenFile';
 
+export const FilesManagerContext = createContext();
+
 const FilesManager = (props) => {
-    const [selectedKeys, setSelectedKeys] = React.useState(new Set([]));
     const [selectedImage, setSelectedImage] = useState(null);
     return (
-        <section className="grid grid-cols-1 gap-4">
-            <SelectionPanel 
-                selectedKeys={selectedKeys} 
-                setSelectedKeys={setSelectedKeys}
-                files={props.files}
-                acceptFiles={props.acceptFiles}
-                otherElement={props.otherElement}
-                fileSize={props.fileSize}
+        props.isLoading ? (
+            <SkeletonContent 
+                fileType={props.fileType}
             />
-            <ViewFiles 
-                files={props.files}
-                fileType={props.acceptFiles}
-                selectedKeys={selectedKeys} 
-                setSelectedKeys={setSelectedKeys}
-                setSelectedImage={setSelectedImage}
-            />
-            <FullScreenFile 
-                selectedImage={selectedImage}
-                setSelectedImage={setSelectedImage}
-                files={props.files}
-                fileType={props.acceptFiles}
-                otherElement={props.otherElement}
-            />
-        </section>
+        ) : (
+            <FilesManagerContext.Provider value={{ 
+                selectedKeys: props.selectedKeys, 
+                setSelectedKeys: props.setSelectedKeys, 
+                selectedImage: selectedImage, 
+                setSelectedImage: setSelectedImage, 
+                files: props.files,
+                fileType: props.fileType, 
+                acceptFiles: props.acceptFiles,
+                setFiles: props.setFiles,
+                setFilesApplication: props.setFilesApplication,
+                otherElement: props.otherElement,
+                viewInformationImage: props.viewInformationImage,
+                fileSize: props.fileSize,
+                handleDelete: props.handleDelete
+                }} 
+            >
+                <section className="grid grid-cols-1 gap-4">
+                    <SelectionPanel />
+                    <ViewFiles />
+                    <FullScreenFile />
+                </section>
+            </FilesManagerContext.Provider>
+        )
     )
 }
 

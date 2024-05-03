@@ -16,6 +16,7 @@ const ImageContainer = (props) => {
                 <img
                     src={props.file.url}
                     alt={props.file.name}
+                    loading="lazy"
                     className={`object-cover max-w-full max-h-full cursor-pointer rounded transition-transform transform ${props.selectedKeys.has(props.file.id) ? 'transform-clickIconSelect' : ''}`}
                     onClick={() => handleToggleClick(props.index)}
                 />

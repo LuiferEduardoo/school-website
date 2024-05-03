@@ -1,9 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
+import { FilesManagerContext } from '../..';
 import { FaArrowLeft } from "react-icons/fa";
 import FileIcons from "../../../FileIcons";
 
 const Main = (props) => {
-    const { name, extent } = props.files[props.selectedImage].file
+    const {files, selectedImage, setSelectedImage } = useContext(FilesManagerContext);
+    const { name, ext } = files[selectedImage].file;
 
     const [formattedName, setFormattedName] = useState(name);
 
@@ -33,11 +35,11 @@ const Main = (props) => {
     
     return (
         <section className='flex items-center gap-4'>
-            <section className="cursor-pointer p-4 active:opacity-50 hover:bg-gray-900 rounded-full" onClick={() => props.setSelectedImage(null)}>
+            <section className="cursor-pointer p-4 active:opacity-50 hover:bg-gray-900 rounded-full" onClick={() => setSelectedImage(null)}>
                 <FaArrowLeft />
             </section>
             <section className='flex items-center gap-2'>
-                <FileIcons extension={extent} />
+                <FileIcons extension={ext} />
                 <span className='text-lg text-white'>{formattedName}</span>
             </section>
         </section>

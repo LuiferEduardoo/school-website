@@ -1,4 +1,5 @@
 import React from 'react';
+import getFileCategory from '../../../../../../utils/getFileCategory';
 import Image from './Image';
 import Document from './Document';
 import Multimedia from './Multimedia';
@@ -12,14 +13,14 @@ const COMPONENTS_MAP = {
 };
 
 const File = React.memo((props) => {
-    const {url, name, extent, fileType} = props.files[props.selectedImage].file;
-    const Component = COMPONENTS_MAP[fileType];
+    const {url, name, ext, fileType} = props.files[props.selectedImage].file;
+    const Component = COMPONENTS_MAP[getFileCategory(fileType)];
 
     return (
         <Component 
             url={url} 
             alt={name}
-            extent={extent}
+            extent={ext}
         />
     );
 });

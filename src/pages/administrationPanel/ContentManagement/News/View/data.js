@@ -1,5 +1,3 @@
-import newsService from "../../../../../services/news.service";
-
 const columns = [
     {
         key: "select",
@@ -23,12 +21,12 @@ const columns = [
     }
 ]
 
-const rows = newsService.map(({ id, important, publication, imageNews }) => ({
+const rows = (news) => news.map(({ id, important, publication, imageNews }) => ({
     id,
     title: {
         title: publication.title,
         image: {
-            url: imageNews.image.file.url,
+            url: imageNews?.[0]?.image?.file?.url,
             styleContainer: "h-20 w-30",
             styleImage: "rounded",
         },
@@ -39,16 +37,36 @@ const rows = newsService.map(({ id, important, publication, imageNews }) => ({
 
 const optionsFilter = [
     {
-        value: 1,
-        label: 'Opción 1'
+        name: 'Importante',
+        selectionMode: 'single',
+        options : [
+            {
+                value: 1,
+                label: 'Sí',
+                valueKey : true
+            }, 
+            {
+                value: 2,
+                label: 'No',
+                valueKey: false
+            }
+        ]
     },
     {
-        value: 2,
-        label: 'Opción 2'
-    },
-    {
-        value: 3,
-        label: 'Opción 3'
+        name: 'Visible',
+        selectionMode: 'single',
+        options : [
+            {
+                value: 1,
+                label: 'Visible',
+                valueKey: true
+            }, 
+            {
+                value: 2,
+                label: 'Invisible',
+                valueKey: false
+            }
+        ]
     }
 ];
 

@@ -3,7 +3,10 @@ import PublicationClassifications from "../PublicationClassifications";
 
 const Classifications = (props) => {
     useEffect(() => {
-        const setDisable = (status) => props.edit ? props.setIsDisabledNext(status) : props.setIsDisabledAction(status);
+        const setDisable = (status) => {
+            props.setIsDisabledNext(status); 
+            props.setIsDisabledAction(status);
+        }
         if (props.categories.length === 0 && props.subcategories.length === 0 && props.tags.length === 0) 
             setDisable(true);
         else if (props.categories.length === 0 && (props.subcategories.length > 0 || props.tags.length > 0))

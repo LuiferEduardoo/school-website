@@ -4,7 +4,7 @@ import { convertToFormData } from "./convertToFormData";
 const verifyIfDataIsDiferente = (data, setIsDifferent, handleConvertToFormData) => {
     const dataToConvert = {}
     data.forEach(element => {
-        if(((element.ancientElement != element.recentElement) && (element.recentElement !== '' && element.recentElement !== undefined)) && element.elementType !== 'image'){
+        if(((element.ancientElement != element.recentElement) && (element.recentElement !== '' && element.recentElement !== undefined)) && (element.elementType !== 'image' && element?.elementType !== 'classification' && element?.elementType !== 'membersOrAuthor')){
             dataToConvert[element.nameField] = element.recentElement
         }
         if(element?.elementType === 'image'){
@@ -16,6 +16,41 @@ const verifyIfDataIsDiferente = (data, setIsDifferent, handleConvertToFormData) 
                     image: element.recentElement,
                     nameFieldIdImage: 'idNewImage'
                 }], dataToConvert)
+            }
+        }
+        if (element?.elementType === 'membersOrAuthor') {
+            let data = [];
+            element.recentElement?.forEach((recent, index) => {
+                const recentIsCoodinator = recent?.isCoordinator;
+                const ancientCoordinator = element?.ancientElement[index]?.isCoordinator;
+                const action = element?.action
+                if ((recentIsCoodinator !== ancientCoordinator) && (action === 'updateCoordinator')) {
+                    data.push({ id: recent.id, isCoordinator: recent.isCoordinator });
+                }
+                if(recent && action === 'update') {
+                    const elementObjectsIsCoordinator = element.haveCoordinator ? {isCoordinator: recentIsCoodinator} : {}
+                    data.push({ id: recent.id, ...elementObjectsIsCoordinator });
+                }
+            });
+            if (data.length > 0) {
+                if(element?.action === 'updateCoordinator' || element?.action === 'update'){
+                    dataToConvert[element.nameFieldOne] = data.map(d => d.id).join(',');
+                    if(element.haveCoordinator){
+                        dataToConvert[element.nameFielTwo] = data.map(d => d.isCoordinator).join(',');
+                    }
+                }
+            }
+        }        
+        if(element?.elementType === 'classification'){
+            const data = []
+            element.recentElement.forEach(recent => {
+                const verifyExisting = element.ancientElement.map(e => e.name).includes(recent.name);
+                if(!verifyExisting){
+                    data.push(recent.name);
+                }
+            })
+            if(data.length > 0){
+                dataToConvert[element.nameField] = data.join('')
             }
         }
     })

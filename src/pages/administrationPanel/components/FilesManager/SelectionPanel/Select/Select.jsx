@@ -1,11 +1,14 @@
+import { useContext } from "react";
+import { FilesManagerContext } from "../..";
 import { Tooltip } from "@nextui-org/react";
 import { MdOutlineClose } from "react-icons/md";
 
 const Select = (props) => {
-    const numberElement = props.selectedKeys.size;
+    const { selectedKeys, setSelectedKeys } = useContext(FilesManagerContext);
+    const numberElement = selectedKeys.size;
 
     const selectNone = () => {
-        props.setSelectedKeys(new Set([]))
+        setSelectedKeys(new Set([]))
     }
     return (
         <>

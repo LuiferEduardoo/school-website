@@ -1,7 +1,7 @@
 import { useEffect, useState, useContext } from "react";
 import { AuthContext } from "../../../../../../../providers/AuthContext";
 import { useNavigate } from "react-router-dom";
-import ContentView from './../ContentView';
+import ContentView from "../../../../components/ContentView";
 import queryParameters from "../../../../../../../utils/queryParameters";
 import { toast } from 'sonner';
 import { getAcademicLevels, deleteAcademicLevels } from "../../../../../../../services/academicLevels.service";
@@ -24,6 +24,16 @@ const View = () => {
     }
     const handleCreate = () => {
         navigate('create');
+    }
+
+    const handleView = (id, element) =>{
+        let route = id;
+        if (element === "Cursos") {
+            route += `/course`;
+        } else if (element === "Asignaturas") {
+            route += `/subject`;
+        }
+        navigate(route);
     }
 
     const handleDelete = async (ids) => {
@@ -72,39 +82,38 @@ const View = () => {
         callAPI();
     }, [search, valueFilter, offset, updatePage])
     return (
-        isLoading ? (
-            <p>Cargando</p>
-        ) : (
-            <ContentView
-                title="Niveles academicos"
-                elementName="niveles academicos"
-                elementView={[
-                    {
-                        key: 'course',
-                        label: 'Cursos'
-                    },
-                    {
-                        key: 'subject',
-                        label: "Asignaturas"
-                    }
-                ]}
-                rows={rowsContent}
-                columns={columns}
-                valueFilter={valueFilter}
-                setValueFilter={setValueFilter}
-                optionsFilter={optionsFilter}
-                selectedKeys={selectedKeys}
-                setSelectedKeys={setSelectedKeys}
-                totalPage={academicLevels.totalPage}
-                search={search}
-                setSearch={setSearch}
-                handleCreate={handleCreate}
-                handleEdit={handleEdit}
-                handleDelete={handleDelete}
-                offset={offset}
-                setOffset={setOffset}
-            />
-        )
+        <ContentView
+            isLoading={isLoading}
+            title="Niveles academicos"
+            elementName="niveles academicos"
+            elementView={[
+                {
+                    key: 'course',
+                    label: 'Cursos'
+                },
+                {
+                    key: 'subject',
+                    label: "Asignaturas"
+                }
+            ]}
+            rows={rowsContent}
+            columns={columns}
+            valueFilter={valueFilter}
+            setValueFilter={setValueFilter}
+            optionsFilter={optionsFilter}
+            selectedKeys={selectedKeys}
+            setSelectedKeys={setSelectedKeys}
+            totalPage={academicLevels.totalPage}
+            search={search}
+            setSearch={setSearch}
+            handleView={handleView}
+            create
+            handleCreate={handleCreate}
+            handleEdit={handleEdit}
+            handleDelete={handleDelete}
+            offset={offset}
+            setOffset={setOffset}
+        />
     );
 }
 

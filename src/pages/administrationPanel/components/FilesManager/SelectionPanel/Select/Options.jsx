@@ -1,12 +1,15 @@
+import { useContext } from "react";
+import { FilesManagerContext } from "../..";
 import { toast } from 'sonner'
 import { Tooltip } from "@nextui-org/react";
 import { MdOutlineDeleteOutline } from "react-icons/md";
 import { IoMdLink } from "react-icons/io";
 
-const Options = (props) => {
+const Options = () => {
+    const { selectedKeys, files, handleDelete} = useContext(FilesManagerContext);
     const handleCopyLink = async () => {
-        const selectedKeys = Array.from(props.selectedKeys)
-        const selectedUrl = props.files.filter((file, index) => file.id === selectedKeys[index]).map((file) => file.file.url)
+        const selectedKeysArray = Array.from(selectedKeys)
+        const selectedUrl = files.filter((file, index) => file.id === selectedKeysArray[index]).map((file) => file.file.url)
         try{
             await navigator.clipboard.writeText(selectedUrl)
             toast.success('Se copió el enlace')
@@ -18,7 +21,7 @@ const Options = (props) => {
         <>
             <div className="flex items-center gap-2 text-gray-500">
                 <Tooltip content="Borrar">
-                    <span className="text-lg cursor-pointer active:opacity-50" onClick={props.handleDelete}>
+                    <span className="text-lg cursor-pointer active:opacity-50" onClick={() => handleDelete(selectedKeys)}>
                         <MdOutlineDeleteOutline />
                     </span>
                 </Tooltip>

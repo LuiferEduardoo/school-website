@@ -1,12 +1,14 @@
-import React from "react";
+import React, { useContext, useState } from "react";
+import { FilesManagerContext } from "../..";
 import columns from "./columns";
 import Rows from "./Rows";
 import HasNoFile from "./HasNoFile";
 
 const File = (props) => {
+    const {files, selectedKeys, setSelectedKeys, setSelectedImage} = useContext(FilesManagerContext);
     return (
         <>
-            {props.files.length === 0 ? (
+            {files.length === 0 ? (
                 <HasNoFile />
             ) : (
                 <div className="col-span-5 overflow-x-auto">
@@ -25,11 +27,11 @@ const File = (props) => {
                         </thead>
                         <tbody>
                             <Rows 
-                                files={props.files}
+                                files={files}
                                 columns={columns} 
-                                selectedKeys={props.selectedKeys} 
-                                setSelectedKeys={props.setSelectedKeys} 
-                                setSelectedFile={props.setSelectedImage}
+                                selectedKeys={selectedKeys} 
+                                setSelectedKeys={setSelectedKeys} 
+                                setSelectedFile={setSelectedImage}
                             />
                         </tbody>
                     </table>

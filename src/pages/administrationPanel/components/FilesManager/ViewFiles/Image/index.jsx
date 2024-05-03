@@ -1,20 +1,23 @@
+import { FilesManagerContext } from "../..";
 import ImageContainer from "./ImageContainer";
 import HasNoImage from "./HasNoImage";
+import { useContext } from "react";
 
 const Image = (props) => {
+    const { files, selectedKeys, setSelectedKeys, setSelectedImage } = useContext(FilesManagerContext);
     return (
         <>
-            {props.files.length === 0 ? (
+            {files.length === 0 ? (
                 <HasNoImage />
             ) : (
-                props.files.map((file, index) => (
+                files.map((file, index) => (
                     <ImageContainer
                         key={index}
                         index={index}
                         file={file.file}
-                        selectedKeys={props.selectedKeys}
-                        setSelectedKeys={props.setSelectedKeys}
-                        setSelectedImage={props.setSelectedImage}
+                        selectedKeys={selectedKeys}
+                        setSelectedKeys={setSelectedKeys}
+                        setSelectedImage={setSelectedImage}
                     />
                 ))
             )}

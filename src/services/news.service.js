@@ -1,59 +1,58 @@
-export default [
-    {
-        id: 1,
-        important: false,
-        publication: {
-            title: 'Cómo el Aprendizaje Activo está Revolucionando las Aulas: Estrategias y Ejemplos Efectivos',
-            visible: true,
-            content: '',
-            reading_time: '00:02:00'
+const API_URL = import.meta.env.VITE_API;
+import { authorizedRequest } from './auth.service';
+
+const getNews = async (accessToken, setAccessToken, refreshToken, setRefreshToken, id, params,) => {
+    const config = {
+        method: 'get',
+        url: `${API_URL}/news${id ? `/${id}` : ''}`,
+        headers: {
+            Authorization: `Bearer ${accessToken}`
         },
-        imageNews: {
-            id: 2,
-            imageId: 12,
-            image: {
-                file: {
-                    url: "https://upload.wikimedia.org/wikipedia/commons/3/38/The_Woodlands_College_Park_Front_Image.jpg"
-                }
-            }
-        },
-    },
-    {
-        id: 2,
-        important: true,
-        publication: {
-            title: 'Cómo el Aprendizaje Activo está Revolucionando las Aulas: Estrategias y Ejemplos Efectivos',
-            visible: true,
-            content: '',
-            reading_time: '00:02:00'
-        },
-        imageNews: {
-            id: 2,
-            imageId: 12,
-            image: {
-                file: {
-                    url: "https://upload.wikimedia.org/wikipedia/commons/3/38/The_Woodlands_College_Park_Front_Image.jpg"
-                }
-            }
-        },
-    },
-    {
-        id: 2,
-        important: false,
-        publication: {
-            title: 'Cómo el Aprendizaje Activo está Revolucionando las Aulas: Estrategias y Ejemplos Efectivos',
-            visible: false,
-            content: '',
-            reading_time: '00:02:00'
-        },
-        imageNews: {
-            id: 2,
-            imageId: 12,
-            image: {
-                file: {
-                    url: "https://upload.wikimedia.org/wikipedia/commons/3/38/The_Woodlands_College_Park_Front_Image.jpg"
-                }
-            }
-        },
-    }
-]
+        params: params
+    };
+    return await authorizedRequest(config, setAccessToken, refreshToken, setRefreshToken);
+};
+
+const postNews = async (accessToken, setAccessToken, refreshToken, setRefreshToken, data) => {
+    const config = {
+        method: 'post',
+        url: `${API_URL}/news`,
+        headers: {
+            Authorization: `Bearer ${accessToken}`,
+            'Content-Type': 'multipart/form-data'
+        }, 
+        data: data
+    };
+    return await authorizedRequest(config, setAccessToken, refreshToken, setRefreshToken);
+}
+
+const updateNews = async (accessToken, setAccessToken, refreshToken, setRefreshToken, id, data) => {
+    const config = {
+        method: 'patch',
+        url: `${API_URL}/news/${id}`,
+        headers: {
+            Authorization: `Bearer ${accessToken}`,
+            'Content-Type': 'multipart/form-data'
+        }, 
+        data: data
+    };
+    return await authorizedRequest(config, setAccessToken, refreshToken, setRefreshToken);
+}
+
+const deleteNews = async (accessToken, setAccessToken, refreshToken, setRefreshToken, id) => {
+    const config = {
+        method: 'delete',
+        url: `${API_URL}/news/${id}`,
+        headers: {
+            Authorization: `Bearer ${accessToken}`
+        }
+    };
+    return await authorizedRequest(config, setAccessToken, refreshToken, setRefreshToken);
+}
+
+export {
+    getNews,
+    postNews,
+    updateNews,
+    deleteNews
+}

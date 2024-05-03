@@ -1,10 +1,9 @@
 import { IoIosClose } from "react-icons/io";
 
 const Delete = (props) => {
-    const verifyIfClassificationExisting = (updatedClassifications, classification) => {
+    const verifyIfClassificationExisting = (updatedClassifications) => {
         if(updatedClassifications?.isExisting){
-            const updatedIdEliminateExistingClassification = new Set(props.IdEliminateExistingClassification);
-            updatedIdEliminateExistingClassification.add(props.deleteAll ? updatedClassifications.id : classification.id);
+            const updatedIdEliminateExistingClassification = props.IdEliminateExistingClassification.add(updatedClassifications.id);
             props.setIdEliminateExistingClassification(updatedIdEliminateExistingClassification);
         }
     }
@@ -12,13 +11,13 @@ const Delete = (props) => {
         props.setClassifications((prevClassifications) => {
             const updatedClassifications = [...prevClassifications];
             if(props.deleteAll){
-                prevClassifications.forEach((c) => {
+                updatedClassifications.forEach((c) => {
                     verifyIfClassificationExisting(c)
                 })
                 return []
             }
+            verifyIfClassificationExisting(props.classification)
             updatedClassifications.splice(props.index, 1);
-            verifyIfClassificationExisting(updatedClassifications, props.classification)
             return updatedClassifications;
         });
     };

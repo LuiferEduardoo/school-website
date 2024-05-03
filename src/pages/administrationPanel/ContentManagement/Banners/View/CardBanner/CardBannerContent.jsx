@@ -1,13 +1,13 @@
 import {useNavigate } from 'react-router-dom';
 import {Card, CardHeader, CardBody, Button} from "@nextui-org/react";
-import Banners from "../../../../../components/Banners";
+import Banners from "../../../../../../components/Banners";
 
-const CardBanner = (props) => {
+const CardBannerContent = (props) => {
     const navigate = useNavigate();
     const handleEdit = (endpoint) => {
         navigate(`edit/${endpoint}`);
     }
-    const slides = props.banners.length > 0 ? props.banners.map((banner) => banner.imageBanner.image.file.url) : null;
+    const slides = props.banners.length > 0 ? props.banners.map((banner) => banner.imageBanner.image.file) : null;
     return (
         <Card className="w-full p-4">
             <CardHeader className="flex flex-col md:flex-row md:items-center md:gap-4">
@@ -35,4 +35,4 @@ const CardBanner = (props) => {
     )
 }
 
-export default CardBanner
+export default CardBannerContent

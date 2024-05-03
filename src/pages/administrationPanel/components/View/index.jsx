@@ -1,5 +1,6 @@
 import React, { useState, createContext } from 'react';
 import { useDisclosure } from "@nextui-org/react";
+import SkeletonContent from './Skeleton';
 import TableContent from "./TableContent";
 import ButtonCreate from "./ButtonCreate";
 import { FilterComponent } from "./Filter";
@@ -45,21 +46,29 @@ const View = (props) => {
         setOffset
     };
     return (
-        <ViewContext.Provider value={contextValue}>
-            <div className="flex flex-col content-between h-full gap-4">
-                <div>
-                    <ButtonCreate />
-                    <FilterComponent />
-                    <TableContent/>
+        props.isLoading ? (
+            <SkeletonContent
+                create={props.create}
+            />
+        ) : (
+            <ViewContext.Provider value={contextValue}>
+                <div className="flex flex-col content-between h-full gap-4">
+                    <div>
+                        {props.create && (
+                            <ButtonCreate />
+                        )}
+                        <FilterComponent />
+                        <TableContent/>
+                    </div>
+                    <Modal 
+                        elimintateId={elimintateId}
+                    />
+                    <div className="mt-auto">
+                        <Pagination />
+                    </div>
                 </div>
-                <Modal 
-                    elimintateId={elimintateId}
-                />
-                <div className="mt-auto">
-                    <Pagination />
-                </div>
-            </div>
-        </ViewContext.Provider>
+            </ViewContext.Provider>
+        )
     );
 }
 
