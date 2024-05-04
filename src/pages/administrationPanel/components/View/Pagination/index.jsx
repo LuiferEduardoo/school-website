@@ -5,9 +5,11 @@ import { ViewContext } from "..";
 const PaginationComponent = () => {
     const {totalPage, offset, setOffset} = useContext(ViewContext);
 
+    console.log(totalPage);
+
     return (
         <div className='flex justify-end mt-auto'>
-            {totalPage && totalPage > 0 && (
+            {totalPage > 1 && (
                 <Pagination 
                     showControls 
                     total={totalPage} 

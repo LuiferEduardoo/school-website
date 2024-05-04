@@ -31,6 +31,11 @@ const ViewComponent = () => {
             
             for (const element of elementToDelete) {
                 await deleteInstitutionalProject(accessToken, setAccessToken, refreshToken, setRefreshToken, element);
+                setSelectedKeys(prevKeys => {
+                    const newKeys = new Set(prevKeys);
+                    newKeys.delete(element);
+                    return newKeys;
+                });
             }
             
             toast.success('Borrados con éxito');
@@ -80,7 +85,7 @@ const ViewComponent = () => {
             optionsFilter={optionsFilter}
             selectedKeys={selectedKeys}
             setSelectedKeys={setSelectedKeys}
-            totalPage={publications.totalPage}
+            totalPage={publications.totalPages}
             search={search}
             setSearch={setSearch}
             create

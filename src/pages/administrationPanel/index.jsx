@@ -5,7 +5,8 @@ import Sideber from './components/Sideber'
 import Header from './components/Header'
 import Position from './components/Position';
 import Dashboard from './Dashboard';
-import ContentManagement from './ContentManagement'
+import ContentManagement from './ContentManagement';
+import UsersManagement from './UsersManagement';
 import Calendar from './Calendar';
 import Schedule from './Schedule'
 import FilesManagement from './FilesManagement';
@@ -23,6 +24,11 @@ const AdministrationsPanel = () => {
                         <Routes>
                             <Route path="/" element={<Dashboard />} />
                             <Route path="content-management/*" element={<ContentManagement />} />
+                            <Route path="users-management" element={
+                                <ProtectedRouteAdministrationPanelRouter>
+                                    <UsersManagement/>
+                                </ProtectedRouteAdministrationPanelRouter>
+                            } />
                             <Route path="calendar" element={
                                 <ProtectedRouteAdministrationPanelRouter>
                                     <Calendar/>

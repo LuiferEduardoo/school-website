@@ -137,6 +137,11 @@ const SecondayContent = () => {
           setRefreshToken,
           element
         );
+        setSelectedKeys(prevKeys => {
+          const newKeys = new Set(prevKeys);
+          newKeys.delete(element);
+          return newKeys;
+      });
       }
 
       toast.success("Borrados con éxito");
@@ -159,7 +164,7 @@ const SecondayContent = () => {
         setValueFilter={setValueFilter}
         selectedKeys={selectedKeys}
         setSelectedKeys={setSelectedKeys}
-        totalPage={getData?.totalPage}
+        totalPage={getData?.totalPages}
         search={search}
         setSearch={setSearch}
         create

@@ -40,6 +40,11 @@ const MainContent = () => {
             
             for (const element of elementToDelete) {
                 await deleteInstitutionalProject(accessToken, setAccessToken, refreshToken, setRefreshToken, element);
+                setSelectedKeys(prevKeys => {
+                    const newKeys = new Set(prevKeys);
+                    newKeys.delete(element);
+                    return newKeys;
+                });
             }
             
             toast.success('Borrados con éxito');
@@ -98,7 +103,7 @@ const MainContent = () => {
             optionsFilter={optionsFilter}
             selectedKeys={selectedKeys}
             setSelectedKeys={setSelectedKeys}
-            totalPage={institutionalProjects?.totalPage}
+            totalPage={institutionalProjects?.totalPages}
             search={search}
             setSearch={setSearch}
             handleView={handleView}

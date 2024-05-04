@@ -38,6 +38,11 @@ const SecondaryContent = () => {
             
             for (const element of elementToDelete) {
                 await deleteInstitutionalProjectPublications(accessToken, setAccessToken, refreshToken, setRefreshToken, institutionalProject, element);
+                setSelectedKeys(prevKeys => {
+                    const newKeys = new Set(prevKeys);
+                    newKeys.delete(element);
+                    return newKeys;
+                });
             }
             
             toast.success('Borrados con éxito');
@@ -93,7 +98,7 @@ const SecondaryContent = () => {
             optionsFilter={optionsFilter}
             selectedKeys={selectedKeys}
             setSelectedKeys={setSelectedKeys}
-            totalPage={publications?.totalPage}
+            totalPage={publications?.totalPages}
             search={search}
             setSearch={setSearch}
             create={membersProjects?.some(m => m.userId === userInformation.id)}

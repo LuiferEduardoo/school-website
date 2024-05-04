@@ -42,6 +42,11 @@ const View = () => {
             
             for (const element of elementToDelete) {
                 await deleteAcademicLevels(accessToken, setAccessToken, refreshToken, setRefreshToken, element);
+                setSelectedKeys(prevKeys => {
+                    const newKeys = new Set(prevKeys);
+                    newKeys.delete(element);
+                    return newKeys;
+                });
             }
             
             toast.success('Borrados con éxito');
@@ -103,7 +108,7 @@ const View = () => {
             optionsFilter={optionsFilter}
             selectedKeys={selectedKeys}
             setSelectedKeys={setSelectedKeys}
-            totalPage={academicLevels.totalPage}
+            totalPage={academicLevels?.totalPages}
             search={search}
             setSearch={setSearch}
             handleView={handleView}
