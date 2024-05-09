@@ -42,7 +42,8 @@ const updateUser = async (accessToken, setAccessToken, refreshToken, setRefreshT
         method: 'patch',
         url: `${API_URL}/user/${id ? id : ''}`,
         headers: {
-            Authorization: `Bearer ${accessToken}`
+            Authorization: `Bearer ${accessToken}`,
+            'Content-Type': 'multipart/form-data'
         }, 
         data: data
     };

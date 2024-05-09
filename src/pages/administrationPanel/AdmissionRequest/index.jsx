@@ -1,18 +1,18 @@
 import { useEffect, useState, useContext } from "react";
 import { Helmet } from "react-helmet";
 import { useDisclosure } from "@nextui-org/react";
-import View from "../../components/View";
-import { AuthContext } from "../../../../providers/AuthContext";
+import View from "../components/View";
+import { AuthContext } from "../../../providers/AuthContext";
+import queryParameters from "../../../utils/queryParameters";
+import { getAdmissionRequest, deleteAdmissionRequest } from "../../../services/admissionRequest.service";
+import ModalComponent from "../UsersManagement/components/Modal";
+import FormContent from "./components/Form";
+import {columns, rows, optionsFilter} from './data'
 import { toast } from 'sonner';
-import queryParameters from "../../../../utils/queryParameters";
-import { columns, rows, optionsFilter } from "./data";
-import { getUsers, deleteUser } from "../../../../services/user.service";
-import ModalComponent from "../components/Modal";
-import FormContent from "../components/Form";
 
-const ViewContent = () => {
+const AdmissionRequest = () => {
     const {accessToken, setAccessToken, refreshToken, setRefreshToken} = useContext(AuthContext);
-    const [users, setUsers] = useState([]);
+    const [admissionsRequests, setAdmissionsRequest] = useState([]);
     const [rowsContent, setRowsContent] = useState([]);
     const [search, setSearch] = useState('');
     const [offset, setOffset] = useState(1);
@@ -23,11 +23,6 @@ const ViewContent = () => {
 
     const { isOpen, onOpen, onClose } = useDisclosure();
     const [elementEdit, setElementEdit] = useState();
-
-    const handleCreate = () => {
-        setElementEdit();
-        onOpen();
-    };
 
     const handleEdit = (id) => {
         setElementEdit(id);
@@ -40,7 +35,7 @@ const ViewContent = () => {
             const elementToDelete = Array.isArray(ids) ? ids : Array.from(String(ids), Number);
             
             for (const element of elementToDelete) {
-                await deleteUser(accessToken, setAccessToken, refreshToken, setRefreshToken, element);
+                await deleteAdmissionRequest(accessToken, setAccessToken, refreshToken, setRefreshToken, element);
                 setSelectedKeys(prevKeys => {
                     const newKeys = new Set(prevKeys);
                     newKeys.delete(element);
@@ -58,10 +53,10 @@ const ViewContent = () => {
 
     useEffect(()=> {
         const handleParams = (params) => {
-            const { Role, Activos } = valueFilter;
+            const { Genero, Estado } = valueFilter;
             const filters = {
-                rol: Role?.size > 0 ? Role?.currentKey : null,
-                active: Activos?.size > 0 ? Activos?.currentKey : null,
+                gender: Genero?.size > 0 ? Genero?.currentKey : null,
+                status: Estado?.size > 0 ? Estado?.currentKey : null,
                 search: search !== '' ? search : undefined,
             };
             queryParameters(params, filters);
@@ -75,8 +70,8 @@ const ViewContent = () => {
                     offset: offset -1,
                 }
                 handleParams(params);
-                const response = await getUsers(accessToken, setAccessToken, refreshToken, setRefreshToken, params);
-                setUsers(response);
+                const response = await getAdmissionRequest(accessToken, setAccessToken, refreshToken, setRefreshToken, params);
+                setAdmissionsRequest(response);
                 setRowsContent(rows(response.elements));
             } finally{
                 setIsloading(false);
@@ -89,7 +84,7 @@ const ViewContent = () => {
     return (
         <>
             <Helmet>
-                <title>Gestión de usuarios</title>
+                <title>Solicitudes de admisión</title>
             </Helmet>
             <View
                 isLoading={isLoading}
@@ -100,12 +95,10 @@ const ViewContent = () => {
                 columns={columns} 
                 selectedKeys={selectedKeys} 
                 setSelectedKeys={setSelectedKeys}  
-                nameElement='usuarios'
-                totalPage={users?.totalPages}
+                nameElement='solictudes de admisión'
+                totalPage={admissionsRequests?.totalPages}
                 search={search}
                 setSearch={setSearch}
-                create
-                handleCreate={handleCreate} 
                 handleEdit={handleEdit} 
                 handleDelete={handleDelete}
                 offset={offset} 
@@ -115,16 +108,16 @@ const ViewContent = () => {
                 isOpen={isOpen}
                 onClose={onClose}
                 elementEdit={elementEdit}
-                elementName={'usuario'}
+                elementName={'Solicitud de admisión'}
             >
                 <FormContent 
-                    elementEdit={elementEdit}
                     setUpdatePage={setUpdatePage}
                     onClose={onClose}
+                    id={elementEdit}
                 />
             </ModalComponent>
         </>
     );
 }
 
-export default ViewContent
+export default AdmissionRequest

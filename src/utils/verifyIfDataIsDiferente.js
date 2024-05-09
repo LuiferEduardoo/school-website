@@ -4,7 +4,8 @@ import { convertToFormData } from "./convertToFormData";
 const verifyIfDataIsDiferente = (data, setIsDifferent, handleConvertToFormData) => {
     const dataToConvert = {}
     data.forEach(element => {
-        if(((element.ancientElement != element.recentElement) && (element.recentElement !== '' && element.recentElement !== undefined)) && (element.elementType !== 'image' && element?.elementType !== 'classification' && element?.elementType !== 'membersOrAuthor')){
+        const verifyIfEmpty = element.canBeEmpty ? true : (element.recentElement !== '' && element.recentElement !== undefined);
+        if(((element.ancientElement != element.recentElement) && verifyIfEmpty) && (element.elementType !== 'image' && element?.elementType !== 'classification' && element?.elementType !== 'membersOrAuthor')){
             dataToConvert[element.nameField] = element.recentElement
         }
         if(element?.elementType === 'image'){
@@ -58,7 +59,8 @@ const verifyIfDataIsDiferente = (data, setIsDifferent, handleConvertToFormData) 
         setIsDifferent(true);
         return handleConvertToFormData ? convertToFormData(dataToConvert) : dataToConvert;
     }
-    setIsDifferent(false)
+    setIsDifferent(false);
+    return dataToConvert;
 }
 
 export default verifyIfDataIsDiferente

@@ -9,6 +9,7 @@ export const AdministrationsPanelProvider = ({ children }) => {
     const [userInformation, setUserInformation] = useState(null); // Cambiado a null para indicar que aún no se ha recibido la información
     const [rolUser, setRolUser] = useState('');
     const [superAdmin, setSuperAdmin] = useState(['administrador', 'coordinador', 'rector']);
+    const [updateAllPage, setUpdateAllPage] = useState(true)
 
     useEffect(() => {
         const getInformationUser = async () => {
@@ -20,13 +21,14 @@ export const AdministrationsPanelProvider = ({ children }) => {
                 // Manejar errores si es necesario
             } finally {
                 setIsloading(false); // Cuando la solicitud se complete, establece loading en falso
+                setUpdateAllPage(false)
             }
         };
         getInformationUser();
-    }, [accessToken, refreshToken, setRefreshToken]);
+    }, [accessToken, refreshToken, setRefreshToken, updateAllPage]);
     
     return (
-        <AdministrationsPanelContext.Provider value={{ userInformation, rolUser, superAdmin }}>
+        <AdministrationsPanelContext.Provider value={{ userInformation, rolUser, superAdmin, updateAllPage, setUpdateAllPage }}>
             {children}
         </AdministrationsPanelContext.Provider>
     );

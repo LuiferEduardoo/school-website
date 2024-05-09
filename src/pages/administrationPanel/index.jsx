@@ -7,9 +7,11 @@ import Position from './components/Position';
 import Dashboard from './Dashboard';
 import ContentManagement from './ContentManagement';
 import UsersManagement from './UsersManagement';
+import AdmissionRequest from './AdmissionRequest';
 import Calendar from './Calendar';
 import Schedule from './Schedule'
 import FilesManagement from './FilesManagement';
+import AccountSetting from './AccountSetting'
 
 const AdministrationsPanel = () => {
 
@@ -29,6 +31,11 @@ const AdministrationsPanel = () => {
                                     <UsersManagement/>
                                 </ProtectedRouteAdministrationPanelRouter>
                             } />
+                            <Route path="admission-request" element={
+                                <ProtectedRouteAdministrationPanelRouter>
+                                    <AdmissionRequest/>
+                                </ProtectedRouteAdministrationPanelRouter>
+                            } />
                             <Route path="calendar" element={
                                 <ProtectedRouteAdministrationPanelRouter>
                                     <Calendar/>
@@ -40,6 +47,7 @@ const AdministrationsPanel = () => {
                                 </ProtectedRouteAdministrationPanelRouter>
                             } />
                             <Route path="files-management" element={<FilesManagement/>} />
+                            <Route path="account-setting" element={<AccountSetting />} />
                             <Route path="*" element={<Navigate to="" replace />} />
                         </Routes>
                     </div>

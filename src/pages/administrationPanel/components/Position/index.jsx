@@ -13,7 +13,7 @@ const whereIsIt = () => {
         { path: '', icon: <RiDashboardLine />, name: 'Dashboard' },
         { path: 'content-management', icon: <BiBookContent />, name: 'Gestión de contenido' },
         { path: 'users-management', icon: <RiUserFill />, name: 'Gestión de usuarios' },
-        { path: 'admision-request', icon: <MdMarkEmailUnread />, name: 'Solicitudes de admisión' },
+        { path: 'admission-request', icon: <MdMarkEmailUnread />, name: 'Solicitudes de admisión' },
         { path: 'calendar', icon: <RiCalendarEventLine />, name: 'Calendario' },
         { path: 'schedule', icon: <RiCalendarCheckFill />, name: 'Horario' },
         { path: 'files-management', icon: <RiFileCloudLine />, name: 'Gestión de archivos' }

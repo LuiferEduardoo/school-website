@@ -18,9 +18,9 @@ const ProtectedLinks = ({ isActive }) => {
       </li>
       <li>
         <Link
-          to="admision-request"
+          to="admission-request"
           className={`flex items-center gap-3 p-4 ${
-            isActive("/admision-request") &&
+            isActive("/admission-request") &&
             "bg-gray-200 rounded-lg transition-colors"
           }`}
         >

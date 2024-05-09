@@ -17,7 +17,7 @@ const ProfileInformation = () => {
                 </div>
             ) : (
                 <div className="flex flex-col items-center justify-center py-8 gap-2">
-                    <Avatar src={userInformation?.image?.image?.file?.url} className="w-20 h-20 text-large" />
+                    <Avatar src={userInformation?.image?.[0]?.image?.file?.url} className="w-20 h-20 text-large" />
                     <h1 className="text-xl text-black font-bold text-center">
                         {`${userInformation.name?.charAt(0)?.toUpperCase() + userInformation.name?.slice(1)} ${userInformation.lastName?.charAt(0)?.toUpperCase() + userInformation.lastName?.slice(1)}`}
                     </h1>

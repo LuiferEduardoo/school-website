@@ -1,12 +1,13 @@
 import { useContext, useState, useEffect } from 'react';
 import { AuthContext } from '../../../../../providers/AuthContext';
 import { getFiles } from '../../../../../services/files.service';
+import SkeletonContent from './Skeleton'
 import { toast } from 'sonner';
 
 const ViewImage = (props) => {
     const {accessToken, setAccessToken, refreshToken, setRefreshToken} = useContext(AuthContext);
     const [images, setImages] = useState([]);
-    const [isLoading, setIsLoading] = useState(true)
+    const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
         const callAPI = async () => {
@@ -48,7 +49,9 @@ const ViewImage = (props) => {
     return (
         <div className="grid grid-cols-1 gap-6 p-6 sm:grid-cols-4">
             {isLoading ? (
-                <div>Cargando...</div>
+                [...Array(8)].map((_, index) => (
+                    <SkeletonContent key={index} />
+                ))
             ) : (
                 publicImages.map((file, index) => (
                     <img
