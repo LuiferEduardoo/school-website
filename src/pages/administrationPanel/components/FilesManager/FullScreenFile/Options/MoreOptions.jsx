@@ -1,13 +1,22 @@
+import { useContext } from "react";
 import {Listbox, ListboxItem} from "@nextui-org/react";
 import axios from 'axios';
 import { saveAs } from 'file-saver';
 import { toast } from 'sonner';
+import { AuthContext } from "../../../../../../providers/AuthContext";
 
 const MoreOptions = (props) => {
+    const {accessToken} = useContext(AuthContext);
+
     const handleDownload = (url, filename) => {
         const downloadPromise = async () => {
             try {
-                const response = await axios.get(url, { responseType: 'blob' });
+                const response = await axios.get(url, { 
+                    responseType: 'blob', 
+                    headers: {
+                        Authorization: `Bearer ${accessToken}`
+                    } 
+                });
                 const blob = new Blob([response.data]);
                 saveAs(blob, filename);
                 return { name: 'Descargado' };
@@ -32,7 +41,7 @@ const MoreOptions = (props) => {
     }
     return (
         <section className="absolute top-12 right-0">
-            <Listbox>
+            <Listbox className="bg-black rounded-lg">
                 <ListboxItem key="home" onClick={() => handleDownload(props.files[props.selectedImage].file.url, props.files[props.selectedImage].file.name)}>
                     Descargar
                 </ListboxItem>

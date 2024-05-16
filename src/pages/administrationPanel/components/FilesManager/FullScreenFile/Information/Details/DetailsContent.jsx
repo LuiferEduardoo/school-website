@@ -6,17 +6,14 @@ import ModalEdit from "./ModalEdit";
 
 const DetailsContent = (props) => {
     const {isOpen, onOpen, onClose} = useDisclosure();
-    const [value, setValue] = useState(props.date?.elementValue);
+    const [value, setValue] = useState(props.data?.elementValue);
 
     useEffect(() => {
-        setValue(props.date?.elementValue)
-    }, [props.date?.id]);
+        setValue(props.data?.elementValue)
+    }, [props.data?.id]);
 
-    const nameElement = props.date?.nameElement
+    const nameElement = props.data?.nameElement;
 
-    const handleEdit = (id) => {
-
-    }
     return (
         <div className={`flex p-2 ${props.styleComponent} gap-4`}>
             <div>
@@ -36,14 +33,14 @@ const DetailsContent = (props) => {
                     <ModalEdit 
                         isOpen={isOpen} 
                         onClose={onClose}
-                        handleEdit={handleEdit(props.date?.id)}
+                        id={props.data?.id}
                         value={value}
-                        inicialValue={props.date?.elementValue}
+                        inicialValue={props.data?.elementValue}
+                        nameField={props.data?.nameField}
                     >
                         <section className='flex flex-col'>
                             {nameElement !== 'Privacidad' ? (
                                 <>
-                                    <h1>{nameElement}</h1>
                                     <Input 
                                         type="text" 
                                         label={nameElement} 

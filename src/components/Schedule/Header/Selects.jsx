@@ -1,6 +1,6 @@
 import React from "react";
 import { Select, SelectItem } from "@nextui-org/react";
-import academicLevelsService from "../../../services/academicLevels.service";
+const academicLevelsService = []
 
 const grades = (academicId) =>{
   return academicLevelsService.filter((academic) => academic.id === academicId)?.[0]?.schoolGrade

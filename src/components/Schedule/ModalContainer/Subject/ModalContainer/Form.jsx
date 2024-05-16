@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
 import { Input, Select, SelectItem, Avatar } from "@nextui-org/react";
-import userService from "../../../../../services/user.service";
 
 const Form = (props) => {
+    const userService=[]
     const [teacher, setTeacher] = useState('');
     const [name, setName] = useState('');
 

@@ -23,7 +23,7 @@ const ViewImage = (props) => {
     const handleImageClick = (image) => {
         if(props.fileSize){
             const { width, height } = props.fileSize;
-            if(!(image.width >= width && image.height >= height)){
+            if(!(image.file.width >= width && image.file.height >= height)){
                 return toast.warning(`Imagen debe tener un tamaño minimo de ${props.fileSize.width}x${props.fileSize.height} píxeles.`)
             }
         }
@@ -59,8 +59,8 @@ const ViewImage = (props) => {
                         alt={file.file.name}
                         loading="lazy"
                         key={index}
-                        className={`w-full h-auto rounded cursor-pointer ${props.clickedImages.some((clickedImage) => clickedImage.id === file.file.id) ? '' : 'opacity-50'}`}
-                        onClick={() => {handleImageClick(file.file)}}
+                        className={`w-full h-auto rounded cursor-pointer ${props.clickedImages.some((clickedImage) => clickedImage.id === file.id) ? '' : 'opacity-50'}`}
+                        onClick={() => {handleImageClick(file)}}
                     />
                 ))
             )}

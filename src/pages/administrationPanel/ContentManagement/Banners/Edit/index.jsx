@@ -16,6 +16,7 @@ const Edit = () => {
     const navigate = useNavigate();
 
     const [selectedKeys, setSelectedKeys] = useState(new Set([]));
+    const [selectedImage, setSelectedImage] = useState(null);
     const [filesUpload, setFilesUpload] = useState([]);
     const [filesAplicationUpload, setFilesApplicationUpload] = useState([]);
 
@@ -70,12 +71,13 @@ const Edit = () => {
         try{
             toast.loading('Borrando');
             const idImages = [...ids];
-            const bannersToDelete = images.filter(image => idImages.includes(image.imageBanner.imageId));
+            const bannersToDelete = images.filter(image => idImages.includes(image.imageBanner.image.fileId));
             const data = {
                 idsBanners: bannersToDelete.map(banner => banner.id).join(',')
             }
-            await deleteBanners(accessToken, setAccessToken, refreshToken, setRefreshToken, banner, data)
-            
+            await deleteBanners(accessToken, setAccessToken, refreshToken, setRefreshToken, banner, data);
+
+            setSelectedImage(null)
             toast.dismiss();
             toast.success('Banner borrado con exito');
             setUpdatePage(true);
@@ -94,6 +96,8 @@ const Edit = () => {
             </Helmet>
             <FilesManager
                 isLoading={isLoading}
+                updatePage={updatePage}
+                setUpdatePage={setUpdatePage}
                 files={images.map(image => image?.imageBanner?.image)}
                 acceptFiles='image'
                 fileType='image'
@@ -106,6 +110,8 @@ const Edit = () => {
                 setFilesApplication={setFilesApplicationUpload}
                 selectedKeys={selectedKeys}
                 setSelectedKeys={setSelectedKeys}
+                selectedImage={selectedImage}
+                setSelectedImage={setSelectedImage}
                 handleDelete={handleDelete}
             />
             </>

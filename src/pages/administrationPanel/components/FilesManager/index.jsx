@@ -7,7 +7,6 @@ import FullScreenFile from './FullScreenFile';
 export const FilesManagerContext = createContext();
 
 const FilesManager = (props) => {
-    const [selectedImage, setSelectedImage] = useState(null);
     return (
         props.isLoading ? (
             <SkeletonContent 
@@ -17,8 +16,8 @@ const FilesManager = (props) => {
             <FilesManagerContext.Provider value={{ 
                 selectedKeys: props.selectedKeys, 
                 setSelectedKeys: props.setSelectedKeys, 
-                selectedImage: selectedImage, 
-                setSelectedImage: setSelectedImage, 
+                selectedImage: props.selectedImage, 
+                setSelectedImage: props.setSelectedImage, 
                 files: props.files,
                 fileType: props.fileType, 
                 acceptFiles: props.acceptFiles,
@@ -27,7 +26,9 @@ const FilesManager = (props) => {
                 otherElement: props.otherElement,
                 viewInformationImage: props.viewInformationImage,
                 fileSize: props.fileSize,
-                handleDelete: props.handleDelete
+                handleDelete: props.handleDelete,
+                updatePage: props.updatePage,
+                setUpdatePage: props.setUpdatePage
                 }} 
             >
                 <section className="grid grid-cols-1 gap-4">

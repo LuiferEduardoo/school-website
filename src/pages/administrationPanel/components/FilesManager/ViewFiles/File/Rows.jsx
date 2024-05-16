@@ -28,7 +28,7 @@ const Rows = (props) => {
                                     onClick={() => toggleSelection(item.file.id)}
                                     onDoubleClick={() => handleToggleClick(index)}
                                 >
-                                    <FileIcons extension={item.file.extent} />
+                                    <FileIcons extension={item.file.ext} />
                                     <span>{item.file.name}</span>
                                 </div>
                             }

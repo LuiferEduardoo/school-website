@@ -2,6 +2,7 @@ import { MdPrivacyTip } from "react-icons/md";
 import { FaCalendarAlt, FaImage, FaFile, FaFolder, FaUser  } from "react-icons/fa";
 import { BiSolidCreditCardAlt } from "react-icons/bi";
 import {User } from "@nextui-org/react";
+import removeExtension from "../../../../../../../utils/removeExtension";
 import convertDate from "./convertDate";
 import FileIcons from "./../../../../FileIcons"
 
@@ -14,6 +15,14 @@ export default function (file, fileType) {
         }
         return name;
     };
+
+    const routeToModific = (routeParameter) => {
+        const route = routeParameter.match(/\/uploads\/(.+?)(?:\/\d+)+\/\d+$/)[1];
+        const parts = route.split("/");
+        parts.shift();
+
+        return parts.join("/")
+    }
     const elements = [
         {
             icon: <FaCalendarAlt />,
@@ -32,32 +41,35 @@ export default function (file, fileType) {
             </>
         },
         {
-            icon: <FileIcons extension={file.file.extent} color='text-gray-500'/>,
+            icon: <FileIcons extension={file.file.ext} color='text-gray-500'/>,
             children: <span>{formatName(file.file.name)}</span>,
             edit: true,
-            date: {
-                id: file.id,
+            data: {
+                id: file.file.id,
                 nameElement: 'Nombre',
-                elementValue: file.file.name,
+                nameField: 'newName',
+                elementValue: removeExtension(file.file.name),
             }
         },
         {
             icon: <FaFolder />,
             children: <span>{file.file.folder.match(/\/uploads\/(.+?)(?:\/\d+)+\/\d+$/)[1]}</span>,
             edit: true,
-            date: {
-                id: file.id,
+            data: {
+                id: file.file.id,
                 nameElement: 'Folder',
-                elementValue: file.file.folder,
+                nameField: 'newFolder',
+                elementValue: routeToModific(file.file.folder),
             }
         },
         {
             icon: <MdPrivacyTip />,
             children: <span className="font-medium text-base">{file.file.isPublic ? 'Publica' : 'Privada'}</span>,
             edit: true,
-            date: {
-                id: file.id,
+            data: {
+                id: file.file.id,
                 nameElement: 'Privacidad',
+                nameField: 'isPublic',
                 elementValue: file.file.isPublic,
             }
         },
@@ -67,10 +79,10 @@ export default function (file, fileType) {
                 <div className='flex flex-col gap-4'>
                     <span className="font-medium text-base">Propietario</span>
                     <User   
-                        name={`${file.file.user.name} ${file.file.user.lasTname}`}
+                        name={`${file.file.user.name} ${file.file.user.lastName}`}
                         description={file.file.user.rol[0].rol}
                         avatarProps={{
-                            src: `${file.file.user.image[0]?.image ? file.file.user.image[0].image.file.url : 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png'}`
+                            src: file.file.user.image[0]?.image?.file?.url
                         }}
                     />
                 </div>
@@ -88,9 +100,10 @@ export default function (file, fileType) {
                 </div>
             </>,
             edit: true,
-            date: {
-                id: file.id,
+            data: {
+                id: file.file.id,
                 nameElement: 'Credito de imagen',
+                nameField: 'imageCredits',
                 elementValue: file.imageCredits,
             }
         });

@@ -3,7 +3,7 @@ import ReactAudioPlayer from 'react-audio-player';
 const Audio = (props) => {
     return (
         <>
-            <ReactAudioPlayer src={props.url} autoPlay controls />
+            <ReactAudioPlayer src={props.blob} autoPlay controls />
         </>
     )
 }

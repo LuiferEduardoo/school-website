@@ -9,7 +9,7 @@ const Options = () => {
     const { selectedKeys, files, handleDelete} = useContext(FilesManagerContext);
     const handleCopyLink = async () => {
         const selectedKeysArray = Array.from(selectedKeys)
-        const selectedUrl = files.filter((file, index) => file.id === selectedKeysArray[index]).map((file) => file.file.url)
+        const selectedUrl = files.filter((file, index) => file.file.id === selectedKeysArray[index]).map((file) => file.file.url)
         try{
             await navigator.clipboard.writeText(selectedUrl)
             toast.success('Se copió el enlace')

@@ -46,7 +46,7 @@ const AdministrationsPanel = () => {
                                     <Schedule/>
                                 </ProtectedRouteAdministrationPanelRouter>
                             } />
-                            <Route path="files-management" element={<FilesManagement/>} />
+                            <Route path="files-management/*" element={<FilesManagement/>} />
                             <Route path="account-setting" element={<AccountSetting />} />
                             <Route path="*" element={<Navigate to="" replace />} />
                         </Routes>
