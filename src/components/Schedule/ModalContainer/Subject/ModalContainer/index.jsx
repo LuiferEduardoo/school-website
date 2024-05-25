@@ -1,9 +1,10 @@
-import { useState } from "react";
-import {Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, Button } from "@nextui-org/react";
-import Form from "./Form";
+import { useContext } from "react";
+import { ScheduleContext } from "../../..";
+import Subject from "../../../../../pages/administrationPanel/ContentManagement/AcademicLevels/components/Form/Subject";
+import {Modal, ModalContent, ModalHeader, ModalBody } from "@nextui-org/react";
 
 const ModalContainer = (props) => {
-    const [isDisabled, setIsDisabled] = useState(true);
+    const {academicLevel} = useContext(ScheduleContext);
 
     return (
         <Modal 
@@ -15,23 +16,14 @@ const ModalContainer = (props) => {
                 <>
                 <ModalHeader className="flex flex-col gap-1">{`${props.isEdit ? 'Editar' : 'Crear'} asignatura`}</ModalHeader>
                 <ModalBody>
-                    <Form 
-                        setIsDisabled={setIsDisabled}
+                    <Subject 
+                        elementEdit={props.isEdit}
+                        onClose={onClose}
+                        academicId={[...academicLevel][0]}
+                        setUpdatePage={props.setUpdatepage}
+                        teachers={props.teachers}
                     />
                 </ModalBody>
-                <ModalFooter>
-                    <Button color="danger" variant="light" onPress={onClose}>
-                        Cerrar
-                    </Button>
-                    {props.isEdit && (
-                        <Button color="danger" variant="flat">
-                            Borrar
-                        </Button>
-                    )}
-                    <Button color="primary" onPress={onClose} isDisabled={isDisabled}>
-                        Guardar
-                    </Button>
-                </ModalFooter>
                 </>
             )}
             </ModalContent>

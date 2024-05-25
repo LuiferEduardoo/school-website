@@ -1,54 +1,83 @@
-import React from "react";
+import { useEffect, useState, useContext } from "react";
+import { ScheduleContext } from "..";
+import { AuthContext } from "../../../providers/AuthContext";
+import { getAcademicLevels } from "../../../services/academicLevels.service";
+import { getCourses } from "../../../services/course.service";
 import { Select, SelectItem } from "@nextui-org/react";
-const academicLevelsService = []
 
-const grades = (academicId) =>{
-  return academicLevelsService.filter((academic) => academic.id === academicId)?.[0]?.schoolGrade
-}
-const courses = [1, 2, 3];
+const Selects = () => {
+  const {accessToken, setAccessToken, refreshToken, setRefreshToken} = useContext(AuthContext);
+  const {academicLevel, setAcademicLevel, course, setCourse, withoutToken} = useContext(ScheduleContext);
+  const [isLoadingAcademic, setIsLoadingAcademic] = useState(true);
+  const [isLoadingCourse, setIsLoadingCourse] = useState(false);
 
+  const [dateAcademicLevel, setDateAcademicLevel] = useState([]);
+  const [dateCourse, setDateCouse] = useState([]);
 
-const Selects = (props) => {
+    useEffect(() => {
+      const callAPI = async () => {
+        try{
+          setIsLoadingAcademic(true);
+            const {elements} = await getAcademicLevels(accessToken, setAccessToken, refreshToken, setRefreshToken, {}, null, withoutToken)
+            setDateAcademicLevel(elements);
+          } finally {
+            setIsLoadingAcademic(false)
+          }
+      }
+      callAPI()
+    }, []);
+
+    useEffect(() => {
+      const callAPI = async () => {
+        const idAcademicLevel = [...academicLevel]
+        if(idAcademicLevel[0]){
+          try{
+            setIsLoadingCourse(true);
+              const {elements} = await getCourses(accessToken, setAccessToken, refreshToken, setRefreshToken, idAcademicLevel[0], {}, null, withoutToken)
+              setDateCouse(elements);
+            } finally {
+              setIsLoadingCourse(false);
+            }
+        } else {
+          setDateCouse([])
+        }
+      }
+      callAPI();
+    }, [academicLevel])
+
+    const onSelectionAcademicLevels = (id) => {
+      setAcademicLevel(id);
+      setCourse(new Set());
+  }
+
   return (
     <section className='flex gap-2 lg:w-[60%] sm:w-full'>
       <Select
+        isLoading={isLoadingAcademic}
         label="Nivel academico"
         className="max-w-xs"
         variant="bordered"
-        selectedKey={props.academicLevel}
-        onSelectionChange={props.setAcademicLevel}
+        selectedKey={academicLevel}
+        onSelectionChange={onSelectionAcademicLevels}
       >
-        {academicLevelsService.map((academicLevel) => (
+        {dateAcademicLevel.map((academicLevel) => (
           <SelectItem key={academicLevel.id} textValue={academicLevel.nameLevel}>
             {academicLevel.nameLevel}
           </SelectItem>
         ))}
       </Select>
       <Select
-        label="Grado"
+        isLoading={isLoadingCourse}
+        label="Grado y curso"
         className="max-w-xs"
         variant="bordered"
-        selectedKey={props.grade}
-        onSelectionChange={props.setGrade}
-        isDisabled={!props.academicLevel}
+        selectedKey={course}
+        onSelectionChange={setCourse}
+        isDisabled={!academicLevel}
       >
-        {grades(1)?.map((grade) => (
-          <SelectItem key={grade.id} textValue={grade.grade}>
-            {grade.grade}
-          </SelectItem>
-        ))}
-      </Select>
-      <Select
-        label="Curso"
-        className="max-w-xs"
-        variant="bordered"
-        selectedKey={props.course}
-        onSelectionChange={props.setCourse}
-        isDisabled={!props.academicLevel || !props.grade}
-      >
-        {courses.map((course) => (
-          <SelectItem key={course} textValue={course}>
-            {course}
+        {dateCourse.map((course) => (
+          <SelectItem key={course.id} textValue={`${course.schoolGrade.grade}:${course.course}`}>
+            {`${course.schoolGrade.grade}:${course.course}`}
           </SelectItem>
         ))}
       </Select>

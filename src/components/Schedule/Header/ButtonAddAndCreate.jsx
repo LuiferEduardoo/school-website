@@ -1,16 +1,20 @@
+import { useContext } from "react";
+import { ScheduleContext } from "..";
 import {Button} from "@nextui-org/react";
 
-const ButtonAddAndCreate = (props) => {
+const ButtonAddAndCreate = () => {
+    const {academicLevel, course, setClickButton, onOpen} = useContext(ScheduleContext);
+
     const handleOnpress = (element) => {
-        props.setClickButton(element)
-        props.onOpen();
+        setClickButton(element)
+        onOpen();
     }
     return (
         <section className='flex gap-2'>
-            <Button color="primary" isDisabled={!props.academicLevel || !props.grade || !props.course} onPress={()=> handleOnpress('event')}>
+            <Button color="primary" isDisabled={academicLevel.size === 0 || course.size === 0} onPress={()=> handleOnpress('event')}>
                 Agregar 
             </Button>
-            <Button color="primary" isDisabled={!props.academicLevel} onPress={()=> handleOnpress('subject')}>
+            <Button color="primary" isDisabled={academicLevel.size === 0} onPress={()=> handleOnpress('subject')}>
                 Asignaturas 
             </Button>
         </section>

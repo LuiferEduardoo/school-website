@@ -1,13 +1,16 @@
 const API_URL = import.meta.env.VITE_API;
 import { authorizedRequest } from './auth.service';
 
-const getCourses = async (accessToken, setAccessToken, refreshToken, setRefreshToken, idAcademicLevel, params, id) => {
+const getCourses = async (accessToken, setAccessToken, refreshToken, setRefreshToken, idAcademicLevel, params, id, withoutToken) => {
+    const headers = !withoutToken ? {
+        headers: {
+            Authorization: `Bearer ${accessToken}`
+        }
+    } : {};
     const config = {
         method: 'get',
         url: `${API_URL}/school-courses/${idAcademicLevel}/${id ? id : ''}`,
-        headers: {
-            Authorization: `Bearer ${accessToken}`
-        },
+        ...headers,
         params: params
     };
     return await authorizedRequest(config, setAccessToken, refreshToken, setRefreshToken);

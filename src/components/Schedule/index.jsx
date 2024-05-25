@@ -1,49 +1,45 @@
-import { useState } from "react";
+import { useState, createContext } from "react";
 import Header from "./Header"
 import ScheduleComponent from "./ScheduleComponent"
 import ModalContainer from "./ModalContainer";
 import { useDisclosure } from "@nextui-org/react";
 
+export const ScheduleContext = createContext();
+
 const Schedule = (props) => {
-    const [academicLevel, setAcademicLevel] = useState("");
-    const [grade, setGrade] = useState("");
-    const [course, setCourse] = useState("");
+    const [academicLevel, setAcademicLevel] = useState(new Set());
+    const [course, setCourse] = useState(new Set());
     const [clickButton, setClickButton] = useState("");
     const {isOpen, onOpen, onClose} = useDisclosure();
     const [select, setSelect] = useState('');
+    const [idScheduleSelect, setIdScheduleSelect] = useState();
+    const [updatePageSchedule, setUpdatePageSchedule] = useState(false)
 
     return (
-        <>
-            <Header 
-                academicLevel={academicLevel}
-                setAcademicLevel={setAcademicLevel}
-                grade={grade}
-                setGrade={setGrade}
-                course={course}
-                setCourse={setCourse}
-                setClickButton={setClickButton}
-                onOpen={onOpen}
-                isReadOnly={props.isReadOnly}
-            />
-            <ScheduleComponent 
-                setSelect={setSelect}
-                academicLevel={academicLevel}
-                grade={grade}
-                course={course}
-                onOpen={onOpen}
-                setClickButton={setClickButton}
-                isReadOnly={props.isReadOnly}
-            />
-            <ModalContainer
-                isOpen={isOpen}
-                onOpen={onOpen}
-                onClose={onClose}
-                clickButton={clickButton}
-                academicLevel={academicLevel}
-                select={select}
-                isReadOnly={props.isReadOnly}
-            />
-        </>
+        <ScheduleContext.Provider value={{
+            academicLevel: academicLevel,
+            setAcademicLevel: setAcademicLevel,
+            course: course,
+            setCourse: setCourse,
+            clickButton: clickButton,
+            setClickButton: setClickButton,
+            select: select,
+            setSelect: setSelect,
+            idScheduleSelect: idScheduleSelect,
+            setIdScheduleSelect: setIdScheduleSelect,
+            isOpen: isOpen,
+            onOpen: onOpen,
+            onClose: onClose,
+            isReadOnly: props.isReadOnly,
+            withoutToken: props.withoutToken,
+            updatePageSchedule: updatePageSchedule,
+            setUpdatePageSchedule: setUpdatePageSchedule
+            }}
+        >
+            <Header />
+            <ScheduleComponent />
+            <ModalContainer />
+        </ScheduleContext.Provider>
     )
 }
 

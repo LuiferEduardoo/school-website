@@ -1,22 +1,17 @@
+import { useContext } from "react";
+import { ScheduleContext } from "../..";
 import EditOrCreate from "./EditOrCreate";
 import ReadOnly from "./ReadOnly";
 
-const Events = (props) => {
+const Events = () => {
+    const {isReadOnly} = useContext(ScheduleContext)
 
     return (
         <>
-            {props.isReadOnly ? (
-                <ReadOnly 
-                    subject={props.select.subject}
-
-                />
+            {isReadOnly ? (
+                <ReadOnly />
             ) : (
-                <EditOrCreate 
-                    academicLevel={props.academicLevel}
-                    select={props.select}
-                    setIsDisabled={props.setIsDisabled}
-                    onOpen={props.onOpen}
-                />
+                <EditOrCreate />
             )}
         </>
     );

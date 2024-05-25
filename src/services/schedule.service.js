@@ -1,7 +1,7 @@
 const API_URL = import.meta.env.VITE_API;
 import { authorizedRequest } from './auth.service';
 
-const getAcademicLevels = async (accessToken, setAccessToken, refreshToken, setRefreshToken, params, idAcademic, withoutToken) => {
+const getSchedule = async (accessToken, setAccessToken, refreshToken, setRefreshToken, schoolCoursesId, id, withoutToken) => {
     const headers = !withoutToken ? {
         headers: {
             Authorization: `Bearer ${accessToken}`
@@ -9,30 +9,16 @@ const getAcademicLevels = async (accessToken, setAccessToken, refreshToken, setR
     } : {};
     const config = {
         method: 'get',
-        url: `${API_URL}/academic-levels${idAcademic ? `/${idAcademic}` : ''}`,
+        url: `${API_URL}/schedule/${schoolCoursesId}${id ? `/${id}` : ''}`,
         ...headers,
-        params: params
     };
     return await authorizedRequest(config, setAccessToken, refreshToken, setRefreshToken);
 }
 
-const postAcademicLevels = async (accessToken, setAccessToken, refreshToken, setRefreshToken, data) => {
+const postSchedule = async (accessToken, setAccessToken, refreshToken, setRefreshToken, schoolCoursesId, data) => {
     const config = {
         method: 'post',
-        url: `${API_URL}/academic-levels`,
-        headers: {
-            Authorization: `Bearer ${accessToken}`,
-            'Content-Type': 'multipart/form-data'
-        }, 
-        data: data
-    };
-    return await authorizedRequest(config, setAccessToken, refreshToken, setRefreshToken);
-}
-
-const updateAcademicLevels = async (accessToken, setAccessToken, refreshToken, setRefreshToken, idAcademic, data) => {
-    const config = {
-        method: 'patch',
-        url: `${API_URL}/academic-levels/${idAcademic}`,
+        url: `${API_URL}/schedule/${schoolCoursesId}`,
         headers: {
             Authorization: `Bearer ${accessToken}`
         }, 
@@ -40,10 +26,22 @@ const updateAcademicLevels = async (accessToken, setAccessToken, refreshToken, s
     };
     return await authorizedRequest(config, setAccessToken, refreshToken, setRefreshToken);
 }
-const deleteAcademicLevels = async (accessToken, setAccessToken, refreshToken, setRefreshToken, idAcademic) => {
+
+const updateSchedule = async (accessToken, setAccessToken, refreshToken, setRefreshToken, id, data) => {
+    const config = {
+        method: 'patch',
+        url: `${API_URL}/schedule/${id}`,
+        headers: {
+            Authorization: `Bearer ${accessToken}`
+        }, 
+        data: data
+    };
+    return await authorizedRequest(config, setAccessToken, refreshToken, setRefreshToken);
+}
+const deleteSchedule = async (accessToken, setAccessToken, refreshToken, setRefreshToken, id) => {
     const config = {
         method: 'delete',
-        url: `${API_URL}/academic-levels/${idAcademic}`,
+        url: `${API_URL}/schedule/${id}`,
         headers: {
             Authorization: `Bearer ${accessToken}`
         }
@@ -52,8 +50,8 @@ const deleteAcademicLevels = async (accessToken, setAccessToken, refreshToken, s
 }
 
 export {
-    getAcademicLevels,
-    postAcademicLevels,
-    updateAcademicLevels,
-    deleteAcademicLevels
+    getSchedule,
+    postSchedule,
+    updateSchedule,
+    deleteSchedule
 }

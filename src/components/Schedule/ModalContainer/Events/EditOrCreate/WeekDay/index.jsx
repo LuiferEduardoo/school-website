@@ -5,6 +5,7 @@ const WeekDay = (props) => {
     return (
         <>
             <Select
+                isLoading={props.isLoading}
                 isRequired
                 items={dayWeek}
                 label="Día de la semana"
@@ -14,7 +15,7 @@ const WeekDay = (props) => {
                 onSelectionChange={props.setDayWeek}
             >
             {(dayWeek) => (
-                <SelectItem key={dayWeek.key} textValue={dayWeek.name}> {dayWeek.name}</SelectItem>
+                <SelectItem key={dayWeek.name} textValue={dayWeek.name}> {dayWeek.name}</SelectItem>
             )}
             </Select>
         </>

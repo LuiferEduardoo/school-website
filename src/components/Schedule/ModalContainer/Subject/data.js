@@ -1,5 +1,3 @@
-import subjectsService from "../../../../services/subjects.service";
-
 const columns = [
     {
         key: "select",
@@ -19,24 +17,21 @@ const columns = [
     }
 ];
 
-const rows = subjectsService.map(({ id, name, teacher }) => ({
+const rows = (subjects) => subjects.map(({ id, subjectName, teacher }) => ({
     id,
-    name,
-    teacher: `${teacher.name} ${teacher.lasTname}`
-}));
+    name: subjectName.name,
+    teacher: `${teacher.name?.charAt(0)?.toUpperCase() + teacher.name?.slice(1)} ${teacher.lastName?.charAt(0)?.toUpperCase() + teacher.lastName?.slice(1)}`,
+}));;
 
-const optionsFilter = [
+const optionsFilter = (teachers) => [
     {
-        value: 1,
-        label: 'Opción 1'
-    },
-    {
-        value: 2,
-        label: 'Opción 2'
-    },
-    {
-        value: 3,
-        label: 'Opción 3'
+        name: 'Profesor',
+        selectionMode: 'single',
+        options: teachers.map((teacher) => ({
+            value: teacher.id,
+            label: `${teacher.name?.charAt(0)?.toUpperCase() + teacher.name?.slice(1)} ${teacher.lastName?.charAt(0)?.toUpperCase() + teacher.lastName?.slice(1)}`,
+            valueKey: teacher.id,
+        }))
     }
 ];
 

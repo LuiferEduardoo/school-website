@@ -1,50 +1,39 @@
-import {User} from "@nextui-org/react";
-import Moment from 'moment';
-import  { extendMoment } from 'moment-range';
-import { FaSquare } from "react-icons/fa";
+import { useState, useEffect, useContext } from "react";
+import { ScheduleContext } from "../../..";
+import { getSchedule } from "../../../../../services/schedule.service";
+import Header from "./Header";
+import UserComponent from "./User";
 
 const ReadOnly = (props) => {
-    
-    const formatDate = (start, end) => {
-        const moment = extendMoment(Moment);
-        const startDate = moment(start);
-        const endDate = moment(end);
-        const range = moment.range(startDate, endDate);
-    
-        // Mostrar solo el nombre del día de la semana y la hora de inicio y finalización
-        return `${startDate.format('dddd h:mma')} - ${endDate.format('h:mma')}`;
-    }
-    
+    const { idScheduleSelect, course, onClose } = useContext(ScheduleContext);
+    const [schedule, setSchedule] = useState({});
 
-    const truncateTitle = (title, length) => {
-        return title.length > length ? title.substring(0, length) + "..." : title;
-    }
+    const [isLoading, setIsLoading] = useState(true);
+
+    useEffect(() => {
+        const callToAPI = async() => {
+            try{
+                setSchedule(await getSchedule(null, null, null, null, [...course][0], idScheduleSelect, true));
+            } catch(error){
+                onClose();
+            } finally{
+                setIsLoading(false);
+            }
+        }
+        callToAPI();
+    }, [idScheduleSelect])
 
     return (
-        <>
-            <section className='flex flex-col gap-6'>
-                <header className="flex gap-6">
-                    <div className="pt-2">
-                        <FaSquare className='text-blue-600'/>
-                    </div>
-                    <div>
-                        <h1 className="text-lg font-medium text-gray-600">
-                            {truncateTitle(`${props.subject} - ${props.teacher} `, 80)}
-                        </h1>
-                        <span className="flex text-gray-500 text-sm">
-                            {formatDate(props.start, props.end)}
-                        </span>
-                    </div>
-                    <User   
-                        name={props.teacher}
-                        description={`Docente de ${props.subject}`}
-                        avatarProps={{
-                            src: ''
-                        }}
-                    />
-                </header>
-            </section>
-        </>
+        <section className='flex flex-col gap-4 mt-2'>
+            <Header 
+                isLoading={isLoading} 
+                schedule={schedule} 
+            />
+            <UserComponent 
+                isLoading={isLoading} 
+                schedule={schedule} 
+            />
+        </section>
     )
 }
 
