@@ -1,4 +1,4 @@
-import CalendarComponent from "../../../components/Calendar/Index"
+import CalendarComponent from "../../../components/Calendar"
 import { Helmet } from "react-helmet";
 
 const Calendar = () =>  {
@@ -7,7 +7,7 @@ const Calendar = () =>  {
             <Helmet>
                 <title>Calendario</title>
             </Helmet>
-            <CalendarComponent/>
+            <CalendarComponent />
         </>
     )
 }

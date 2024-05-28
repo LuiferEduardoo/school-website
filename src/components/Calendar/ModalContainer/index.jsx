@@ -1,4 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React, { useState, useEffect, useContext } from "react";
+import { CalendarContext } from "..";
+import { AuthContext } from "../../../providers/AuthContext";
+import { getCalendar } from "../../../services/calendar.service";
 import {  Modal,   ModalContent,   ModalHeader,   ModalBody,   ModalFooter } from "@nextui-org/react";
 import { MdEventNote } from "react-icons/md";
 import moment from 'moment';
@@ -7,25 +10,64 @@ import ReadOnly from './ReadOnly';
 import Footer from './Footer';
 
 const ModalContainer = (props) => {
-    const [title, setTitle] = useState(props.select.title || '');
-    const [description, setDescription] = useState(props.select.description || '');
-    const [start, setStart] = useState(moment(props.select.start).format('YYYY-MM-DDTHH:mm'));
-    const [end, setEnd] = useState(moment(props.select.end).format('YYYY-MM-DDTHH:mm'));
+    const { isOpen, onClose, idSelectEvent, selectCalendar, isReadOnly, withoutToken } = useContext(CalendarContext);
+
+    const {accessToken, setAccessToken, refreshToken, setRefreshToken} = useContext(AuthContext)
+    
+    const [calendar, setCalendar] = useState({});
+
+    const [title, setTitle] = useState();
+    const [description, setDescription] = useState();
+    const [visible, setVisible] = useState(false);
+    const [start, setStart] = useState();
+    const [end, setEnd] = useState();
     const [error, setError] = useState(false);
 
     useEffect(() => {
-        setTitle(props.select.title || '');
-        setDescription(props.select.description || '');
-        setStart(moment(props.select.start).format('YYYY-MM-DDTHH:mm'));
-        setEnd(moment(props.select.end).format('YYYY-MM-DDTHH:mm'));
-        setError(false);
-    }, [props.isOpen]);
+        setStart(moment(selectCalendar?.start).format('YYYY-MM-DDTHH:mm'));
+        setEnd(moment(selectCalendar?.end).format('YYYY-MM-DDTHH:mm'));
+
+    }, [selectCalendar]);
+
+    const [isLoading, setIsLoading] = useState(true);
+
+    useEffect(() => {
+        const callToAPI = async() => {
+            if(isOpen){
+                if(idSelectEvent){
+                    try{
+                        setIsLoading(true);
+                        const response = await getCalendar(accessToken, setAccessToken, refreshToken, setRefreshToken, idSelectEvent, withoutToken);
+                        setCalendar(response);
+                        setTitle(response.title);
+                        setDescription(response.description);
+                        setVisible(response.visible)
+                        setStart(response.startDate);
+                        setEnd(response.endDate);
+                    } catch(error){
+                        onClose();
+                    } finally{
+                        setIsLoading(false);
+                    }
+                } else {
+                    setIsLoading(false);
+                    setCalendar({});
+                    setTitle('');
+                    setDescription('');
+                    setVisible(false);
+                }
+            } else {
+                setIsLoading(true);
+            }
+        }
+        callToAPI()
+    }, [isOpen, idSelectEvent]);
 
     return (
         <>
             <Modal 
-                isOpen={props.isOpen} 
-                onClose={props.onClose}
+                isOpen={isOpen} 
+                onClose={onClose}
                 isDismissable={false}
             >
                 <ModalContent>
@@ -33,16 +75,16 @@ const ModalContainer = (props) => {
                     <>
                         <ModalHeader className="flex gap-1 items-center text-xl"><MdEventNote /> Evento</ModalHeader>
                         <ModalBody>
-                            {props.isReadOnly ? (
+                            {isReadOnly ? (
                                 <ReadOnly 
                                     title={title}
                                     description={description}
                                     start={start}
                                     end={end}
+                                    isLoading={isLoading}
                                 />
                             ) : (
                                 <CreateOrEdit 
-                                    select={props.select}
                                     setStart={setStart}
                                     setEnd={setEnd}
                                     start={start}
@@ -52,18 +94,24 @@ const ModalContainer = (props) => {
                                     setTitle={setTitle}
                                     description={description}
                                     setDescription={setDescription}
+                                    isLoading={isLoading}
                                 />
                             )}
                         </ModalBody>
                         <ModalFooter>
                             <Footer 
-                                onClose={props.onClose}
-                                isReadOnly={props.isReadOnly}
-                                id={props.select.id}
-                                title={title}
-                                start={start}
-                                end={end}
+                                currentTitle={title}
+                                ancientTitle={calendar?.title}
+                                currentStart={start}
+                                ancientStart={calendar?.startDate}
+                                currentEnd={end}
+                                ancientEnd={calendar?.endDate}
+                                currentDescription={description}
+                                ancientDescription={calendar?.description}
+                                currentVisible={visible}
+                                ancientVisible={calendar?.visible}
                                 error={error}
+                                isLoading={isLoading}
                             />
                         </ModalFooter>
                     </>
