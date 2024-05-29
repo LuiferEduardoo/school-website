@@ -21,7 +21,7 @@ export const AdministrationsPanelProvider = ({ children }) => {
                 // Manejar errores si es necesario
             } finally {
                 setIsloading(false); // Cuando la solicitud se complete, establece loading en falso
-                setUpdateAllPage(false)
+                setUpdateAllPage(false);
             }
         };
         getInformationUser();

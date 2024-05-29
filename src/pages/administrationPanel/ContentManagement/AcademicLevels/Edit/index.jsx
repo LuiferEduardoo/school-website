@@ -1,7 +1,8 @@
 import { useEffect, useState, useContext } from "react";
 import { useParams, useNavigate } from 'react-router-dom';
 import { AuthContext } from "../../../../../providers/AuthContext";
-import {Academic} from "./../components/Form"
+import { Skeleton } from "@nextui-org/react";
+import {Academic} from "./../components/Form";
 import { Helmet } from "react-helmet";
 import { getAcademicLevels } from "../../../../../services/academicLevels.service";
 
@@ -35,7 +36,7 @@ const Edit = () => {
                 <title>Editar nivel academico</title>
             </Helmet>
             {isLoading ? (
-                <div>Cargando</div>
+                <Skeleton className="w-full h-full" />
             ) : (
                 <Academic 
                     edit={true}
