@@ -23,7 +23,7 @@
 
 .options-enter-active {
   opacity: 1;
-  max-height: 100px; /* Ajusta el valor según tus necesidades */
+  max-height: 200px; /* Ajusta el valor según tus necesidades */
   transition: opacity 300ms, max-height 300ms;
 }
 

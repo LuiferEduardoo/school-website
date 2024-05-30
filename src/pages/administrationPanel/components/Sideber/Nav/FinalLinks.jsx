@@ -8,7 +8,7 @@ const FinalLinks = ({ isActive }) => {
                 <Link
                     to="files-management"
                     className={`flex items-center gap-3 p-4 ${
-                        isActive("/files-management") &&
+                        isActive("/files-management", true) &&
                         "bg-gray-200 rounded-lg transition-colors"
                     }`}
                 >

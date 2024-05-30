@@ -4,7 +4,8 @@ import { BiBookContent } from 'react-icons/bi';
 import { MdMarkEmailUnread } from 'react-icons/md';
 import { RiDashboardLine, RiUserFill, RiFileCloudLine, RiCalendarEventLine, RiCalendarCheckFill } from 'react-icons/ri';
 import {Breadcrumbs, BreadcrumbItem} from "@nextui-org/react";
-import { contentManagementOptions } from './../Sideber/ShowOptions'
+import { contentManagementOptions } from './../Sideber/ShowOptions';
+import threeDate from './threeDate';
 
 const whereIsIt = () => {
     const location = useLocation();
@@ -27,8 +28,8 @@ const whereIsIt = () => {
     const matchingElement = locationWithIcon.find((element) =>
         path === pathVerify(element)
     );
-    const namePageSecond = contentManagementOptions.find((element) => element.path === `${splitRoute[2]}/${splitRoute[3]}` )
-    
+    const namePageSecond = contentManagementOptions.find((element) => element.path === `${splitRoute[2]}/${splitRoute[3]}`);
+    const namePageThree = threeDate.find((element) => element.path === splitRoute[4]);
     
     if (matchingElement) {
         return (
@@ -39,6 +40,9 @@ const whereIsIt = () => {
                     </BreadcrumbItem >
                     { namePageSecond && 
                         <BreadcrumbItem>{namePageSecond.label}</BreadcrumbItem>
+                    }
+                    {  namePageThree && 
+                        <BreadcrumbItem>{namePageThree.label}</BreadcrumbItem>
                     }
                 </Breadcrumbs>
             </>

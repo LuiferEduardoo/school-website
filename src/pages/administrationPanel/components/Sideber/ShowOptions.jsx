@@ -29,7 +29,7 @@ const ShowOptions = ({ isActive }) => {
                             <Link
                                 to={option.path}
                                 className={`gap-3 ${
-                                    isActive(`/${option.path}`) &&
+                                    isActive(`/${option.path}`, true) &&
                                     "text-sky-700 transition-colors"
                                 }`}
                             >
