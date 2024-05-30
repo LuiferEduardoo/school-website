@@ -19,10 +19,12 @@ const AdmissionRequest = ({ dateRange, setDateRange }) => {
 
     useEffect(() => {
         const getAdmissionRequestCall = async () => {
+            setIsloading(true);
             try {
                 const parameters = {
                     startDate: dateRange.from,
-                    endDate: dateRange.to,
+                    endDate: dateRange.to ? dateRange.to : dateRange.from,
+                    limit: 1000,
                 };
                 const responseAdmissionsRequest = await getAdmissionRequest(
                     accessToken,
@@ -32,11 +34,11 @@ const AdmissionRequest = ({ dateRange, setDateRange }) => {
                     parameters
                 );
                 setAdmissionsRequest(responseAdmissionsRequest.elements);
-                setAllData(all(admissionsRequest));
-                setGradeData(grade(admissionsRequest));
-                setGenderData(gender(admissionsRequest));
-                setCampusData(campus(admissionsRequest));
-                setStatesData(states(admissionsRequest));
+                setAllData(all(responseAdmissionsRequest.elements));
+                setGradeData(grade(responseAdmissionsRequest.elements));
+                setGenderData(gender(responseAdmissionsRequest.elements));
+                setCampusData(campus(responseAdmissionsRequest.elements));
+                setStatesData(states(responseAdmissionsRequest.elements));
             } catch (error) {
             } finally {
                 setIsloading(false); // Cuando la solicitud se complete, establece loading en falso
@@ -67,7 +69,7 @@ const AdmissionRequest = ({ dateRange, setDateRange }) => {
                             data={allData}
                             {...(allData.length > 0 && {
                                 index: "date",
-                                categories: "sales",
+                                categories: ["Solicitudes"],
                                 colors: ["blue"],
                                 yAxisWidth: 30,
                                 customTooltip: CustomTooltip,
@@ -82,7 +84,7 @@ const AdmissionRequest = ({ dateRange, setDateRange }) => {
                             data={gradeData}
                             {...(gradeData.length > 0 && {
                                 category: "sales",
-                                index: "name",
+                                index: "grade",
                                 colors: [
                                     "blue-900",
                                     "blue-800",

@@ -16,16 +16,18 @@ const Project = (props) => {
     useEffect(() => {
         const institutionalProjectsFunction = async () => {
             try{
+                setIsLoading(true);
                 const parameters = {member: userInformation.id}
-                const response = getInstitutionalProyects(accessToken, setAccessToken, refreshToken, setRefreshToken, parameters);
-                setInstitutionalProjects(response)
+                const response = await getInstitutionalProyects(accessToken, setAccessToken, refreshToken, setRefreshToken, parameters);
+                setInstitutionalProjects(response.elements)
             } catch(error){
             } finally {
                 setIsLoading(false); // Cuando la solicitud se complete, establece loading en falso
             }
         }
         institutionalProjectsFunction();
-    }, [])
+    }, []);
+    
     return (
         <>
             {isLoading ? (
@@ -37,7 +39,7 @@ const Project = (props) => {
                             key={index}
                             title={title}
                             content={content}
-                            image={ImageInstitutionalProjects.image.file.url}
+                            image={ImageInstitutionalProjects[0].image.file.url}
                         >
                             <Publication 
                                 idProyect={id}

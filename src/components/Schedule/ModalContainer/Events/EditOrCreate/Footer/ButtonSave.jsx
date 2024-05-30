@@ -54,7 +54,6 @@ const ButtonSave = (props) => {
             setUpdatePageSchedule(true);
         } catch(error){
             toast.warning(error.message);
-            console.error(error)
         } finally{
             setIsLoadingButton(false);
         }

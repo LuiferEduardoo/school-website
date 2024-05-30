@@ -1,40 +1,44 @@
-const counterData = (data, elementForCounter, nameDateReturn) => {
-    const elementCounter = {}
+import moment from "moment";
+
+const counterData = (data, accessor, nameDateReturn, nameField) => {
+    const elementCounter = {};
     data.forEach(item => {
-        // Obtener solo el día de la fecha (YYYY-MM-DD)
-        const counter = item[elementForCounter];
-        
-        // Incrementar el contador para ese día
-        if (elementCounter[counter]) {
-            elementCounter[counter]++;
-        } else {
-            elementCounter[counter] = 1;
+        // Usar la función accessor para obtener el valor del contador
+        const counter = accessor(item);
+
+        // Incrementar el contador para ese valor
+        if (counter !== undefined && counter !== null) {
+            if (elementCounter[counter] !== undefined) {
+                elementCounter[counter]++;
+            } else {
+                elementCounter[counter] = 1;
+            }
         }
     });
     return Object.keys(elementCounter).map(key => {
-        return { [nameDateReturn]: key, sales: elementCounter[key] };
+        return { [nameDateReturn]: key, [nameField]: elementCounter[key] };
     });
-}
+};
 
 const all = (data) => {
-    return counterData(data, "createAt.split('T')[0]", 'date');
-}
+    return counterData(data, (item) => moment(item.createdAt).format("MMM DD"), 'date', 'Solicitudes');
+};
 
 const grade = (data) => {
-    return counterData(data, "grade.grade", 'date');
-}
+    return counterData(data, (item) => item.schoolGrade.grade, 'grade', 'sales');
+};
 
-const gender =(data) => {
-    return counterData(data, "gender", 'name');
-}
+const gender = (data) => {
+    return counterData(data, (item) => item.gender, 'name', 'sales');
+};
 
-const campus =(data) => {
-    return counterData(data, "academicLevels.campus.campusNumber", 'name');
-}
+const campus = (data) => {
+    return counterData(data, (item) => item.academicLevels.campusId === 1 ? "María Inmaculada" : "María Auxiliadora", 'name', 'sales');
+};
 
 const states = (data) => {
-    return counterData(data, "status", 'name');
-}
+    return counterData(data, (item) => item.status, 'name', 'sales');
+};
 
 export {
     all,
