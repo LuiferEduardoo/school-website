@@ -6,6 +6,7 @@ import { Image, Classifications, StatusAndFixation, MemberOrAuthor } from '../..
 import InformationBasic from './InformationBasic';
 import { toast } from 'sonner';
 import moment from 'moment';
+import dateConvert from '../../../../../../../utils/dateConvert';
 import InstitutionalProyectsContent from '../../../../../../../components/InstitutionalProjects';
 import Preview from '../../../../components/Preview';
 import { AuthContext } from '../../../../../../../providers/AuthContext';
@@ -16,7 +17,7 @@ const InstitutionalProjects = (props) => {
     const {accessToken, setAccessToken, refreshToken, setRefreshToken} = useContext(AuthContext);
 
     const [title, setTitle] = useState(props.title || '');
-    const [startedAt, setStartedAt] = useState(moment(props.startedAt || '').format('YYYY-MM-DDTHH:mm'));
+    const [startedAt, setStartedAt] = useState(dateConvert ? dateConvert(props.startedAt) : '');
 
     const [content, setContent] = useState(props.content || '');
 
@@ -60,6 +61,8 @@ const InstitutionalProjects = (props) => {
                 recentTitle: title, 
                 ancientContent: props.content, 
                 recentContent: content,
+                recentStartedAt: startedAt,
+                ancientStartedAt: dateConvert(props.startedAt),
                 ancientCategories: props.categories,
                 recentCategories: categories,
                 ancientSubcategories: props.subcategories,

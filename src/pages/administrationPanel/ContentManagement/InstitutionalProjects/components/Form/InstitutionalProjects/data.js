@@ -3,6 +3,7 @@ import { verifyImage } from '../../../../../../../utils/verifyImage';
 import verifyIfDataIsDiferente from '../../../../../../../utils/verifyIfDataIsDiferente';
 import formart from "../../../../../../../utils/formartIdsEliminateClassification";
 import moment from 'moment';
+import dateConvert from '../../../../../../../utils/dateConvert';
 
 const emptyStates = (setStep, states) => {
     setStep(1); 
@@ -37,6 +38,7 @@ const dataForTheAPI = (states) => {
 const verifyDataToUpdate = (states, setIsDifferent) => verifyIfDataIsDiferente([
     {ancientElement: states.ancientTitle, recentElement: states.recentTitle, nameField: 'title'}, 
     {ancientElement: states.ancientContent, recentElement: states.recentContent, nameField: 'content'},
+    {ancientElement: states.ancientStartedAt, recentElement: moment(states.recentStartedAt).format('YYYY-MM-DD'), nameField: 'startedAt'},
     {ancientElement: states.ancientCategories, recentElement: states.recentCategories, nameField: 'categories', elementType: 'classification',},
     {ancientElement: states.ancientSubcategories, recentElement: states.recentSubcategories, nameField: 'subcategories', elementType: 'classification'},
     {ancientElement: states.ancientTags, recentElement: states.recentTags, nameField: 'tags', elementType: 'classification'},

@@ -62,9 +62,18 @@ const SecondaryContent = () => {
             };
             const {members} = await getInstitutionalProyects(accessToken, setAccessToken, refreshToken, setRefreshToken, {}, institutionalProject);
             setMembersProjects(members)
-            if (!superAdmin.includes(userInformation.rol[0].rol) || !members.some(m => m.userId === userInformation.id && m.isCoordinator)) {
+            let shouldSetAuthor = false;
+
+            if (!superAdmin.includes(userInformation.rol[0].rol)) {
+                shouldSetAuthor = true;
+                if (members.some(m => m.userId === userInformation.id && m.isCoordinator)) {
+                    shouldSetAuthor = false;
+                }
+            }
+
+            if (shouldSetAuthor) {
                 filters.author = userInformation.id;
-            }            
+            }           
             queryParameters(params, filters);
         }
         const callAPI = async () => {
