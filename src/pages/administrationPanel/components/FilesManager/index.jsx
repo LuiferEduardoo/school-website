@@ -31,7 +31,7 @@ const FilesManager = (props) => {
                 setUpdatePage: props.setUpdatePage
                 }} 
             >
-                <section className="grid grid-cols-1 gap-4">
+                <section className="grid grid-cols-1 gap-4 w-full">
                     <SelectionPanel />
                     <ViewFiles />
                     <FullScreenFile />

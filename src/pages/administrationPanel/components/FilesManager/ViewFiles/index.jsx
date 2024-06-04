@@ -7,7 +7,7 @@ const ViewFiles = (props) => {
     const {fileType} = useContext(FilesManagerContext);
 
     return (
-        <section className={`grid grid-cols-1 sm:grid-cols-5 gap-4`}>
+        <section className={`grid grid-cols-1 sm:grid-cols-3 gap-4`}>
             {fileType === 'image' ? (
                 <Image/>
             ) : (

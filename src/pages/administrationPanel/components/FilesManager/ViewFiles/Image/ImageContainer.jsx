@@ -2,10 +2,12 @@ import React, { useContext, useState, useEffect } from "react";
 import Icons from "./Icons";
 import { AuthContext } from "../../../../../../providers/AuthContext";
 import { getFile } from "../../../../../../services/files.service";
+import { Skeleton } from "@nextui-org/react";
 
 const ImageContainer = (props) => {
     const {accessToken, setAccessToken, refreshToken, setRefreshToken} = useContext(AuthContext);
     const [showIcon, setShowIcon] = useState(false); 
+    const [isLoading, setIsLoading] = useState(true);
     const [imageBlob, setImageBlob] = useState(null);
 
     const handleToggleClick = (index) => {
@@ -15,10 +17,13 @@ const ImageContainer = (props) => {
     useEffect(() => {
         const fetchImage = async () => {
             try {
-                const response = await getFile(accessToken, setAccessToken, refreshToken, setRefreshToken, props.file.url, props.file.isPublic)
-                setImageBlob(response); // Establecer el Blob de imagen en el estado
+                if(!props.file.isPublic){
+                    setIsLoading(true)
+                    const response = await getFile(accessToken, setAccessToken, refreshToken, setRefreshToken, props.file.url, props.file.isPublic)
+                    setImageBlob(response); // Establecer el Blob de imagen en el estado
+                }
             } finally{
-
+                setIsLoading(false);
             }
         };
         fetchImage();
@@ -26,14 +31,16 @@ const ImageContainer = (props) => {
 
 
     return (
-        imageBlob && (
+        isLoading ? (
+            <Skeleton className="w-full h-full"/>
+        ) : (
             <article className={`relative inline-block max-w-xs max-h-xs overflow-hidden`}
                 onMouseEnter={() => setShowIcon(true)}
                 onMouseLeave={() => setShowIcon(false)}
             >
                 <section className={`${props.selectedKeys.has(props.file.id) ? 'shadow-md bg-blue-100' : ''}`}>
                     <img
-                        src={URL.createObjectURL(imageBlob)}
+                        src={props.file.isPublic ? props.file.url : URL.createObjectURL(imageBlob)}
                         alt={props.file.name}
                         loading="lazy"
                         className={`object-cover max-w-full max-h-full cursor-pointer rounded transition-transform transform ${props.selectedKeys.has(props.file.id) ? 'transform-clickIconSelect' : ''}`}
@@ -48,6 +55,7 @@ const ImageContainer = (props) => {
                 />
             </article>
         )
+        
     )
 }
 

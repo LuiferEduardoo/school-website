@@ -23,30 +23,35 @@ const File = React.memo((props) => {
     const Component = COMPONENTS_MAP[getFileCategory(file?.fileType)];
 
     const {accessToken, setAccessToken, refreshToken, setRefreshToken} = useContext(AuthContext);
-    const [fileBlob, setFileBlob] = useState(null);
+    const [fileURL, setFileURL] = useState(null);
     const [isLoading, setIsLoading] = useState(true); 
 
     useEffect(() => {
-        const fetchImage = async () => {
+        const fetchFile = async () => {
             if(!updatePage){
                 try {
-                    setIsLoading(true);
-                    const response = await getFile(accessToken, setAccessToken, refreshToken, setRefreshToken, file.url, file.isPublic)
-                    setFileBlob(response); // Establecer el Blob de imagen en el estado
+                    if((file.fileType === 'image/webp') && !file.isPublicc){
+                        setFileURL(file.url);
+                    } else if(file.fileType === 'application/pdf'){
+                        setFileURL(file.url);
+                    } else {
+                        setIsLoading(true);
+                        const response = await getFile(accessToken, setAccessToken, refreshToken, setRefreshToken, file.url, file.isPublic)
+                        setFileURL(response); // Establecer el Blob de imagen en el estado
+                    }
                 } finally{
                     setIsLoading(false)
                 }
             }
         };
-        fetchImage();
-    }, [updatePage]);
+        fetchFile();
+    }, [updatePage, file]);
     return (
-        (isLoading && updatePage) ? (
+        (isLoading || updatePage) ? (
             <CircularProgress size="lg" aria-label="Loading..."/>
         ) : (
             <Component 
-                url={file.url}
-                blob={fileBlob && URL.createObjectURL(fileBlob)} 
+                url={fileURL}
                 alt={file.name}
                 extent={file.ext}
                 isPublic={file.isPublic}
