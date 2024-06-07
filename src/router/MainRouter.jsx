@@ -1,9 +1,11 @@
-import Header from "../components/Header"
+import Header from "../components/Header";
+import Footer from "../components/Footer";
 
 const MainRouter = () => {
     return (
         <>
             <Header />
+            <Footer />
         </>
     )
 }

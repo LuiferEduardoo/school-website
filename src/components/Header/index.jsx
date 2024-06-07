@@ -17,7 +17,7 @@ const Header = () => {
             isMenuOpen: isMenuOpen,
             setIsMenuOpen: setIsMenuOpen
         }}>
-            <header className="fixed top-0 w-full h-auto shadow-md z-50 bg-white">
+            <header className="header w-full h-auto shadow-md bg-white">
                 <HeaderTop />
                 <Nav />
             </header>
