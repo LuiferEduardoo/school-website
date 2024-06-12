@@ -39,6 +39,7 @@ const MultiStep = (props) => {
                 isDisabledNext={props.isDisabledNext}
                 isDisabledAction={props.isDisabledAction}
                 isLoading={props.isLoading}
+                hasPreview={props.hasPreview}
             />
         </div>
     )

@@ -9,7 +9,7 @@ const ButtonsComponent = (props) => {
                 {props.step !== props.fields.length && <Button color="primary" isDisabled={props.isDisabledNext}  variant="flat" onPress={props.handleNext}>Siguiente</Button>}
             </div>
             <div>
-                {props.step === props.fields.length && <Buttons onOpen={props.onOpen} isDisabledAction={props.isDisabledAction} edit={props.edit} handleAction={props.handleAction} isLoading={props.isLoading} />}
+                {props.step === props.fields.length && <Buttons onOpen={props.onOpen} isDisabledAction={props.isDisabledAction} edit={props.edit} handleAction={props.handleAction} isLoading={props.isLoading} hasPreview={props.hasPreview} />}
             </div>
         </div>
     )

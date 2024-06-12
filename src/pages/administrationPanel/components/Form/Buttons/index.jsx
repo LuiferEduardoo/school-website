@@ -3,7 +3,9 @@ import { Button } from "@nextui-org/react";
 const Buttons = (props) => {
     return (
         <div className="flex gap-4">
-            <Button variant="flat" onPress={props.onOpen}>Previsualizar</Button>
+            {props.hasPreview && (
+                <Button variant="flat" onPress={props.onOpen}>Previsualizar</Button>
+            )}
             <Button 
                 color="primary" 
                 isDisabled={props.isDisabledAction} 

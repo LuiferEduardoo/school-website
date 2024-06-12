@@ -202,6 +202,7 @@ const FormPublications = (props) => {
                 isLoading={isLoading}
                 step={step}
                 setStep={setStep}
+                hasPreview
                 style='flex flex-col gap-4'
             />
 
