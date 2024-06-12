@@ -14,7 +14,7 @@ const InformationAdmissions = () => {
             try {
                 setIsLoading(true);
                 const response = await getBanners(null, null, null, null, "BannersAdmissions", true);
-                setImages(response.length === 0 ? null : response);
+                setImages(response.length === 0 ? null : response.map(banner => banner.imageBanner.image.file));
             } finally{
                 setIsLoading(false);
             }
@@ -29,7 +29,7 @@ const InformationAdmissions = () => {
                 <meta name="description" content="Conoce el proceso de admisiones de nuestra escuela. Descubre los requisitos, fechas importantes y cómo aplicar para formar parte de nuestra comunidad educativa." />
             </Helmet>
             <Banners 
-                height="h-[30rem]"
+                height="h-[25rem]"
                 slides={images}
                 isLoading={isLoading}
             />
