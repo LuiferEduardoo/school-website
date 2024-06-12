@@ -1,7 +1,7 @@
 const API_URL = import.meta.env.VITE_API;
 import { authorizedRequest } from './auth.service';
 
-const getAllBanners = async (accessToken, setAccessToken, refreshToken, setRefreshToken,)  => {
+const getAllBanners = async (accessToken, setAccessToken, refreshToken, setRefreshToken)  => {
     const config = {
         method: 'get',
         url: `${API_URL}/banner`,
@@ -12,14 +12,18 @@ const getAllBanners = async (accessToken, setAccessToken, refreshToken, setRefre
     return await authorizedRequest(config, setAccessToken, refreshToken, setRefreshToken);
 }
 
-const getBanners = async (accessToken, setAccessToken, refreshToken, setRefreshToken, banner) => {
+const getBanners = async (accessToken, setAccessToken, refreshToken, setRefreshToken, banner, withoutToken) => {
+    const headers = !withoutToken ? {
+        headers: {
+            Authorization: `Bearer ${accessToken}`
+        }
+    } : {};
     const config = {
         method: 'get',
         url: `${API_URL}/banner/${banner}`,
-        headers: {
-            Authorization: `Bearer ${accessToken}`
-        },
+        ...headers
     };
+
     return await authorizedRequest(config, setAccessToken, refreshToken, setRefreshToken);
 }
 

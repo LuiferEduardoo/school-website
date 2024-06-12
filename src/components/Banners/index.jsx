@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Skeleton } from '@nextui-org/react';
 import slidesArray from './slidesArray'
 import Image from './Image';
 import ScrollButtons from './ScrollButtons';
@@ -17,21 +18,27 @@ const Banners = (props) => {
 
     return (
         <section className={`w-full ${props.height ? props.height : 'h-[780px]' } relative group`}>
-            <Image 
-                styleImage={props.styleImage}
-                slides={slides} 
-                currentIndex={currentIndex}
-            />
-            <ScrollButtons
-                slides={slides} 
-                currentIndex={currentIndex}
-                setCurrentIndex={setCurrentIndex}
-            />
-            <Position 
-                slides={slides} 
-                currentIndex={currentIndex}
-                setCurrentIndex={setCurrentIndex}
-            />
+            {props.isLoading ? (
+                <Skeleton className="w-full h-full"/>
+            ) : (
+                <>
+                    <Image 
+                        styleImage={props.styleImage}
+                        slides={slides} 
+                        currentIndex={currentIndex}
+                    />
+                    <ScrollButtons
+                        slides={slides} 
+                        currentIndex={currentIndex}
+                        setCurrentIndex={setCurrentIndex}
+                    />
+                    <Position 
+                        slides={slides} 
+                        currentIndex={currentIndex}
+                        setCurrentIndex={setCurrentIndex}
+                    />
+                </>
+            )}
         </section>
     )
 }
