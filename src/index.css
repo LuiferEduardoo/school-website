@@ -79,3 +79,31 @@
   top: 0;
   z-index: 1001;
 }
+
+/* Collapsible */
+.collapsible {
+  margin-bottom: 10px;
+}
+
+.collapsible-header {
+  cursor: pointer;
+  border: none;
+  text-align: left;
+  outline: none;
+  font-size: 16px;
+  width: 100%;
+}
+
+.collapsible-content {
+  overflow: hidden;
+  transition: height 0.3s ease;
+  height: 0;
+}
+
+.collapsible-content-inner {
+  padding: 10px;
+}
+
+.z-50 {
+  z-index: 1002 !important;
+}
