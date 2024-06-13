@@ -21,6 +21,13 @@ const Content = ({files, setExistingFiles, setNewFiles, setIdEliminateExistingFi
             });
         }
     };
+
+    const acortName = (name) => {
+        return name.length > 10 
+            ? `${name.slice(0, 10)}...${name.split('.').pop()}` 
+            : name
+    }
+    
     return (
         <>
             {files.map((file, index) => (
@@ -30,12 +37,12 @@ const Content = ({files, setExistingFiles, setNewFiles, setIdEliminateExistingFi
                             {typeFile === 'image' ?
                                 <>
                                     <img
-                                        src={isImageByElement(file) ? URL.createObjectURL(file) : file.url}
+                                        src={isImageByElement(file) ? URL.createObjectURL(file) : file.file.url}
                                         alt={`Preview ${index + 1}`}
                                         className="w-6 h-6 object-cover mr-2 rounded"
                                     />
                                     <p className='text-sm text-gray-400'>
-                                        {`${file.name.slice(0, 10)}...${file.name.split('.').pop()}`}
+                                        {file.name ? acortName(file.name) : acortName(file.file.name)}
                                     </p>
                                 </> : 
                                 <>
