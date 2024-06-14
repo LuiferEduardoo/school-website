@@ -44,7 +44,7 @@ const Form = (props) => {
     const [isDisabledAction, setIsDisabledAction] = useState(false);
     const [step, setStep] = useState(1);
     const image = images.concat(newImage);
-    const urlImage = image?.[0] && isImageByElement(image[0]) ? URL.createObjectURL(image[0]) : image[0]?.url
+    const urlImage = image?.[0] && isImageByElement(image[0]) ? URL.createObjectURL(image[0]) : image[0]?.file?.url
 
     useEffect(() => {
         if(props.edit){
