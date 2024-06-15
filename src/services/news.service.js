@@ -1,13 +1,17 @@
 const API_URL = import.meta.env.VITE_API;
 import { authorizedRequest } from './auth.service';
 
-const getNews = async (accessToken, setAccessToken, refreshToken, setRefreshToken, id, params,) => {
+const getNews = async (accessToken, setAccessToken, refreshToken, setRefreshToken, id, params, withoutToken) => {
+    const headers = !withoutToken ? {
+        headers: {
+            Authorization: `Bearer ${accessToken}`
+        }
+    } : {};
+
     const config = {
         method: 'get',
         url: `${API_URL}/news${id ? `/${id}` : ''}`,
-        headers: {
-            Authorization: `Bearer ${accessToken}`
-        },
+        headers,
         params: params
     };
     return await authorizedRequest(config, setAccessToken, refreshToken, setRefreshToken);
