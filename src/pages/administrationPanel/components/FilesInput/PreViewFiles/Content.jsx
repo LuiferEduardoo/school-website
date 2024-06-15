@@ -37,7 +37,7 @@ const Content = ({files, setExistingFiles, setNewFiles, setIdEliminateExistingFi
                             {typeFile === 'image' ?
                                 <>
                                     <img
-                                        src={isImageByElement(file) ? URL.createObjectURL(file) : file.file.url}
+                                        src={isImageByElement(file) ? URL.createObjectURL(file) : file?.file?.url ? file?.file?.url : file?.url}
                                         alt={`Preview ${index + 1}`}
                                         className="w-6 h-6 object-cover mr-2 rounded"
                                     />
