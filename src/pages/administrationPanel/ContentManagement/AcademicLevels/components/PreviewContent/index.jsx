@@ -1,28 +1,18 @@
-import HeaderSection from "./HeaderSection"
-import DescriptionWithImage from "./DescriptionWithImage"
-import Content from "./Content"
+import AcademicLevels from "../../../../../../components/AcademicLevels";
 
-const PreviewContent = ({nameLevel=null, levelCode=null, image=null, description=null, educationalDay=null, campus=null, modality=null, educationObjectives=null, admissionRequirements=null}) => {
+const PreviewContent = (props) => {
     return (
-        <>
-            <HeaderSection 
-                nameLevel={nameLevel}
-                levelCode={levelCode}
-            />
-            <DescriptionWithImage 
-                nameLevel={nameLevel}
-                description={description}
-                image={image}
-            />
-            <Content
-                nameLevel={nameLevel}
-                modality={modality}
-                educationalDay={educationalDay}
-                campus={campus}
-                educationObjectives={educationObjectives}
-                admissionRequirements={admissionRequirements}
-            />
-        </>
+        <AcademicLevels 
+            nameLevel={props?.nameLevel}
+            levelCode={props?.levelCode}
+            image={props?.image}
+            description={props?.description}
+            educationalDay={props?.educationalDay}
+            campus={props?.campus}
+            modality={props?.modality}
+            educationObjectives={props?.educationObjectives}
+            admissionRequirements={props?.admissionRequirements}
+        />
     )
 }
 

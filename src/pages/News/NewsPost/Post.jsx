@@ -56,7 +56,7 @@ const Post = () => {
                     </Helmet>
                     <Publications
                         title={news.publication.title}
-                        imageUrl={news.imageNews[0].image.file.url}
+                        imageUrl={news.imageNews[0].image.file}
                         imageName={news.imageNews[0].image.file.name}
                         content={news.publication.content}
                         createdAt={news.publication.createdAt}

@@ -1,11 +1,9 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { useDisclosure} from "@nextui-org/react";
-import { isImageByElement } from '../../../../../components/FilesInput/PreViewFiles';
 import { MultiStep } from '../../../../../components/Form';
 import { Image, Classifications, StatusAndFixation, MemberOrAuthor } from '../../../../components/Form';
 import InformationBasic from './InformationBasic';
 import { toast } from 'sonner';
-import moment from 'moment';
 import dateConvert from '../../../../../../../utils/dateConvert';
 import InstitutionalProyectsContent from '../../../../../../../components/InstitutionalProjects';
 import Preview from '../../../../components/Preview';
@@ -50,7 +48,6 @@ const InstitutionalProjects = (props) => {
     const [isDisabledAction, setIsDisabledAction] = useState(false);
     const [step, setStep] = useState(1);
     const image = images.concat(newImage);
-    const urlImage = image?.[0] && isImageByElement(image[0]) ? URL.createObjectURL(image[0]) : image[0]?.file?.url
 
     const [isLoading, setIsLoading] = useState(false);
 
@@ -217,7 +214,7 @@ const InstitutionalProjects = (props) => {
                     onClose={onClose}
                 >
                     <InstitutionalProyectsContent 
-                        image={urlImage}
+                        image={image[0]}
                         title={title}
                         content={content}
                     />

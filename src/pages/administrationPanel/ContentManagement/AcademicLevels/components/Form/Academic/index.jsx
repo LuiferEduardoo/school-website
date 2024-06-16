@@ -163,7 +163,7 @@ const Academic = (props) => {
                     <PreviewContent 
                         nameLevel={name}
                         levelCode={code}
-                        image={image}
+                        image={image[0]}
                         description={description}
                         educationalDay={valueEducationalDay}
                         campus={valueCampus}

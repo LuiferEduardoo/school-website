@@ -1,6 +1,5 @@
 import React, { useContext, useState, useEffect } from 'react';
 import { useDisclosure} from "@nextui-org/react";
-import { isImageByElement } from './../../../../components/FilesInput/PreViewFiles'
 import {InformationBasicPublications, StatusAndFixation} from '../../../components/Form';
 import { Image, Classifications } from '../../../components/Form';
 import { MultiStep } from '../../../../components/Form';
@@ -44,7 +43,6 @@ const Form = (props) => {
     const [isDisabledAction, setIsDisabledAction] = useState(false);
     const [step, setStep] = useState(1);
     const image = images.concat(newImage);
-    const urlImage = image?.[0] && isImageByElement(image[0]) ? URL.createObjectURL(image[0]) : image[0]?.file?.url
 
     useEffect(() => {
         if(props.edit){
@@ -184,7 +182,7 @@ const Form = (props) => {
                     onClose={onClose}
                 >
                     <Publications 
-                        imageUrl={urlImage}
+                        imageUrl={image[0]}
                         title={title}
                         content={content}
                     />
