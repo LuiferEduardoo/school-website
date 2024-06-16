@@ -1,6 +1,7 @@
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import { Routes, Route } from "react-router-dom";
+import AcademicLevels from "../pages/AcademicLevels";
 import Admissions from "../pages/Admissions";
 import News from "../pages/News";
 import Contact from "../pages/Contact";
@@ -11,6 +12,7 @@ const MainRouter = () => {
         <>
             <Header />
             <Routes>
+                <Route path="/niveles-academicos/*" element={<AcademicLevels />}/>
                 <Route path="/admisiones/*" element={<Admissions />} />
                 <Route path="/noticias/*" element={<News/>}/>
                 <Route path="/contacto" element={<Contact />} />
