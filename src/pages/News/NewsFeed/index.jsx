@@ -1,19 +1,12 @@
 import { useEffect, useState } from "react";
 import { Helmet } from "react-helmet";
-import { getNews } from "../../../services/news.service";
 import { getBanners } from "../../../services/banners.service";
 import Banners from "../../../components/Banners";
-import NewsPreview from "./NewsPreview";
-import { Skeleton, Pagination } from "@nextui-org/react";
+import NewsPreview from "./NewsPreview"
 
 const NewsFeed = () => {
-    const [news, setNews] = useState([]);
     const [images, setImages] = useState(null);
     const [isLoadingNBanner, setIsLoadingBanner] = useState(true);
-    const [isLoadingNews, setIsLoadingNews] = useState(true);
-
-    const [offset, setOffset] = useState(1);
-    const [totalPage, setTotalPage] = useState(1);
 
     useEffect(() => {
         const callToAPI = async () => {
@@ -40,31 +33,6 @@ const NewsFeed = () => {
         callToAPI();
     }, []);
 
-    useEffect(() => {
-        const callToAPI = async () => {
-            try {
-                setIsLoadingNews(true);
-                const params = {
-                    offset: offset - 1,
-                };
-                const responseNews = await getNews(
-                    null,
-                    null,
-                    null,
-                    null,
-                    null,
-                    params,
-                    true
-                );
-                setTotalPage(responseNews.totalPages);
-                setNews(responseNews.elements);
-            } finally {
-                setIsLoadingNews(false);
-            }
-        };
-        callToAPI();
-    }, [offset]);
-
     return (
         <main className="bg-gray-100">
             <Helmet>
@@ -82,37 +50,7 @@ const NewsFeed = () => {
             <h1 className="text-3xl font-bold tracking-tighter text-center md:text-4xl/tight mt-10">
                 Noticias
             </h1>
-            <>
-                <section className="px-8 py-10 grid grip-cols-1 lg:grid-cols-3 gap-4">
-                    {isLoadingNews
-                        ? [...Array(8)].map((_, index) => (
-                            <Skeleton
-                                className="w-full h-[26rem] rounded-md"
-                                key={index}
-                            />
-                        ))
-                        : news.map((n) => (
-                            <NewsPreview
-                                key={n.id}
-                                image={n.imageNews[0].image.file.url}
-                                title={n.publication.title}
-                                content={n.publication.content}
-                                createdAt={n.publication.createdAt}
-                                link={n.publication.link}
-                            />
-                        ))}
-                </section>
-                <div className="flex justify-end mt-auto">
-                    {totalPage > 1 && (
-                        <Pagination
-                            showControls
-                            total={totalPage}
-                            page={offset}
-                            onChange={setOffset}
-                        />
-                    )}
-                </div>
-            </>
+            <NewsPreview/>
         </main>
     );
 };

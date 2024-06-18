@@ -1,34 +1,71 @@
-import React from 'react';
-import moment from 'moment';
-import 'moment/locale/es'; // Importa el locale español para moment
+import { useEffect, useState } from "react";
+import { getNews } from "../../../services/news.service";
+import { Skeleton, Pagination } from "@nextui-org/react";
+import PreviewPublications from "../../../components/PreviewPublications";
 
 const NewsPreview = (props) => {
-    const formatDate = (dateString) => {
-        return moment(dateString).locale('es').format('LL'); // Formatea la fecha a "13 de junio de 2024"
-    };
+    const [news, setNews] = useState([]);
+    const [offset, setOffset] = useState(1);
+    const [totalPage, setTotalPage] = useState(1);
+    const [isLoading, setIsLoading] = useState(true);
 
-    const truncateContent = (content) => {
-        const tempElement = document.createElement('div');
-        tempElement.innerHTML = content;
-        const textContent = tempElement.textContent || tempElement.innerText || "";
-        return textContent.length > 59 ? textContent.substring(0, 59) + '...' : textContent;
-    };
+    useEffect(() => {
+        const callToAPI = async () => {
+            try {
+                setIsLoading(true);
+                const params = {
+                    offset: offset - 1,
+                };
+                const responseNews = await getNews(
+                    null,
+                    null,
+                    null,
+                    null,
+                    null,
+                    params,
+                    true
+                );
+                setTotalPage(responseNews.totalPages);
+                setNews(responseNews.elements);
+            } finally {
+                setIsLoading(false);
+            }
+        };
+        callToAPI();
+    }, [offset]);
 
     return (
-        <article className='cursor-pointer w-full bg-white rounded-md h-[26rem]'>
-            <a href={`/noticias/${props.link}`}>
-                <div className="w-full">
-                    <img src={props.image} alt={props.title} className="w-full h-auto object-cover" />
-                </div>
-                <div className="p-3 space-y-3">
-                    <p className="text-xs text-gray-500">{formatDate(props.createdAt)}</p>
-                    <h4 className="text-base font-semibold">{props.title}</h4>
-                    <div className="text-sm	text-gray-500">
-                        {truncateContent(props.content)}
-                    </div>
-                </div>
-            </a>
-        </article>
+        <>
+            <section className="px-8 py-10 grid grip-cols-1 lg:grid-cols-3 gap-4">
+                {isLoading
+                    ? [...Array(8)].map((_, index) => (
+                        <Skeleton
+                            className="w-full h-[26rem] rounded-md"
+                            key={index}
+                        />
+                    ))
+                    : news.map((n) => (
+                        <PreviewPublications
+                            key={n.id}
+                            image={n.imageNews[0].image.file.url}
+                            title={n.publication.title}
+                            content={n.publication.content}
+                            createdAt={n.publication.createdAt}
+                            link={n.publication.link}
+                        />
+                    ))}
+            </section>
+            <div className="flex justify-end mt-auto">
+                {totalPage > 1 && (
+                    <Pagination
+                        showControls
+                        total={totalPage}
+                        page={offset}
+                        onChange={setOffset}
+                    />
+                )}
+            </div>
+        </>
     );
 };
 
