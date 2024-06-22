@@ -4,19 +4,19 @@ import { Helmet } from "react-helmet";
 import { Skeleton } from "@nextui-org/react";
 import { getInstitutionalProyectsPublications } from "../../../../services/institutionalProjectsPublication.service";
 import Publications from "./../../../../components/Publications";
-import PageNotFounde from "./../../../../components/PageNotFounde"
+import PagesError from "../../../../components/PagesError";
 
 const PublicationContent = () => {
     const [publication, setPublication] = useState({});
     const [isLoading, setIsLoading] = useState(true);
-    const [notFound, setNotFound] = useState(false);
+    const [errorPage, setErrorPage] = useState();
 
     const { institituionalProyectPublication } = useParams();
 
     useEffect(() => {
         const callToAPI = async () => {
             try {
-                setNotFound(false)
+                setErrorPage()
                 setIsLoading(true);
                 const params = {
                     link: institituionalProyectPublication,
@@ -24,9 +24,7 @@ const PublicationContent = () => {
                 const response = await getInstitutionalProyectsPublications(null, null, null, null, null, params, null, true);
                 setPublication(response);
             } catch (error) {
-                if (error.response && error.response.status === 404) {
-                    setNotFound(true);
-                }
+                setErrorPage(error.response.status || 500);
             } finally {
                 setIsLoading(false);
             }
@@ -38,7 +36,7 @@ const PublicationContent = () => {
         <main className="w-full h-full py-5">
             {isLoading ? (
                 <Skeleton className="w-full h-[100rem]" />
-            ) : !notFound ? (
+            ) : !errorPage ? (
                 <>
                     <Helmet>
                         <title>{publication.publication.title}</title>
@@ -58,7 +56,9 @@ const PublicationContent = () => {
                     />
                 </>
             ) : (
-                <PageNotFounde />
+                <PagesError 
+                    error={errorPage}
+                />
             )}
         </main>
     )

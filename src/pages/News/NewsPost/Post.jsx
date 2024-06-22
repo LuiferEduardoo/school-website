@@ -4,19 +4,19 @@ import { Helmet } from "react-helmet";
 import { getNews } from "../../../services/news.service";
 import { Skeleton } from "@nextui-org/react";
 import Publications from "./../../../components/Publications";
-import PageNotFounde from "../../../components/PageNotFounde";
+import PagesError from "../../../components/PagesError";
 
 const Post = () => {
     const [news, setNews] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
-    const [notFound, setNotFound] = useState(false);
+    const [errorPage, setErrorPage] = useState();
 
     const { link } = useParams();
 
     useEffect(() => {
         const callToAPI = async () => {
             try {
-                setNotFound(false)
+                setErrorPage()
                 setIsLoading(true);
                 const params = {
                     link,
@@ -32,9 +32,7 @@ const Post = () => {
                 );
                 setNews(response);
             } catch (error) {
-                if (error.response && error.response.status === 404) {
-                    setNotFound(true);
-                }
+                setErrorPage(error.response.status || 500);
             } finally {
                 setIsLoading(false);
             }
@@ -45,7 +43,7 @@ const Post = () => {
         <main className="w-full h-full py-5">
             {isLoading ? (
                 <Skeleton className="w-full h-[100rem]" />
-            ) : !notFound ? (
+            ) : !errorPage ? (
                 <>
                     <Helmet>
                         <title>{news.publication.title}</title>
@@ -64,7 +62,9 @@ const Post = () => {
                     />
                 </>
             ) : (
-                <PageNotFounde />
+                <PagesError 
+                    error={errorPage}
+                />
             )}
         </main>
     );

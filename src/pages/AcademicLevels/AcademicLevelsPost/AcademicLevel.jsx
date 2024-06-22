@@ -4,19 +4,19 @@ import { Helmet } from "react-helmet";
 import { getAcademicLevels } from "../../../services/academicLevels.service";
 import { Skeleton } from "@nextui-org/react";
 import AcademicLevels from "../../../components/AcademicLevels";
-import PageNotFounde from "../../../components/PageNotFounde";
+import PagesError from "../../../components/PagesError";
 
 const AcademicLevel = () => {
     const [academicLevel, setAcademicLevel] = useState({});
     const [isLoading, setIsLoading] = useState(true);
-    const [notFound, setNotFound] = useState(false);
+    const [errorPage, setErrorPage] = useState();
 
     const { id } = useParams();
 
     useEffect(() => {
         const callToAPI = async () => {
             try {
-                setNotFound(false)
+                setErrorPage()
                 setIsLoading(true);
                 const response = await getAcademicLevels(
                     null,
@@ -29,9 +29,7 @@ const AcademicLevel = () => {
                 );
                 setAcademicLevel(response);
             } catch (error) {
-                if (error.response && error.response.status === 404) {
-                    setNotFound(true);
-                }
+                setErrorPage(error.response.status || 500)
             } finally {
                 setIsLoading(false);
             }
@@ -42,7 +40,7 @@ const AcademicLevel = () => {
         <main className="w-full h-full py-5 bg-gray-100">
             {isLoading ? (
                 <Skeleton className="w-full h-[100rem]" />
-            ) : !notFound ? (
+            ) : !errorPage ? (
                 <>
                     <Helmet>
                         <title>{academicLevel.nameLevel}</title>
@@ -65,7 +63,9 @@ const AcademicLevel = () => {
                     />
                 </>
             ) : (
-                <PageNotFounde />
+                <PagesError 
+                    error={errorPage}
+                />
             )}
         </main>
     )

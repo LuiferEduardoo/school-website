@@ -4,29 +4,27 @@ import { Helmet } from "react-helmet";
 import { Skeleton } from "@nextui-org/react";
 import { getInstitutionalProyects } from "../../../../services/institutitionalProjects.service";
 import InstitutionalProyects from "../../../../components/InstitutionalProjects";
-import PageNotFounde from "../../../../components/PageNotFounde";
+import PagesError from "../../../../components/PagesError";
 
 const Post = () => {
     const [institutionalProject, setInstitutionalProject] = useState({});
     const [isLoading, setIsLoading] = useState(true);
-    const [notFound, setNotFound] = useState(false);
+    const [errorPage, setErrorPage] = useState();
 
     const { institituionalProyect } = useParams();
 
     useEffect(() => {
         const callToAPI = async() => {
             try {
+                setErrorPage()
                 setIsLoading(true);
                 const params = {
                     link: institituionalProyect
                 };
                 const response = await getInstitutionalProyects(null, null, null, null, params, null, true);
                 setInstitutionalProject(response);
-                setNotFound(false);
             } catch (error) {
-                if (error.response && error.response.status === 404) {
-                    setNotFound(true);
-                }
+                setErrorPage(error.response.status || 500);
             } finally {
                 setIsLoading(false);
             }
@@ -38,7 +36,7 @@ const Post = () => {
         <main className="w-full h-full">
             {isLoading ? (
                 <Skeleton className="w-full h-[100rem]" />
-            ) : !notFound ? (
+            ) : !errorPage ? (
                 <>
                     <Helmet>
                         <title>Proyecto Institucional - {institutionalProject.title}</title>
@@ -58,7 +56,9 @@ const Post = () => {
                     />
                 </>
             ) : (
-                <PageNotFounde />
+                <PagesError
+                    error={errorPage}
+                />
             )}
         </main>
     )

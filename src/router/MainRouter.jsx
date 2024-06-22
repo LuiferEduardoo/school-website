@@ -7,7 +7,7 @@ import AcademicLevels from "../pages/AcademicLevels";
 import Admissions from "../pages/Admissions";
 import News from "../pages/News";
 import Contact from "../pages/Contact";
-import PageNotFounde from "../components/PageNotFounde";
+import PagesError from "../components/PagesError";
 
 const MainRouter = () => {
     return (
@@ -20,7 +20,7 @@ const MainRouter = () => {
                 <Route path="/admisiones/*" element={<Admissions />} />
                 <Route path="/noticias/*" element={<News/>}/>
                 <Route path="/contacto" element={<Contact />} />
-                <Route path="*" element={<PageNotFounde />} />
+                <Route path="*" element={<PagesError error={404} />} />
             </Routes>
             <Footer />
         </>
