@@ -9,7 +9,14 @@ import { toast } from "sonner";
 const Footer = (props) => {
   const {isReadOnly, idSelectEvent, setIdSelectEvent, setSelectCalendar, isDisable, setIsDisabled, setIsUpdatePageCalendar, onClose} = useContext(CalendarContext);
 
-  const {accessToken, setAccessToken, refreshToken, setRefreshToken} = useContext(AuthContext);
+  const authContext = useContext(AuthContext);
+
+    const {
+      accessToken = null,
+      setAccessToken = null,
+      refreshToken = null,
+      setRefreshToken = null
+    } = authContext || {};
 
   const [dataToUpdate, setDataToUpdate] = useState(false);
   const [isDifferent, setIsDifferent] = useState(false);

@@ -14,9 +14,16 @@ const localizer = momentLocalizer(moment);
 
 const CalendarComponent = (props) => {
     const {isReadOnly, onOpen, setSelectCalendar, isUpdatePageCalendar, setIsUpdatePageCalendar, setIdSelectEvent, withoutToken } = useContext(CalendarContext);
-    const {accessToken, setAccessToken, refreshToken, setRefreshToken} = useContext(AuthContext);
+    const authContext = useContext(AuthContext);
     const [calendar, setCalendar] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
+
+    const {
+        accessToken = null,
+        setAccessToken = null,
+        refreshToken = null,
+        setRefreshToken = null
+    } = authContext || {};
 
     useEffect(() => {
         const callToAPI = async() => {

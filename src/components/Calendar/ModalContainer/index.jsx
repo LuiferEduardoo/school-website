@@ -12,7 +12,14 @@ import Footer from './Footer';
 const ModalContainer = (props) => {
     const { isOpen, onClose, idSelectEvent, selectCalendar, isReadOnly, withoutToken } = useContext(CalendarContext);
 
-    const {accessToken, setAccessToken, refreshToken, setRefreshToken} = useContext(AuthContext)
+    const authContext = useContext(AuthContext);
+
+    const {
+        accessToken = null,
+        setAccessToken = null,
+        refreshToken = null,
+        setRefreshToken = null
+    } = authContext || {};
     
     const [calendar, setCalendar] = useState({});
 
