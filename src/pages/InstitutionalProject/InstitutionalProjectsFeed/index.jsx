@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Helmet } from "react-helmet";
 import { getBanners } from "../../../services/banners.service";
 import Banners from "../../../components/Banners";
-import InstitutionalProyectsPreview from "./InstitutionalProyectsPreview"
+import InstitutionalProyectsPreview from "../../../components/InstitutionalProyectsPreview"
 
 const InstitutionalProjectsFeed = () => {
     const [imageBanner, setImageBanner] = useState([]);

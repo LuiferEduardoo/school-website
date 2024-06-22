@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import truncateContent from "../../../../utils/truncateContent";
+import truncateContent from "../../utils/truncateContent";
 
 const Content = (props) => {
     return (
