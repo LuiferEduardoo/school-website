@@ -40,7 +40,7 @@ const InstitutionalProjectsPublicationsPreview = () => {
                             institutional,
                             params,
                             null,
-                            withoutToken
+                            true
                         );
                     setInstitutionalProjectsPublications((prev) => [
                         ...prev,
