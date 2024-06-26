@@ -1,5 +1,5 @@
 import React from "react";
-import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
+import { MapContainer, TileLayer } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import dataMarket from "./dataMarket";
 import MarketComponent from "./Marker";
@@ -27,13 +27,9 @@ const Maps = () => {
                 url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                 attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
             />
-            {dataMarket.map((market, index) => (
-                <MarketComponent 
-                    key={index}
-                    geometry={market.geometry}
-                    description={market.description}
-                />
-            ))}
+            <MarketComponent 
+                locations={dataMarket}
+            />
         </MapContainer>
     );
 };

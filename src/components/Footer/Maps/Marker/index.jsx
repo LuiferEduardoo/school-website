@@ -2,11 +2,18 @@ import { Marker, Popup } from "react-leaflet";
 
 const MarketComponent = (props) => {
     return (
-        <Marker position={props.geometry}>
-            <Popup>
-                {props.description}
-            </Popup>
-        </Marker>
+        <>
+            {props.locations.map((location, index) => (
+                <Marker
+                    key={index}
+                    position={location.geometry}
+                >
+                    <Popup>
+                        {location.description}
+                    </Popup>
+                </Marker>
+            ))}
+        </>
     );
 };
 

@@ -1,10 +1,10 @@
 export default [
     {
-        description: "Sede 1: María Inmaculada",
-        geometry: [10.494842959637268, -75.12345522020786]
+        geometry: [10.494842959637268, -75.12345522020786],
+        description: "Sede 1: María Inmaculada"
     },
     {
-        description: "Sede 2: María Auxiliadora",
-        geometry: [10.495634, -75.128526]
+        geometry: [10.495634, -75.128526],
+        description: "Sede 2: María Auxiliadora"
     }
 ]
