@@ -6,7 +6,6 @@ export const HeaderContext = createContext();
 
 const Header = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
-
     const toggleMenu = () => {
         setIsMenuOpen(!isMenuOpen);
     };
