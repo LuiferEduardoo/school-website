@@ -48,7 +48,7 @@ const Post = () => {
                     <InstitutionalProyects
                         id={institutionalProject.id}
                         title={institutionalProject.title}
-                        image={institutionalProject.ImageInstitutionalProjects[0].image.file.url}
+                        image={institutionalProject.ImageInstitutionalProjects[0].image.file}
                         imageName={institutionalProject.ImageInstitutionalProjects[0].image.file.name}
                         content={institutionalProject.content}
                         coordinators={institutionalProject.members.filter(member => member.isCoordinator === true)}

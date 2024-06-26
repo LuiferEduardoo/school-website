@@ -1,3 +1,5 @@
+import { isImageByElement } from "../../pages/administrationPanel/components/FilesInput/PreViewFiles";
+
 const Information = (props) => {
     return (
         <section className="container px-4 md:px-6">
@@ -8,7 +10,13 @@ const Information = (props) => {
                     }`}
                     className="mx-auto aspect-video overflow-hidden rounded-xl object-cover object-center sm:w-full lg:order-last"
                     height="310"
-                    src={props?.image}
+                    src={
+                        isImageByElement(props.image)
+                            ? URL.createObjectURL(props.image)
+                            : props.image?.file?.url
+                            ? props.image.file.url
+                            : props.image.url
+                    }
                     width="550"
                 />
                 <div className="flex flex-col justify-center space-y-4">
@@ -24,7 +32,7 @@ const Information = (props) => {
                 </div>
             </div>
         </section>
-    )
+    );
 };
 
-export default Information
+export default Information;
