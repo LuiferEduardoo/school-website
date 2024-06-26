@@ -10,8 +10,14 @@ import { rows, columns, optionsFilter } from './data'
 import ModalContainer from './ModalContainer';
 
 const Subject = () => {
-    const {academicLevel} = useContext(ScheduleContext)
-    const { accessToken, setAccessToken, refreshToken, setRefreshToken } = useContext(AuthContext);
+    const {academicLevel} = useContext(ScheduleContext);
+    const authContext = useContext(AuthContext);
+    const {
+        accessToken = null,
+        setAccessToken = null,
+        refreshToken = null,
+        setRefreshToken = null
+    } = authContext || {};
 
     const [selectedKeys, setSelectedKeys] = React.useState(new Set([]));
     const [updatePage, setUpdatepage] = useState(false);

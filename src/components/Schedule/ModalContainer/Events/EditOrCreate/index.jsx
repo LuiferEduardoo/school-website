@@ -11,7 +11,13 @@ import moment from 'moment';
 
 const EditOrCreate = (props) => {
     const {select, idScheduleSelect, academicLevel, course, onClose} = useContext(ScheduleContext);
-    const {accessToken, setAccessToken, refreshToken, setRefreshToken} = useContext(AuthContext)
+    const authContext = useContext(AuthContext);
+    const {
+        accessToken = null,
+        setAccessToken = null,
+        refreshToken = null,
+        setRefreshToken = null
+    } = authContext || {};
     const [isDisabled, setIsDisabled] = useState(true);
     const [isLoading, setIsLoading] = useState(false);
 

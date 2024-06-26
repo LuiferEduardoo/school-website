@@ -6,7 +6,13 @@ import { getCourses } from "../../../services/course.service";
 import { Select, SelectItem } from "@nextui-org/react";
 
 const Selects = () => {
-  const {accessToken, setAccessToken, refreshToken, setRefreshToken} = useContext(AuthContext);
+  const authContext = useContext(AuthContext);
+  const {
+    accessToken = null,
+    setAccessToken = null,
+    refreshToken = null,
+    setRefreshToken = null
+  } = authContext || {};
   const {academicLevel, setAcademicLevel, course, setCourse, withoutToken} = useContext(ScheduleContext);
   const [isLoadingAcademic, setIsLoadingAcademic] = useState(true);
   const [isLoadingCourse, setIsLoadingCourse] = useState(false);

@@ -15,7 +15,13 @@ moment.locale('es'); // Configura moment para usar el locale español
 
 const ScheduleComponent = (props) => {
   const {isReadOnly, course, setSelect, setIdScheduleSelect, setClickButton, onOpen, withoutToken, updatePageSchedule, setUpdatePageSchedule} = useContext(ScheduleContext);
-  const {accessToken, setAccessToken, refreshToken, setRefreshToken} = useContext(AuthContext);
+  const authContext = useContext(AuthContext);
+  const {
+    accessToken = null,
+    setAccessToken = null,
+    refreshToken = null,
+    setRefreshToken = null
+  } = authContext || {};
   const [events, setEvents] = useState([]);
   const [timeRange, setTimeRange] = useState(flexible);
 
