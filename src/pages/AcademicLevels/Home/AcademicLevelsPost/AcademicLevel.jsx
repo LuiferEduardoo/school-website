@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { Helmet } from "react-helmet";
-import { getAcademicLevels } from "../../../services/academicLevels.service";
+import { getAcademicLevels } from "../../../../services/academicLevels.service";
 import { Skeleton } from "@nextui-org/react";
-import AcademicLevels from "../../../components/AcademicLevels";
-import PagesError from "../../../components/PagesError";
+import AcademicLevels from "../../../../components/AcademicLevels";
+import PagesError from "../../../../components/PagesError";
 
 const AcademicLevel = () => {
     const [academicLevel, setAcademicLevel] = useState({});

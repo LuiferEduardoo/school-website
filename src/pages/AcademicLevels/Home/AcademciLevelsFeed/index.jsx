@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Helmet } from "react-helmet";
-import Banners from "../../../components/Banners";
-import { getBanners } from "../../../services/banners.service";
+import Banners from "../../../../components/Banners";
+import { getBanners } from "../../../../services/banners.service";
 import AcademicLevelsPreview from "./AcademicLevelsPreview";
 
 const AcademicLevelsFeed = () => {

@@ -1,13 +1,13 @@
 import { Routes, Route } from "react-router-dom";
-import AcademicLevelsFeed from "./AcademciLevelsFeed";
-import AcademicLevelsPost from "./AcademicLevelsPost";
+import Home from "./Home";
+import Schedule from "./Schedule";
 
 
 const AcademicLevels = () => {
     return (
         <Routes>
-            <Route path="/" element={<AcademicLevelsFeed />} />
-            <Route path="/:id" element={<AcademicLevelsPost />} />
+            <Route path="/*" element={<Home />} />
+            <Route path="/horario" element={<Schedule />} />
         </Routes>
     )
 }

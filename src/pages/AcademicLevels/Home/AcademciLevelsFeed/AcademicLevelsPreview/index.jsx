@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { getAcademicLevels } from "../../../../services/academicLevels.service";
+import { getAcademicLevels } from "../../../../../services/academicLevels.service";
 import SkeletonComponent from "./Skeleton";
 import Content from "./Content";
 
