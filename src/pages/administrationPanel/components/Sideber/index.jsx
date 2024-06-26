@@ -8,14 +8,14 @@ const Sideber = () => {
     const [showScrool, setShowScrool] = useState(false);
 
     return (
-        <div className={`bg-white h-full p-8 border-r fixed lg:static w-[80%] md:w-[50%] lg:w-full transition-all z-50 duration-300 ${
-            showSideber ? "left-0" : "-left-full"
-        } ${showScrool ? "overflow-y-auto" : "overflow-hidden"}`}>
-            <div
-                className="h-[40vh]"
-                onMouseEnter={() => setShowScrool(true)}
-                onMouseLeave={() => setShowScrool(false)}
-            >
+        <div
+            className={`bg-white h-full p-8 border-r fixed lg:static w-[80%] md:w-[50%] lg:w-full transition-all z-50 duration-300 ${
+                showSideber ? "left-0" : "-left-full"
+            } ${showScrool ? "overflow-y-auto" : "overflow-hidden"}`}
+            onMouseEnter={() => setShowScrool(true)}
+            onMouseLeave={() => setShowScrool(false)}
+        >
+            <div className="h-[40vh]">
                 <ProfileInformation />
                 <Nav />
             </div>
