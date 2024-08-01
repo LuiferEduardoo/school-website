@@ -24,26 +24,28 @@ const InstitutionalProjectsPublicationsPreview = () => {
                     null,
                     true
                 );
-                const projectIds = response.elements.map(
-                    (institutional) => institutional.id
-                );
+                const projects = response.elements;
+
                 const params = {
                     important: true,
                     limit: 3
                 };
                 const allPublications = [];
                 
-                for (const institutional of projectIds) {
+                for (const project of projects) {
                     const publications = await getInstitutionalProyectsPublications(
                         null,
                         null,
                         null,
                         null,
-                        institutional,
+                        project.id,
                         params,
                         null,
                         true
                     );
+                    publications.elements.forEach(publication => {
+                        publication.InstitutionalProjectLink = project.link;
+                    });
                     allPublications.push(...publications.elements);
                 }
         
@@ -73,7 +75,7 @@ const InstitutionalProjectsPublicationsPreview = () => {
                             : institutionalProjectsPublications.map((publication) => (
                                 <PreviewPublications
                                     key={publication.id}
-                                    link={`proyectos-institucionales/${publication.InstitutionalProjectId}/${publication?.publication?.link}`}
+                                    link={`proyectos-institucionales/${publication.InstitutionalProjectLink}/${publication?.publication?.link}`}
                                     title={publication?.publication?.title}
                                     image={
                                         publication

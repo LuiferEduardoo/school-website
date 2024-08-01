@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import { Helmet } from "react-helmet";
 import { Skeleton } from "@nextui-org/react";
 import { getInstitutionalProyectsPublications } from "../../../../services/institutionalProjectsPublication.service";
+import { getInstitutionalProyects } from "../../../../services/institutitionalProjects.service";
 import Publications from "./../../../../components/Publications";
 import PagesError from "../../../../components/PagesError";
 
@@ -11,7 +12,7 @@ const PublicationContent = () => {
     const [isLoading, setIsLoading] = useState(true);
     const [errorPage, setErrorPage] = useState();
 
-    const { institituionalProyectPublication } = useParams();
+    const { institituionalProyect, institituionalProyectPublication } = useParams();
 
     useEffect(() => {
         const callToAPI = async () => {
@@ -21,7 +22,8 @@ const PublicationContent = () => {
                 const params = {
                     link: institituionalProyectPublication,
                 };
-                const response = await getInstitutionalProyectsPublications(null, null, null, null, null, params, null, true);
+                const institutionalProject = await getInstitutionalProyects(null, null, null, null, { link: institituionalProyect}, null, true);
+                const response = await getInstitutionalProyectsPublications(null, null, null, null, institutionalProject.id, params, null, true);
                 setPublication(response);
             } catch (error) {
                 setErrorPage(error.response.status || 500);
