@@ -37,7 +37,7 @@ const InstitutionalProyectsPreview = (props) => {
                     institutionalProjects.map((institituionalProyect, index) => (
                         <Content 
                             key={index}
-                            link={institituionalProyect.link}
+                            link={`${props.link || ''}${institituionalProyect.link}`}
                             image={institituionalProyect.ImageInstitutionalProjects[0].image.file.url}
                             nameImage={institituionalProyect.ImageInstitutionalProjects[0].image.file.name}
                             name={institituionalProyect.title}

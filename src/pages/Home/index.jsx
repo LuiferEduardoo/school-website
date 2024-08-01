@@ -33,9 +33,11 @@ const Home = () => {
                 slides={images}
                 isLoading={isLoading}
             />
-            <NewsPreview />
-            <InstitutionalProyectsPreviewComponent />
-            <InstitutionalProjectsPublicationsPreview />
+            <section className="space-y-5 py-4">
+                <NewsPreview />
+                <InstitutionalProyectsPreviewComponent />
+                <InstitutionalProjectsPublicationsPreview />
+            </section>
         </main>
     )
 }

@@ -35,7 +35,7 @@ const NewsPreview = () => {
     return (
         <section>
             {news.length > 0 && (
-                <h2 className="text-3xl font-bold tracking-tighter md:text-4xl/tight">Noticias Destacadas</h2>
+                <h2 className="text-3xl px-8 font-bold tracking-tighter md:text-4xl/tight">Noticias Destacadas</h2>
             )}
             <div className="px-8 py-10 grid grip-cols-1 lg:grid-cols-3 gap-4">
                 {isLoading
@@ -52,7 +52,7 @@ const NewsPreview = () => {
                             title={n.publication.title}
                             content={n.publication.content}
                             createdAt={n.publication.createdAt}
-                            link={n.publication.link}
+                            link={`/noticias/${n.publication.link}`}
                         />
                     ))}
             </div>
