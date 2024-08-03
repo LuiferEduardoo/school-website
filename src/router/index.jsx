@@ -1,4 +1,5 @@
 import { useRoutes, BrowserRouter, Outlet  } from 'react-router-dom';
+import ScrollToTop from '../utils/ScrollToTop';
 import MainRouter from './MainRouter';
 import Auth from './../pages/auth'
 import { AuthProvider } from '../providers/AuthContext'
@@ -29,6 +30,7 @@ const Routers = () => {
 const AppRouter = () => {
     return (
         <BrowserRouter>
+            <ScrollToTop />
             <Routers />
         </BrowserRouter>
     );
