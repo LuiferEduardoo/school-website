@@ -12,7 +12,7 @@ const Contact = () => {
         const callAPI = async() => {
             try {
                 setIsLoading(true);
-                const response = await getBanners(null, null, null, null, "BannersHome", true);
+                const response = await getBanners(null, null, null, null, "BannersContact", true);
                 setImages(response.length === 0 ? null : response.map(banner => banner.imageBanner.image.file));
             } finally{
                 setIsLoading(false);
