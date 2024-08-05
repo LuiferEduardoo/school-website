@@ -7,7 +7,7 @@ import HistoricalReview from "./HistoricalReview";
 import InstitutionalHorizon from "./InstitutionalHorizon";
 
 const Home = () => {
-    const [images, setImages] = useState(null);
+    const [images, setImages] = useState([]);
     const [isLoadingNBanner, setIsLoadingBanner] = useState(true);
 
     useEffect(() => {

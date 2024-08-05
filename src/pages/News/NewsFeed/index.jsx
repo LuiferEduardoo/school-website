@@ -5,7 +5,7 @@ import Banners from "../../../components/Banners";
 import NewsPreview from "./NewsPreview"
 
 const NewsFeed = () => {
-    const [images, setImages] = useState(null);
+    const [images, setImages] = useState([]);
     const [isLoadingNBanner, setIsLoadingBanner] = useState(true);
 
     useEffect(() => {

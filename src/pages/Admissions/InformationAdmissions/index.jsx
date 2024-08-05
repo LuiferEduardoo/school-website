@@ -7,19 +7,18 @@ import Stages from "./Stages";
 import FrequentQuestions from "./FrequentQuestions";
 
 const InformationAdmissions = () => {
-    const [images, setImages] = useState(null);
+    const [images, setImages] = useState([]);
     const [isLoading, setIsLoading] = useState(true)
     useEffect(() => {
         const callAPI = async() => {
             try {
-                setIsLoading(true);
                 const response = await getBanners(null, null, null, null, "BannersAdmissions", true);
                 setImages(response.length === 0 ? null : response.map(banner => banner.imageBanner.image.file));
             } finally{
                 setIsLoading(false);
             }
         }
-        callAPI()
+        callAPI();
     }, []);
 
     return (

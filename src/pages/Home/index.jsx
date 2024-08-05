@@ -7,7 +7,7 @@ import InstitutionalProyectsPreviewComponent from "./InstitutionalProyectsPrevie
 import InstitutionalProjectsPublicationsPreview from "./InstitutionalProjectsPublicationsPreview";
 
 const Home = () => {
-    const [images, setImages] = useState(null);
+    const [images, setImages] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {

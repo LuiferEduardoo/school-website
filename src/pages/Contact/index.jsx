@@ -5,7 +5,7 @@ import Banners from "../../components/Banners";
 import Content from "./Content";
 
 const Contact = () => {
-    const [images, setImages] = useState(null);
+    const [images, setImages] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {

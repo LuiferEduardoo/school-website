@@ -11,10 +11,10 @@ const Banners = (props) => {
 
     useEffect(() => {
         const timer = setInterval(() => {
-            setCurrentIndex((currentIndex + 1) % slides.length);
+            setCurrentIndex(prevIndex => (prevIndex + 1) % slides.length);
         }, 3000); // Cambia la imagen cada 3 segundos
         return () => clearInterval(timer); // Limpia el intervalo cuando el componente se desmonta
-    }, [currentIndex]);
+    }, [slides.length, currentIndex]);
 
     return (
         <section className={`w-full ${props.height ? props.height : 'h-[780px]' } relative group`}>
