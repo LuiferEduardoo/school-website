@@ -10,7 +10,7 @@ const Requirements = () => {
     return (
         <section className="flex flex-col lg:flex-row bg-blue-200 h-auto w-full">
             <div className="w-full lg:w-[50%] h-full">
-                <img src="../src/assets/img/file.webp" className="bg-cover" alt="why-choose-us"/>
+                <img src="/assets/img/file.webp" className="bg-cover" alt="why-choose-us"/>
             </div>
             <div className="prose p-10 lg:pt-5 lg:p-0 w-full h-auto ">
                 <h1 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl mb-8">Requisitos</h1>

@@ -5,7 +5,7 @@ const We = () => {
         <section className="flex flex-col lg:flex-row h-auto lg:h-[20rem] w-full">
             <div className="w-full h-full lg:h-[20rem]">
                 <img
-                    src="../src/assets/img/We.webp"
+                    src="/assets/img/We.webp"
                     className="object-cover w-full h-full"
                     alt="We-photo"
                 />

@@ -10,7 +10,7 @@ const PageNotFounde = () => {
             <section className="w-full h-[100dvh] flex items-center justify-center p-4">
                 <div className="max-w-md px-4 py-2 space-y-6 text-center">
                     <img
-                        src="../src/assets/img/error-404.webp"
+                        src="/assets/img/error-404.webp"
                         alt="page-not-founde"
                     />
                     <div className="space-y-2">

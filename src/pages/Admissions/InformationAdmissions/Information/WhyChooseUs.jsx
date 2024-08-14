@@ -10,7 +10,7 @@ const WhyChooseUs = () => {
                 </span>
             </div>
             <div className="w-full lg:w-[50%] h-auto">
-                <img src="../src/assets/img/why-choose-us.webp" className="bg-cover" alt="why-choose-us"/>
+                <img src="/assets/img/why-choose-us.webp" className="bg-cover" alt="why-choose-us"/>
             </div>
         </section>
     )

@@ -9,7 +9,7 @@ const PageErrorServer = () => {
             <section className="w-full h-[100dvh] flex items-center justify-center p-4">
                 <div className="max-w-md px-4 py-2 space-y-6 text-center">
                     <img
-                        src="../src/assets/img/page-error-500.webp"
+                        src="/assets/img/page-error-500.webp"
                         alt="page-error-500"
                     />
                     <div className="space-y-2">
